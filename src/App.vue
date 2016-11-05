@@ -10,7 +10,7 @@
         <sidebar></sidebar>
       </div>
       <div id="editor" class="col-xs-8 col-lg-10">
-        <Page></Page>
+        <medium></medium>
       </div>
     </div>
     <div id="footer" class="row">
@@ -26,6 +26,7 @@ import appHeader from './components/header'
 import Sidebar from './components/sidebar'
 import statusFooter from './components/footer'
 import Page from './components/page'
+import Medium from './components/medium'
 
 export default {
   name: 'app',
@@ -40,7 +41,8 @@ export default {
     appHeader,
     Sidebar,
     statusFooter,
-    Page
+    Page,
+    Medium
   }
 }
 </script>
