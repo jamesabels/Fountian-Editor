@@ -79,6 +79,7 @@ export default {
   }
 
   #footer {
+    z-index: 999;
     height: 35px;
   }
 

@@ -43,12 +43,20 @@ export default {
 <style>
     
     #medium {
+        z-index: 0;
+        padding: 30px;
         background-color: white;
         margin: 0 auto;
         margin-top: 3%;
         width: 80%;
-        height: 100%;
+        height: 95%;
+        overflow: scroll;
         /*box-shadow: 9px 20px 35px -1px rgba(0,0,0,0.5);*/
+    }
+
+    #medium:focus {
+      outline: none;
+      height: 100%;
     }
 
 </style>
