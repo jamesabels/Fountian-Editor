@@ -1,7 +1,7 @@
 {
-  "name"    : "fountain-editor",
-  "version" : "0.0.1",
-  "main"    : "main.js",
+  "name": "fountain-editor",
+  "version": "0.0.1",
+  "main": "main.js",
   "description": "A vue.js boilerplate",
   "author": "James Abels <jamesrabels@gmail.com>",
   "private": true,
@@ -40,6 +40,7 @@
     "html-webpack-plugin": "^2.8.1",
     "http-proxy-middleware": "^0.17.2",
     "json-loader": "^0.5.4",
+    "medium-editor": "^5.22.1",
     "node-sass": "^3.11.0",
     "opn": "^4.0.2",
     "ora": "^0.3.0",
