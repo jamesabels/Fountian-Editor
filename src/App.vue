@@ -22,12 +22,12 @@
 <script>
 import Store from './store/store'
 
-import appHeader from './components/header'
-import Sidebar from './components/sidebar'
-import statusFooter from './components/footer'
-import Page from './components/page'
-import Editor from './components/medium'
-import Preview from './components/preview'
+import appHeader from './components/header.vue'
+import Sidebar from './components/sidebar.vue'
+import statusFooter from './components/footer.vue'
+import Page from './components/page.vue'
+import Editor from './components/editor.vue'
+import Preview from './components/preview.vue'
 
 export default {
   name: 'app',
@@ -70,7 +70,7 @@ export default {
   #header {
     z-index: 9999;
     height: 35px;
-    box-shadow: 0px 2px 45px -1px rgba(0,0,0,0.2);
+    /*box-shadow: 0px 2px 45px -1px rgba(0,0,0,0.2);*/
   }
 
   #main {
