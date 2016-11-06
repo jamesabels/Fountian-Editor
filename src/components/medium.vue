@@ -1,48 +1,63 @@
 <template>
-    <div id="medium" v-on:initEditor="init"></div>
+  <div v-if="this.publicState.editor.preview_status">
+    <div id="text-preview"></div>
+  </div>
+  <div v-else>
+    <div id="medium-wrap">
+      <textarea name="medium" id="medium" cols="30" rows="50" @input="getValue"></textarea>
+    </div>
+  </div>
 </template>
 
 
 <script lang="babel">
 import Store from '../store/store'
-import MediumEditor from 'medium-editor'
+import Preview from './preview'
 
 export default {
   name: 'medium',
   data () {
     return {
-      privateState: {},
+      privateState: {
+        parsedScript: ''
+      },
       publicState: Store.state
     }
   },
-  mounted: function () {
-    this.init()
+  updated: function () {
+    this.updateContent()
   },
   methods: {
-    init: function () {
+    getValue: function (e) {
+      let scriptHtml = this.publicState.editor.parsed_script.html
       let Editor = document.querySelector('#medium')
-      console.log('Editor Initialized')
-      new MediumEditor(Editor)
-      this.$emit('initEditor')
+
+      Store.dispatch('GET_EDITOR_VALUE', {value: Editor.value})
+      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.current_value})
+
+      console.log('FOUNTIAN OUTPUT ', this.publicState.editor.parsed_script.html.script)
+      console.log('FRONT END HTML ', scriptHtml)
+    },
+    updateContent: function () {
+      if (!this.publicState.editor.preview_status) {
+        Store.dispatch('UPDATE_EDITOR', {el: '#medium', value: this.publicState.editor.current_value})
+      } else if (this.publicState.editor.preview_status) {
+        if (this.publicState.editor.parsed_script !== {}) {
+          Store.dispatch('UPDATE_EDITOR', {el: '#text-preview', value: this.publicState.editor.parsed_script.html.script})
+        }
+      }
     }
+  },
+  components: {
+    Preview
   }
 }
-
-// const initEditor = function () {
-//   // let Editor = document.querySelector('#medium')
-//   console.log('Editor Initialized')
-//   // new MediumEditor(Editor, {
-//   //   allowMultiParagraphSelection: true
-
-//   // })
-//   this.$emit('initEditor')
-// }
 
 </script>
 
 <style>
     
-    #medium {
+    #medium-wrap {
         z-index: 0;
         padding: 30px;
         background-color: white;
@@ -50,11 +65,34 @@ export default {
         margin-top: 3%;
         width: 80%;
         height: 95%;
-        overflow: scroll;
-        /*box-shadow: 9px 20px 35px -1px rgba(0,0,0,0.5);*/
+        white-space: pre-wrap;
+        box-shadow: 9px 20px 35px -1px rgba(0,0,0,0.5);
+    }
+
+    #medium { 
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     #medium:focus {
+      outline: none;
+      height: 100%;
+    }
+
+    #text-preview {
+        z-index: 0;
+        padding: 30px;
+        background-color: white;
+        margin: 0 auto;
+        margin-top: 3%;
+        width: 80%;
+        height: 95%;
+        white-space: pre-wrap;
+        box-shadow: 9px 20px 35px -1px rgba(0,0,0,0.5);
+    }
+
+    #text-preview:focus {
       outline: none;
       height: 100%;
     }

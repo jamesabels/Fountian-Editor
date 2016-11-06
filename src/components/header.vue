@@ -20,8 +20,7 @@
       </button>
         </div>
         <button class="btn btn-default">
-      <span class="icon icon-home icon-text"></span>
-      Filters
+      <span class="icon icon-eye" v-on:click="previewFountain"></span>
     </button>
         <button class="btn btn-default btn-dropdown pull-right">
       <span class="icon icon-megaphone"></span>
@@ -30,8 +29,6 @@
     </header>
   </div>
 </template>
-
-
 <script lang="babel">
 import Store from '../store/store'
 
@@ -39,13 +36,25 @@ export default {
   name: 'appHeader',
   data () {
     return {
-      privateState: {},
+      privateState: {
+        preview: false
+      },
       publicState: Store.state
     }
   },
-  mounted: () => {
-    Store.dispatch('WELCOME_MESSAGE', {message: 'Welcome to vue-bp'})
-  }
+  methods: {
+    previewFountain: function () {
+      switch (this.publicState.editor.preview_status) {
+        case false:
+          this.publicState.editor.preview_status = true
+          break
+        case true:
+          this.publicState.editor.preview_status = false
+          break
+      }
+    }
+  },
+  mounted: () => {}
 }
 
 </script>
