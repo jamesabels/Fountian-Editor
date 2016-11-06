@@ -45,7 +45,7 @@ export default {
     .editor-wrap {
         z-index: 0;
         margin: 0 auto;
-        width: 80%;
+        width: 60%;
         height: 95%;
 
     }
