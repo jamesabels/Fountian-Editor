@@ -4,7 +4,7 @@
 
 
 <script lang="babel">
-import Store from '../store/store'
+import Store from '../store/store.js'
 
 export default {
   name: 'Page',

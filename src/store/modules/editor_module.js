@@ -1,5 +1,4 @@
 // Import libs
-import MediumEditor from 'medium-editor'
 import fountain from '../../../static/js/fountain.js'
 
 const EditorModule = {
@@ -25,14 +24,6 @@ const EditorModule = {
     }
   },
   actions: {
-    INIT_EDITOR (context, editorOptions) {
-      let Editor = document.querySelector('#medium')
-      console.log('Editor Initialized')
-
-      if (editorOptions !== undefined) {
-          new MediumEditor(Editor, editorOptions)
-      }
-    },
     GET_EDITOR_VALUE (context, payload) {
         context.commit('CURRENT_VALUE', payload)
     },

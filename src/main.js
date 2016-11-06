@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // Import components
-import App from './App'
-import Error from './components/404'
+import App from './App.vue'
+import Error from './components/404.vue'
 
 Vue.use(VueRouter)
 

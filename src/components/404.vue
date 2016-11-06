@@ -5,7 +5,7 @@
     <p>Page Not Found</p>
 </template>
 <script>
-import Store from '../store/store'
+import Store from '../store/store.js'
 
 export default {
   name: 'error',

@@ -1,6 +1,6 @@
 <template>
   <div  id="preview-wrap" v-if="this.publicState.editor.preview_status">
-    <preview></preview>
+    <preview><preview>
   </div>
   <div v-else>
     <div id="input-wrap">
@@ -11,9 +11,10 @@
 
 
 <script lang="babel">
-import Store from '../store/store'
-import Preview from './preview'
-import editorInput from './editor-input'
+import Store from '../store/store.js'
+import Preview from './preview.vue'
+import editorInput from './editor-input.vue'
+import pdfPreview from './pdf-preview.vue'
 
 export default {
   name: 'editor',
@@ -24,6 +25,7 @@ export default {
     }
   },
   components: {
+    pdfPreview,
     Preview,
     editorInput
   }
