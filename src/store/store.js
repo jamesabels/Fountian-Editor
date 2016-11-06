@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 // Import modules
 import HelloModule from './modules/hello_module'
+import EditorModul from './modules/editor_module'
 
 Vue.use(Vuex)
 
@@ -11,7 +12,8 @@ const Store = new Vuex.Store({
     message: ''
   },
   modules: {
-    hello: HelloModule
+    hello: HelloModule,
+    editor: EditorModul
   }
 })
 
