@@ -35,7 +35,7 @@ export default {
         background-color: white;
         margin: 0 auto;
         margin-top: 3%;
-        width: 80%;
+        width: 60%;
         height: 95%;
         white-space: pre-wrap;
         box-shadow: 9px 20px 35px -1px rgba(0,0,0,0.5);
