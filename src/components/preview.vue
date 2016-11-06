@@ -1,5 +1,5 @@
 <template>
-  <div id="text-preview"></div>
+  <div id="textPreview"></div>
 </template>
 
 
@@ -13,14 +13,22 @@ export default {
       privateState: {},
       publicState: Store.state
     }
+  },
+  mounted: function () {
+    this.updateContent()
+  },
+  methods: {
+    updateContent: function () {
+      Store.dispatch('UPDATE_EDITOR', {el: '#textPreview', value: this.publicState.editor.parsed_script.html.script})
+    }
   }
 }
 
 </script>
 
-<style>
+<style lang="scss" scoped>
     
-    #text-preview {
+    #textPreview {
         z-index: 0;
         padding: 30px;
         background-color: white;
@@ -32,7 +40,7 @@ export default {
         box-shadow: 9px 20px 35px -1px rgba(0,0,0,0.5);
     }
 
-    #text-preview:focus {
+    #textPreview:focus {
       outline: none;
       height: 100%;
     }

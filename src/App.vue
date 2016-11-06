@@ -10,7 +10,7 @@
         <sidebar></sidebar>
       </div>
       <div id="editor" class="col-xs-8 col-lg-10">
-          <medium></medium>
+          <editor></editor>
       </div>
     </div>
     <div id="footer" class="row">
@@ -26,7 +26,7 @@ import appHeader from './components/header'
 import Sidebar from './components/sidebar'
 import statusFooter from './components/footer'
 import Page from './components/page'
-import Medium from './components/medium'
+import Editor from './components/medium'
 import Preview from './components/preview'
 
 export default {
@@ -38,12 +38,20 @@ export default {
       publicState: Store.state
     }
   },
+  mounted: function () {
+    this.init()
+  },
+  methods: {
+    init: function () {
+      this.publicState.editor.currentValue = ''
+    }
+  },
   components: {
     appHeader,
     Sidebar,
     statusFooter,
     Page,
-    Medium,
+    Editor,
     Preview
   }
 }

@@ -20,6 +20,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-new': 'off',
     'indent': 'off',
-    'no-eval': 'off'
+    'no-eval': 'off',
+    'no-mutiple-empty-lines': 'off'
   }
 }
