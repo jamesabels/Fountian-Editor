@@ -62,6 +62,7 @@ export default {
     }
 
     #textPreview>div.dialogue>h4{
+      font-size: 14pt;
       font-weight: bold;
     }
 

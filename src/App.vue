@@ -70,7 +70,7 @@ export default {
   #header {
     z-index: 9999;
     height: 35px;
-    box-shadow: 0px 2px 45px -1px rgba(0,0,0,0.2);
+    /*box-shadow: 0px 2px 45px -1px rgba(0,0,0,0.2);*/
   }
 
   #main {
