@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="header" class="row">
+    <div id="header-wrap" class="row">
       <div id="header" class="col-xs-12">
         <appHeader></appHeader>
       </div>
@@ -43,6 +43,8 @@ export default {
   },
   methods: {
     init: function () {
+      console.log('Initializing App!')
+      Store.dispatch('GET_TOKENS', {value: this.publicState.editor.parsed_script})
       this.publicState.editor.currentValue = ''
     }
   },

@@ -3,18 +3,24 @@ import fountain from '../../../static/js/fountain.js'
 
 const EditorModule = {
   state: {
-    message: 'Hello',
     parsed_script: {
+        title: '',
         html: {
-            script: {}
-        }
+            script: '',
+            title_page: ''
+        },
+        tokens: []
     },
     current_value: '',
     preview_status: false
   },
   mutations: {
     PARSED_SCRIPT (state, payload) {
-        state.parsed_script = payload.value
+        console.log('MUTATOR PAYLOAD ', payload)
+        state.parsed_script.title = payload.value.title
+        state.parsed_script.html.script = payload.value.html.script
+        state.parsed_script.html.title_page = payload.value.html.title_page
+        state.parsed_script.tokens = payload.value.tokens
     },
     CURRENT_VALUE (state, payload) {
         state.current_value = payload.value
@@ -28,18 +34,33 @@ const EditorModule = {
         context.commit('CURRENT_VALUE', payload)
     },
     PARSE_FOUNTAIN (context, payload) {
+        let tempState = {
+            title: '',
+            html: {
+                script: '',
+                title_page: ''
+            },
+            tokens: []
+        }
+
+        let str = payload.value
+
+        console.log('STRING INPUT ', str)
+
+        fountain.parse(str, true, function (output) {
+            console.log('FOUNTAIN OUTPUT', output)
+            tempState.title = output.title
+            tempState.html.script = output.html.script
+            tempState.html.title_page = output.html.title_page
+            tempState.tokens = output.tokens
+        })
+
         // let scriptOutput = {}
 
-        // console.log('PAYLOAD TOKENS', payload.value)
+        console.log('PAYLOAD ', payload.value)
+        console.log('PARSED SCRIPT OUTPUT', tempState)
 
-        // fountain.parse(payload.value, true, function (output) {
-        //     console.log('CALLBACK TOKENS', output.tokens)
-        //     scriptOutput.html = output.html.script
-        // })
-
-        // console.log('PARSED SCRIPT OUTPUT', scriptOutput)
-
-        context.commit('PARSED_SCRIPT', {value: fountain.parse(payload.value)})
+        context.commit('PARSED_SCRIPT', {value: tempState})
     },
     UPDATE_EDITOR (context, payload) {
         console.log(payload.el)

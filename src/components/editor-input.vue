@@ -29,7 +29,7 @@ export default {
       Store.dispatch('GET_EDITOR_VALUE', {value: Editor.value})
       Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.current_value})
 
-      console.log('FOUNTIAN OUTPUT ', this.publicState.editor.parsed_script.html.script)
+      console.log('NEW STATE ', this.publicState.editor.parsed_script)
       console.log('FRONT END HTML ', scriptHtml)
     },
     updateContent: function () {

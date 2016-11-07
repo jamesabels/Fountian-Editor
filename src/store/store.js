@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import HelloModule from './modules/hello_module.js'
 import EditorModule from './modules/editor_module.js'
 import PDFModule from './modules/pdf_engine_module.js'
+import TokenModule from './modules/token_parsing_engine.js'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,8 @@ const Store = new Vuex.Store({
   modules: {
     hello: HelloModule,
     editor: EditorModule,
-    pdf: PDFModule
+    pdf: PDFModule,
+    tokens: TokenModule
   }
 })
 
