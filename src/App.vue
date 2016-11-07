@@ -43,8 +43,6 @@ export default {
   },
   methods: {
     init: function () {
-      console.log('Initializing App!')
-      Store.dispatch('GET_TOKENS', {value: this.publicState.editor.parsed_script})
       this.publicState.editor.currentValue = ''
     }
   },
