@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     updateContent: function () {
-      Store.dispatch('UPDATE_EDITOR', {el: '#textPreview', value: this.publicState.editor.parsed_script.html.script})
+      Store.dispatch('UPDATE_EDITOR', {el: '#textPreview', value: this.publicState.script.html.script})
     }
   }
 }

@@ -27,9 +27,7 @@ export default {
   name: 'editorInput',
   data () {
     return {
-      privateState: {
-        parsedScript: ''
-      },
+      privateState: {},
       publicState: Store.state
     }
   },
@@ -38,13 +36,13 @@ export default {
   },
   methods: {
     getValue: function (e) {
-      let scriptHtml = this.publicState.editor.parsed_script.html
+      let scriptHtml = this.publicState.script.html.script
       let Editor = document.querySelector('#editorInput')
 
       Store.dispatch('GET_EDITOR_VALUE', {value: Editor.value})
       Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.current_value})
 
-      console.log('NEW STATE ', this.publicState.editor.parsed_script)
+      console.log('NEW STATE ', this.publicState.script.html.script)
       console.log('FRONT END HTML ', scriptHtml)
     },
     updateContent: function () {
@@ -53,8 +51,7 @@ export default {
 
       Store.dispatch('GET_EDITOR_VALUE', {value: Editor.value})
       Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.current_value})
-      Store.dispatch('GET_TOKENS', {value: this.publicState.editor.parsed_script.tokens})
-
+      console.log('Getting Tokens!', this.publicState.script.tokens)
     },
   }
 }
