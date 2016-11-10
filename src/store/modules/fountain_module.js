@@ -1,5 +1,6 @@
 // Import libs
 import fountain from '../../../static/js/fountain.js'
+import fountainActions from '../actions/fountian_actions.js'
 
 const FountainModule = {
     state: {
@@ -9,6 +10,14 @@ const FountainModule = {
             title_page: ''
         },
         tokens: [],
+        characters: [],
+        scene_headings: [],
+        action: [],
+        dialogue_begin: [],
+        dialogue_end: [],
+        dialogue: [],
+        parens: [],
+        notes: [],
         preview_status: false
     },
     mutations: {
@@ -19,30 +28,25 @@ const FountainModule = {
             state.html.script = payload.value.html.script
             state.html.title_page = payload.value.html.title_page
             state.tokens = payload.value.tokens
+            state.characters = payload.value.characters
+            state.scene_headings = payload.value.scene_headings
+            state.action = payload.value.action
+            state.dialogue_begin = payload.value.dialogue_begin
+            state.dialogue_end = payload.value.dialogue_end
+            state.dialogue = payload.value.dialogue
+            state.parens = payload.value.parens
+            state.notes = payload.notes
         }
     },
     actions: {
         // PARSE FOUNTAIN FROM STRING
         PARSE_FOUNTAIN (context, payload) {
-            let tempState = {
-                title: '',
-                html: {
-                    script: '',
-                    title_page: ''
-                },
-                tokens: []
-            }
-
+            // Store fountain data to state
             fountain.parse(payload.value, true, function (output) {
-                console.log('FOUNTAIN OUTPUT', output)
-                tempState.title = output.title
-                tempState.html.script = output.html.script
-                tempState.html.title_page = output.html.title_page
-                tempState.tokens = output.tokens
-            })
-
-            context.commit('PARSE_SCRIPT', {
-                value: tempState
+                console.log('COMMITING STATE', fountainActions.parseFountain(output))
+                context.commit('PARSE_SCRIPT', {
+                    value: fountainActions.parseFountain(output)
+                })
             })
         }
     }
