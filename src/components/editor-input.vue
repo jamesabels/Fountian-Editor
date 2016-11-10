@@ -63,7 +63,7 @@ export default {
     .editor-wrap {
         z-index: 0;
         margin: 0 auto;
-        width: 60%;
+        width: 80%;
         height: 95%;
 
     }
@@ -79,6 +79,8 @@ export default {
         border: none;
         white-space: pre;
         box-shadow: 9px 20px 35px -1px rgba(0,0,0,0.5);
+        resize: none;
+        overflow: hidden;
     }
 
     #editorInput:focus {

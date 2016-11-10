@@ -1,16 +1,7 @@
 <template>
-    <footer class="toolbar toolbar-footer col-xs-12">
-        <div class="toolbar-actions">
-            <button class="btn btn-default">
-            Cancel
-            </button>
-            <button class="btn btn-primary pull-right">
-            Save
-            </button>
-        </div>
-    </footer>
+    <div class="toolbar-actions col-xs-12">
+    </div>
 </template>
-
 
 <script lang="babel">
 import Store from '../store/store.js'

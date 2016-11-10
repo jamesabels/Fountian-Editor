@@ -1,11 +1,14 @@
 <template>
-  <div  id="preview-wrap" v-if="this.publicState.editor.preview_status">
-    <preview><preview>
-  </div>
-  <div v-else>
-    <div id="input-wrap">
-      <editorInput></editorInput>
-    </div>
+  <div class="editor-wrap">
+    <div id="preview-wrap" v-if="this.publicState.editor.preview_status">
+        <preview>
+          <preview>
+      </div>
+      <div v-else>
+        <div id="input-wrap">
+          <editorInput></editorInput>
+        </div>
+      </div>
   </div>
 </template>
 
