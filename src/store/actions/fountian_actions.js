@@ -16,7 +16,12 @@ fountainActions.parseFountain = function (type) {
 		dialogue_end: [],
 		dialogue: [],
 		parens: [],
-		notes: []
+		notes: [],
+		centered: [],
+		page_break: [],
+		transition: [],
+		synopsis: [],
+		section: []
 	}
 	// Store fountain output
 	tempState.title = type.title
@@ -26,6 +31,7 @@ fountainActions.parseFountain = function (type) {
 
 	// Parse fountain output
 	for (let i = 0; i < type.tokens.length; i++) {
+		console.log(type.tokens[i])
 		if (type.tokens[i].type === 'scene_heading') {
 			tempState.scene_headings.push({
 				type: type.tokens[i].type,
@@ -74,6 +80,37 @@ fountainActions.parseFountain = function (type) {
 			tempState.notes.push({
 				type: type.tokens[i].type,
 				text: type.tokens[i].text
+			})
+		}
+		if (type.tokens[i].type === 'centered') {
+			tempState.centered.push({
+				type: type.tokens[i].type,
+				text: type.tokens[i].text
+			})
+		}
+		if (type.tokens[i].type === 'page_break') {
+			tempState.page_break.push({
+				type: type.tokens[i].type,
+				text: type.tokens[i].text
+			})
+		}
+		if (type.tokens[i].type === 'transition') {
+			tempState.transition.push({
+				type: type.tokens[i].type,
+				text: type.tokens[i].text
+			})
+		}
+		if (type.tokens[i].type === 'synopsis') {
+			tempState.synopsis.push({
+				type: type.tokens[i].type,
+				text: type.tokens[i].text
+			})
+		}
+		if (type.tokens[i].type === 'section') {
+			tempState.section.push({
+				type: type.tokens[i].type,
+				text: type.tokens[i].text,
+				depth: type.tokens[i].depth
 			})
 		}
 	}

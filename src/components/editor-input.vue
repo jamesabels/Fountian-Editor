@@ -15,6 +15,48 @@ Point Blank Sniper?
 .SNIPER SCOPE POV
 &#13
 From what seems like only INCHES AWAY.  _Steel's face FILLS the *Leupold Mark 4* scope_.
+&#13
+
+~Willy Wonka! Willy Wonka! The amazing chocolatier!
+~Willy Wonka! Willy Wonka! Everybody give a cheer!
+
+===
+
+[[It was supposed to be Vietnamese, right?]]
+
+/*
+INT. GARAGE - DAY
+
+BRICK and STEEL get into Mom's PORSCHE, Steel at the wheel.  They pause for a beat, the gravity of the situation catching up with them.
+
+BRICK
+This is everybody we've ever put away.
+
+STEEL
+(starting the engine)
+So much for retirement!
+
+They speed off.  To destiny!
+
+CUT TO:
+*/
+
+*italics*
+**bold**
+***bold italics***
+_underline_
+
+# ACT I
+
+= Set up the characters and the story.
+
+EXT. BRICK'S PATIO - DAY
+
+= This scene sets up Brick & Steel's new life as retirees. Warm sun, cold beer, and absolutely nothing to do.
+
+A gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something.
+
+>THE END<
     </textarea>
   </div>
 </template>

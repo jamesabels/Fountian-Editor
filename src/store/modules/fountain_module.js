@@ -18,6 +18,11 @@ const FountainModule = {
         dialogue: [],
         parens: [],
         notes: [],
+        centered: [],
+        page_break: [],
+        transition: [],
+        synopsis: [],
+		section: [],
         preview_status: false
     },
     mutations: {
@@ -35,7 +40,12 @@ const FountainModule = {
             state.dialogue_end = payload.value.dialogue_end
             state.dialogue = payload.value.dialogue
             state.parens = payload.value.parens
-            state.notes = payload.notes
+            state.notes = payload.value.notes
+            state.centered = payload.value.centered
+            state.page_break = payload.value.page_break
+            state.transition = payload.value.transition
+            state.synopsis = payload.value.synopsis
+            state.section = payload.value.section
         }
     },
     actions: {
@@ -43,7 +53,6 @@ const FountainModule = {
         PARSE_FOUNTAIN (context, payload) {
             // Store fountain data to state
             fountain.parse(payload.value, true, function (output) {
-                console.log('COMMITING STATE', fountainActions.parseFountain(output))
                 context.commit('PARSE_SCRIPT', {
                     value: fountainActions.parseFountain(output)
                 })
