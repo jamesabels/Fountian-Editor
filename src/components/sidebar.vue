@@ -32,18 +32,12 @@
     <div class="pane col-xs-2">
       <ul class="list-group">
         <li class="list-group-header">
-          <input class="form-control" type="text" placeholder="Search Scenes">
+          <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
         </li>
-        <li class="list-group-item">
+        <li class="list-group-item" v-for='scene in publicState.editor.scenes'>
           <div class="media-body">
-            <strong>EXT. BRICK'S POOL - DAY</strong>
-            <p>Steel, in the middle of a heated phone call:</p>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="media-body">
-            <strong>.SNIPER SCOPE POV</strong>
-            <p>From what seems like only INCHES AWAY.  _Steel's face FILLS the *Leupold Mark 4* scope_.</p>
+            <strong>{{scene.scene_number}}. {{scene.scene_heading}}</strong>
+            <p>{{ scene.body}}</p>
           </div>
         </li>
       </ul>

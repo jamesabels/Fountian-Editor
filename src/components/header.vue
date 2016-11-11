@@ -24,6 +24,14 @@
       <button class="btn btn-default btn-dropdown pull-right">
       <span class="icon icon-megaphone"></span>
     </button>
+    <div class="btn-group">
+      <button class="btn btn-default" v-on:click="addScene">
+        <span class="icon icon-plus"></span>
+      </button>
+      <button class="btn btn-default">
+        <span class="icon icon-search"></span>
+      </button>
+    </div>
     </div>
   </header>
 </template>
@@ -51,6 +59,9 @@ export default {
           this.publicState.editor.preview_status = false
           break
       }
+    },
+    addScene: function () {
+      Store.dispatch('ADD_SCENE', {scene_heading: 'EXT Bricks cock - NIGHT', body: ''})
     }
   },
   mounted: () => {}
