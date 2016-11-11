@@ -39,9 +39,10 @@ const EditorModule = {
       document.querySelector(payload.el).value = ''
       document.querySelector(payload.el).value = payload.value
     },
-    UPDATE_EDITOR (context, payload) {
+    UPDATE_EDITOR ({commit, state}, payload) {
         console.log(payload.el)
         let Editor = document.querySelector(payload.el)
+
         Editor.innerHTML = ''
         Editor.innerHTML = payload.value
     },
