@@ -34,10 +34,10 @@
         <li class="list-group-header">
           <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
         </li>
-        <li class="list-group-item" v-for='scene in publicState.editor.scenes'>
+        <li :id="scene.scene_number" class="list-group-item" v-for='scene in publicState.editor.scenes' v-on:click="getScene">
           <div class="media-body">
             <strong>{{scene.scene_number}}. {{scene.scene_heading}}</strong>
-            <p>{{ scene.body}}</p>
+            <p>{{scene.body}}</p>
           </div>
         </li>
       </ul>
@@ -64,6 +64,13 @@ export default {
   mounted: () => {},
   components: {
     Editor
+  },
+  methods: {
+    getScene (event) {
+      // console.log(event.currentTarget.id)
+      Store.dispatch('SET_ACTIVE_SCENE', {value: event.currentTarget.id})
+      console.log('ACTIVE SCENE ', this.publicState.editor.active_scene)
+    }
   }
 }
 </script>

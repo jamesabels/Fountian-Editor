@@ -5,7 +5,8 @@ const EditorModule = {
     scenes: [
       {scene_number: 1, scene_heading: 'EXT. BRICKS POOL - DAY', body: 'Steel, in the middle of a heated phone call:'},
       {scene_number: 2, scene_heading: 'EXT. BRICKS POOL - NIGHT', body: 'STEEL Theyre coming out of the woodwork!'}
-    ]
+    ],
+    active_scene: 0
   },
   mutations: {
     CURRENT_VALUE (state, payload) {
@@ -16,6 +17,9 @@ const EditorModule = {
     },
     ADD_SCENE (state, payload) {
       state.scenes.push(payload)
+    },
+    SET_ACTIVE_SCENE (state, payload) {
+      state.active_scene = payload.value
     }
   },
   actions: {
@@ -43,6 +47,9 @@ const EditorModule = {
       scene.body = payload.body
 
       commit('ADD_SCENE', scene)
+    },
+    SET_ACTIVE_SCENE (context, payload) {
+      context.commit('SET_ACTIVE_SCENE', payload)
     }
   }
 

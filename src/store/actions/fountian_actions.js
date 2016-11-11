@@ -76,7 +76,7 @@ fountainActions.parseFountain = function (type) {
 				text: type.tokens[i].text
 			})
 		}
-		if (type.tokens[i].type === 'notes') {
+		if (type.tokens[i].type === 'note') {
 			tempState.notes.push({
 				type: type.tokens[i].type,
 				text: type.tokens[i].text
