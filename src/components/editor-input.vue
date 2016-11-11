@@ -13,12 +13,25 @@ export default {
   name: 'editorInput',
   data () {
     return {
-      privateState: {},
+      privateState: {
+        active_scene: this.activeScene,
+        editor_content: this.content
+      },
       publicState: Store.state
     }
   },
+  props: ['activeScene', 'content'],
   mounted: function () {
     this.updateContent()
+    console.log('MOUNTED ACTIVE SCENE ', this.activeScene)
+  },
+  updated: function () {
+  },
+  watch: {
+    activeScene: function (val, oldVal) {
+      console.log('EDITOR AWARE ACTIVE SCENE ', this.activeScene)
+      Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
+    }
   },
   methods: {
     getValue: function (e) {
@@ -37,6 +50,7 @@ export default {
       console.log('FRONT END HTML ', scriptHtml)
     },
     updateContent: function () {
+      console.log('MOUNTED!!!')
 
       let Editor = document.querySelector('#editorInput')
       

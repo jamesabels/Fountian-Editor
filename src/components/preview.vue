@@ -19,6 +19,7 @@ export default {
   },
   methods: {
     updateContent: function () {
+      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
       Store.dispatch('UPDATE_EDITOR', {el: '#textPreview', value: this.publicState.script.html.script})
     }
   }

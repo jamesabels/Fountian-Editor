@@ -62,6 +62,7 @@ export default {
     },
     addScene: function () {
       Store.dispatch('ADD_SCENE', {scene_heading: 'EXT Bricks cock - NIGHT', body: '', scene: ''})
+      Store.dispatch('UPDATE_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
     }
   },
   mounted: () => {}
