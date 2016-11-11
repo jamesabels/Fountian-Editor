@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     updateContent: function () {
-      Store.dispatch('UPDATE_EDITOR', {el: '#textPreview', value: this.publicState.editor.parsed_script.html.script})
+      Store.dispatch('UPDATE_EDITOR', {el: '#textPreview', value: this.publicState.script.html.script})
     }
   }
 }
@@ -35,7 +35,7 @@ export default {
         background-color: white;
         margin: 0 auto;
         margin-top: 3%;
-        width: 60%;
+        width: 80%;
         height: 95%;
         white-space: pre-wrap;
         box-shadow: 9px 20px 35px -1px rgba(0,0,0,0.5);

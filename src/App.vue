@@ -1,22 +1,18 @@
-<template>
-  <div id="app">
-    <div id="header" class="row">
-      <div id="header" class="col-xs-12">
-        <appHeader></appHeader>
-      </div>
-    </div>
-    <div id="main" class="row">
-      <div id="sidebar" class="col-xs-4 col-lg-2">
-        <sidebar></sidebar>
-      </div>
-      <div id="editor" class="col-xs-8 col-lg-10">
-          <editor></editor>
-      </div>
-    </div>
-    <div id="footer" class="row">
-      <statusFooter></statusFooter>
+<template>  
+<div id="app" class="window">
+  <header id="header" class="toolbar toolbar-header row">
+    <appHeader></appheader>
+  </header>
+  <div  id="main" class="window-content row">
+    <div class="pane-group col-xs-12">
+      <sidebar></sidebar>
     </div>
   </div>
+  <footer id="footer" class="toolbar toolbar-footer row">
+    <statusFooter></statusfooter>
+  </footer>
+</div>
+  
 </template>
 
 <script>
