@@ -32,18 +32,12 @@
     <div class="pane col-xs-2">
       <ul class="list-group">
         <li class="list-group-header">
-          <input class="form-control" type="text" placeholder="Search Scenes">
+          <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
         </li>
-        <li class="list-group-item">
+        <li :id="scene.scene_number" class="list-group-item" v-for='scene in publicState.editor.scenes' track-by="scene_number" v-on:click="getScene">
           <div class="media-body">
-            <strong>EXT. BRICK'S POOL - DAY</strong>
-            <p>Steel, in the middle of a heated phone call:</p>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="media-body">
-            <strong>.SNIPER SCOPE POV</strong>
-            <p>From what seems like only INCHES AWAY.  _Steel's face FILLS the *Leupold Mark 4* scope_.</p>
+            <strong>{{scene.scene_number}}. {{scene.scene}}</strong>
+            <p>{{scene.scene}}</p>
           </div>
         </li>
       </ul>
@@ -70,6 +64,16 @@ export default {
   mounted: () => {},
   components: {
     Editor
+  },
+  methods: {
+    getScene (event) {
+      // console.log(event.currentTarget.id)
+      Store.dispatch('SET_ACTIVE_SCENE', {value: event.currentTarget.id})
+      Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
+      console.log('ACTIVE SCENE ', this.publicState.editor.active_scene)
+
+      console.log(this.publicState.editor.scenes[this.publicState.editor.active_scene - 1])
+    }
   }
 }
 </script>

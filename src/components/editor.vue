@@ -1,13 +1,10 @@
 <template>
   <div class="editor-wrap">
     <div id="preview-wrap" v-if="this.publicState.editor.preview_status">
-        <preview>
-          <preview>
+        <preview></preview>
       </div>
       <div v-else>
-        <div id="input-wrap">
-          <editorInput></editorInput>
-        </div>
+          <editorInput :activeScene='this.publicState.editor.active_scene'></editorInput>
       </div>
   </div>
 </template>
