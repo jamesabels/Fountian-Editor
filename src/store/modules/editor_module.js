@@ -3,10 +3,15 @@ const EditorModule = {
     current_value: '',
     preview_status: false,
     scenes: [
-      {scene_number: 1, scene_heading: 'EXT. BRICKS POOL - DAY', body: 'Steel, in the middle of a heated phone call:'},
-      {scene_number: 2, scene_heading: 'EXT. BRICKS POOL - NIGHT', body: 'STEEL Theyre coming out of the woodwork!'}
+      {
+        scene_number: 1,
+        scene_index: 0,
+        scene_heading: 'New Scene',
+        body: 'This is a default scene',
+        scene: ''
+      }
     ],
-    active_scene: 0
+    active_scene: 1
   },
   mutations: {
     CURRENT_VALUE (state, payload) {
@@ -17,6 +22,10 @@ const EditorModule = {
     },
     ADD_SCENE (state, payload) {
       state.scenes.push(payload)
+    },
+    UPDATE_SCENE (state, payload) {
+      console.log('UPDATING EDITOR PAYLOAD ', payload)
+      state.scenes[payload.scene_index].scene = payload.scene
     },
     SET_ACTIVE_SCENE (state, payload) {
       state.active_scene = payload.value
@@ -38,15 +47,35 @@ const EditorModule = {
     ADD_SCENE ({commit, state}, payload) {
       let scene = {
         scene_number: null,
+        scene_index: null,
         scene_heading: '',
-        body: ''
+        body: '',
+        scene: ''
       }
 
       scene.scene_number = state.scenes.length + 1
+      scene.scene_index = state.scenes.length
       scene.scene_heading = payload.scene_heading
       scene.body = payload.body
+      scene.scene = payload.scene
 
       commit('ADD_SCENE', scene)
+    },
+    UPDATE_SCENE ({commit, state}, payload) {
+      let scene = {
+        scene_index: 0,
+        scene_heading: '',
+        body: '',
+        scene: ''
+      }
+
+      scene.scene_number = payload.scene_index + 1
+      scene.scene_index = payload.scene_index
+      scene.scene_heading = payload.scene_heading
+      scene.body = payload.body
+      scene.scene = payload.scene
+
+      commit('UPDATE_SCENE', scene)
     },
     SET_ACTIVE_SCENE (context, payload) {
       context.commit('SET_ACTIVE_SCENE', payload)

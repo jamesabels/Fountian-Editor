@@ -1,62 +1,6 @@
 <template>
   <div class="editor-wrap">
     <textarea name="editorInput" id="editorInput" cols="30" rows="50" @input="getValue">
-EXT. BRICK'S POOL - DAY
-&#13
-Steel, in the middle of a heated phone call:
-&#13
-STEEL
-They're coming out of the woodwork!
-(pause)
-No, everybody we've put away!
-(pause)
-Point Blank Sniper?
-&#13
-.SNIPER SCOPE POV
-&#13
-From what seems like only INCHES AWAY.  _Steel's face FILLS the *Leupold Mark 4* scope_.
-&#13
-
-~Willy Wonka! Willy Wonka! The amazing chocolatier!
-~Willy Wonka! Willy Wonka! Everybody give a cheer!
-
-===
-
-[[It was supposed to be Vietnamese, right?]]
-
-/*
-INT. GARAGE - DAY
-
-BRICK and STEEL get into Mom's PORSCHE, Steel at the wheel.  They pause for a beat, the gravity of the situation catching up with them.
-
-BRICK
-This is everybody we've ever put away.
-
-STEEL
-(starting the engine)
-So much for retirement!
-
-They speed off.  To destiny!
-
-CUT TO:
-*/
-
-*italics*
-**bold**
-***bold italics***
-_underline_
-
-# ACT I
-
-= Set up the characters and the story.
-
-EXT. BRICK'S PATIO - DAY
-
-= This scene sets up Brick & Steel's new life as retirees. Warm sun, cold beer, and absolutely nothing to do.
-
-A gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something.
-
->THE END<
     </textarea>
   </div>
 </template>
@@ -82,7 +26,12 @@ export default {
       let Editor = document.querySelector('#editorInput')
 
       Store.dispatch('GET_EDITOR_VALUE', {value: Editor.value})
-      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.current_value})
+      Store.dispatch('UPDATE_SCENE', {
+        scene_number: this.publicState.editor.active_scene,    
+        scene_index: this.publicState.editor.active_scene - 1,
+        scene: this.publicState.editor.current_value
+      })
+      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
 
       console.log('NEW STATE ', this.publicState.script.html.script)
       console.log('FRONT END HTML ', scriptHtml)
@@ -90,9 +39,10 @@ export default {
     updateContent: function () {
 
       let Editor = document.querySelector('#editorInput')
-
+      
+      Editor.innerText = this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene
       Store.dispatch('GET_EDITOR_VALUE', {value: Editor.value})
-      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.current_value})
+      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
       console.log('Getting Tokens!', this.publicState.script.tokens)
     },
   }

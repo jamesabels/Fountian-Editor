@@ -61,7 +61,7 @@ export default {
       }
     },
     addScene: function () {
-      Store.dispatch('ADD_SCENE', {scene_heading: 'EXT Bricks cock - NIGHT', body: ''})
+      Store.dispatch('ADD_SCENE', {scene_heading: 'EXT Bricks cock - NIGHT', body: '', scene: ''})
     }
   },
   mounted: () => {}

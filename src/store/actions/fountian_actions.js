@@ -31,7 +31,7 @@ fountainActions.parseFountain = function (type) {
 
 	// Parse fountain output
 	for (let i = 0; i < type.tokens.length; i++) {
-		console.log(type.tokens[i])
+		// console.log(type.tokens[i])
 		if (type.tokens[i].type === 'scene_heading') {
 			tempState.scene_headings.push({
 				type: type.tokens[i].type,

@@ -1,13 +1,13 @@
 <template>
   <div class="editor-wrap">
     <div id="preview-wrap" v-if="this.publicState.editor.preview_status">
-        <preview>
-          <preview>
+        <preview></preview>
       </div>
       <div v-else>
-        <div id="input-wrap">
+        <div id="input-wrap" v-if="this.publicState.editor.active_scene > 0">
           <editorInput></editorInput>
         </div>
+          <H1>Active Scene - {{this.publicState.editor.active_scene}} - Please add a scene</H1>
       </div>
   </div>
 </template>

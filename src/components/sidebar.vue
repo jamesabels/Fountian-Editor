@@ -70,6 +70,8 @@ export default {
       // console.log(event.currentTarget.id)
       Store.dispatch('SET_ACTIVE_SCENE', {value: event.currentTarget.id})
       console.log('ACTIVE SCENE ', this.publicState.editor.active_scene)
+
+      console.log(this.publicState.editor.scenes[this.publicState.editor.active_scene - 1])
     }
   }
 }
