@@ -14,13 +14,12 @@ export default {
   data () {
     return {
       privateState: {
-        active_scene: this.activeScene,
-        editor_content: this.content
+        active_scene: this.activeScene
       },
       publicState: Store.state
     }
   },
-  props: ['activeScene', 'content'],
+  props: ['activeScene'],
   mounted: function () {
     this.updateContent()
     console.log('MOUNTED ACTIVE SCENE ', this.activeScene)

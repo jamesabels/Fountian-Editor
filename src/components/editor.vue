@@ -4,10 +4,7 @@
         <preview></preview>
       </div>
       <div v-else>
-        <div id="input-wrap" v-if="this.publicState.editor.active_scene > 0">
-          <editorInput :activeScene='this.publicState.editor.active_scene' :content='this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene'></editorInput>
-        </div>
-          <H1>Active Scene - {{this.publicState.editor.active_scene}} - Please add a scene</H1>
+          <editorInput :activeScene='this.publicState.editor.active_scene'></editorInput>
       </div>
   </div>
 </template>
