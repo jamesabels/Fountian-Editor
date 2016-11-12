@@ -1,6 +1,9 @@
 <template>
   <div class="pane-group">
     <div class="sidebar col-xs-2">
+      <header class="toolbar toolbar-header">
+        <h1 class="title">Project Structure</h1>
+      </header>
       <div id="fileTree"></div>
     </div>
     <div id="sceneList" class="pane col-xs-2">
