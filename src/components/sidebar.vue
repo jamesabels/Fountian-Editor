@@ -75,8 +75,8 @@ export default {
   }
   #fileTree {
     width: 90%;
-    float: right;
-    margin: 0 auto;
+    float: left;
+    margin-left: 10%;
   }
   #sceneList {
     background-color: white;
