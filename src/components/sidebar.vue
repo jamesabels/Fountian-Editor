@@ -26,7 +26,6 @@
 <script lang="babel">
 import Store from '../store/store.js'
 import Editor from './editor.vue'
-import InspireTree from 'inspire-tree'
 
 export default {
   name: 'sidebar',
@@ -37,7 +36,7 @@ export default {
     }
   },
   mounted: function () {
-    this.initFileTree()
+    Store.dispatch('INIT_FILE_TREE')
   },
   components: {
     Editor
@@ -50,18 +49,6 @@ export default {
       console.log('ACTIVE SCENE ', this.publicState.editor.active_scene)
 
       console.log(this.publicState.editor.scenes[this.publicState.editor.active_scene - 1])
-    },
-    initFileTree () {
-      console.log('INIALIZE FILE TREE')
-      var tree = new InspireTree({
-        target: '#fileTree',
-        data: [
-          {text: ' Features', children: [{ text: 'Robust API'}]},
-          {text: ' Features', children: [{ text: 'Robust API'}]},
-          {text: ' Features', children: [{ text: 'Robust API'}]},
-          {text: ' Features', children: [{ text: 'Robust API'}]},
-        ]
-      });
     }
   },
 }
