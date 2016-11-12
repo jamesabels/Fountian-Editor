@@ -3,7 +3,19 @@ import InspireTree from 'inspire-tree'
 const FSModule = {
   state: {
       fileTree: [
-        {text: 'Script', children: [{text: 'Scene 1'}]}
+        {
+        text: 'Script',
+        children: [
+            {
+                text: 'Scene One',
+                scene_number: 1,
+                scene_index: 0,
+                scene_heading: 'New Scene',
+                body: 'This is a default scene',
+                scene: ''
+            }
+        ]
+        }
       ]
   },
   mutations: {},
