@@ -1,35 +1,9 @@
 <template>
   <div class="pane-group">
-    <div class="pane-sm sidebar col-xs-2">
-      <nav class="nav-group col-xs-12">
-        <h5 class="nav-group-title">Favorites</h5>
-        <a class="nav-group-item">
-          <span class="icon icon-home"></span>
-          Home
-        </a>
-        <span class="nav-group-item">
-          <span class="icon icon-download"></span>
-          Downloads
-        </span>
-        <span class="nav-group-item">
-          <span class="icon icon-folder"></span>
-          Documents
-        </span>
-        <span class="nav-group-item">
-          <span class="icon icon-signal"></span>
-          AirPlay
-        </span>
-        <span class="nav-group-item">
-          <span class="icon icon-print"></span>
-          Applications
-        </span>
-        <span class="nav-group-item">
-          <span class="icon icon-cloud"></span>
-          Desktop
-        </span>
-      </nav>
+    <div class="sidebar col-xs-2">
+      <div id="fileTree"></div>
     </div>
-    <div class="pane col-xs-2">
+    <div id="sceneList" class="pane col-xs-2">
       <ul class="list-group">
         <li class="list-group-header">
           <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
@@ -52,6 +26,7 @@
 <script lang="babel">
 import Store from '../store/store.js'
 import Editor from './editor.vue'
+import InspireTree from 'inspire-tree'
 
 export default {
   name: 'sidebar',
@@ -61,7 +36,9 @@ export default {
       publicState: Store.state
     }
   },
-  mounted: () => {},
+  mounted: function () {
+    this.initFileTree()
+  },
   components: {
     Editor
   },
@@ -73,13 +50,35 @@ export default {
       console.log('ACTIVE SCENE ', this.publicState.editor.active_scene)
 
       console.log(this.publicState.editor.scenes[this.publicState.editor.active_scene - 1])
+    },
+    initFileTree () {
+      console.log('INIALIZE FILE TREE')
+      var tree = new InspireTree({
+        target: '#fileTree',
+        data: [
+          {text: ' Features', children: [{ text: 'Robust API'}]},
+          {text: ' Features', children: [{ text: 'Robust API'}]},
+          {text: ' Features', children: [{ text: 'Robust API'}]},
+          {text: ' Features', children: [{ text: 'Robust API'}]},
+        ]
+      });
     }
-  }
+  },
 }
 </script>
 
 <style lang='sass' scoped>
-  #editor {
-    background-color: #999;
+  .sidebar {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  #fileTree {
+    width: 90%;
+    float: right;
+    margin: 0 auto;
+  }
+  #sceneList {
+    background-color: white;
   }
 </style>

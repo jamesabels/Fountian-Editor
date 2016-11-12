@@ -22,6 +22,7 @@
     "vue": "vue/dist/vue"
   },
   "dependencies": {
+    "inspire-tree": "^1.10.5",
     "vue": "^2.0.1"
   },
   "devDependencies": {

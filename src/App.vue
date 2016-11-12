@@ -70,6 +70,7 @@ export default {
   }
 
   #main {
+    background-color: #999 !important;
     z-index: 1;
     height: calc(100% - 35px - 35px);
   }
