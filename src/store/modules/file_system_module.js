@@ -10,7 +10,7 @@ const FSModule = {
                 text: 'Scene One',
                 scene_number: 1,
                 scene_index: 0,
-                scene_heading: 'New Scene',
+                scene_name: 'New Scene',
                 body: 'This is a default scene',
                 scene: ''
             }

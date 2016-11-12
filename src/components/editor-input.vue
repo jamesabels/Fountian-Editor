@@ -1,7 +1,7 @@
 <template>
   <div class="editor-wrap">
-    <textarea name="editorInput" id="editorInput" cols="30" rows="50" @input="getValue">
-    </textarea>
+    <textarea v-show="this.publicState.editor.scenes.length > 0"  name="editorInput" id="editorInput" cols="30" rows="50" @input="getValue"></textarea>
+    <h1 class="new-scene-message" v-show="this.publicState.editor.scenes.length === 0">Please add a new scene</h1>
   </div>
 </template>
 
@@ -20,9 +20,7 @@ export default {
     }
   },
   props: ['activeScene'],
-  mounted: function () {
-    this.updateContent()
-    console.log('MOUNTED ACTIVE SCENE ', this.activeScene)
+  ready: function () {
   },
   updated: function () {
   },
@@ -37,6 +35,7 @@ export default {
       let scriptHtml = this.publicState.script.html.script
       let Editor = document.querySelector('#editorInput')
 
+      Editor.focus()
       Store.dispatch('GET_EDITOR_VALUE', {value: Editor.value})
       Store.dispatch('UPDATE_SCENE', {
         scene_number: this.publicState.editor.active_scene,    
@@ -52,8 +51,7 @@ export default {
       console.log('MOUNTED!!!')
 
       let Editor = document.querySelector('#editorInput')
-      
-      Editor.innerText = this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene
+
       Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
       Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
       console.log('Getting Tokens!', this.publicState.script.tokens)
@@ -91,6 +89,12 @@ export default {
     #editorInput:focus {
       outline: none;
       height: 100%;
+    }
+    
+    .new-scene-message { 
+      text-align: center;
+      margin-top: 40vh;
+      opacity: 0.5;
     }
 
 </style>

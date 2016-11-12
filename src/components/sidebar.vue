@@ -11,10 +11,10 @@
         <li class="list-group-header">
           <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
         </li>
-        <li :id="scene.scene_number" class="list-group-item" v-for='scene in publicState.editor.scenes' track-by="scene_number">
+        <li :id="scene.scene_number" class="list-group-item" v-for='scene in publicState.editor.scenes' track-by="scene_number"  v-on:click="getScene">
           <div class="media-body">
-            <strong>{{scene.scene_number}}. {{scene.scene}}</strong>
-            <p>{{scene.scene}}</p>
+            <strong>{{scene.scene_number}}. {{scene.scene_name}}</strong>
+            <p>{{scene.scene_desc}}</p>
           </div>
         </li>
       </ul>
@@ -47,7 +47,7 @@ export default {
   methods: {
     getScene (event) {
       console.log(event.currentTarget.id)
-      Store.dispatch('SET_ACTIVE_SCENE', {value: event.currentTarget.id})
+      Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
       Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
       console.log('ACTIVE SCENE ', this.publicState.editor.active_scene)
 

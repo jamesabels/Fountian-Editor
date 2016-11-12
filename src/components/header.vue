@@ -38,8 +38,6 @@
 
 <script lang="babel">
 import Store from '../store/store.js'
-import vex from 'vex-js'
-import dialog from 'vex-dialog'
 
 export default {
   name: 'appHeader',
@@ -63,33 +61,17 @@ export default {
       }
     },
     addScene: function () {
-      Store.dispatch('ADD_SCENE', {scene_heading: 'EXT Bricks cock - NIGHT', body: '', scene: ''})
-      Store.dispatch('SET_ACTIVE_SCENE', {value: this.publicState.editor.scenes.length})
-      Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
-    },
-    initModal : function () {
-      vex.registerPlugin(dialog)
-      vex.defaultOptions.className = 'vex-theme-os'
+      Store.dispatch('ADD_SCENE_MODAL')
     },
     testModal: function () {
-      console.log('TESTING MODAL')
-      vex.dialog.confirm({
-        message: 'Are you absolutely sure you want to destroy the alien planet?',
-        callback: function (value) {
-            if (value) {
-                console.log('Successfully destroyed the planet.')
-            } else {
-                console.log('Chicken.')
-            }
-        }
-    })
+      Store.dispatch('TEST_MODAL')
     },
     testClick: function () {
       console.log('TESTING CLICK!!!')
     }
   },
   mounted () {
-    this.initModal()
+    Store.dispatch('INIT_MODALS')
   }
 }
 
