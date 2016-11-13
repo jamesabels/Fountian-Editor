@@ -1,4 +1,4 @@
-import Sortable from 'sortablejs'
+// import Sortable from 'sortablejs'
 
 const SceneModule = {
     state: {
@@ -26,35 +26,44 @@ const SceneModule = {
     },
     actions: {
         INIT_SORTABLE (context) {
-            let el = document.querySelector('#sortableSceneList')
-            Sortable.create(el, {
-                group: 'scene-list',
-                sort: true,
-                draggable: '.list-group-item',
-                handle: '.list-group-item',
-                dragClass: 'list-group-item',
-                onUpdate: function (event) {
-                    let newOrder = function () {
-                        if (!this.order) {
-                            return this.items
-                        }
-                        return this.order.map((i) => this.items[i])
-                    }
-                    this.order = newOrder.toArray()
-                }
-            })
+        //     let el = document.querySelector('#sortableSceneList')
+        //     Sortable.create(el, {
+        //         group: 'scene-list',
+        //         sort: true,
+        //         draggable: '.list-group-item',
+        //         handle: '.list-group-item',
+        //         dragClass: 'list-group-item',
+        //         onUpdate: function (event) {
+        //             context.dispatch('SORT_SCENES', {value: event})
+        //         }
+        //     })
         },
-        SORT_SCENES ({commit, state}, payload) {
-            // let array = state.scenes
+        // SORT_SCENES ({commit, state}, payload) {
+        //     let array = state.scenes
+        //     let newArray = []
 
-            // array.splice(payload.value.newIndex, 0, array.splice(payload.value.oldIndex, 1)[0])
-            // // commit('UPDATE_SCENE_NUMBER', {index: payload.value.oldIndex, number: payload.value.newIndex})
-            // array.forEach(function (scene, index) {
-            //     scene.scene_index = index
-            // })
+        //     console.log(payload.value)
+        //     console.log('OLD INDEX ', payload.value.oldIndex)
 
-            // console.log(array)
-        },
+        //     // if (array[payload.value.oldIndex] === undefined) {
+        //     //     console.log('GETTING REDICED INDEX', payload.value.oldIndex)
+        //     //     tmp = array[payload.value.oldIndex - 1]
+        //     // } else {
+        //     //     console.log('GETTING ACTUAL INDEX', payload.value.oldIndex)
+        //         // tmp = array[payload.value.oldIndex]
+        //     // }
+        //     // console.log('FIRST TEMP', tmp)
+        //     let tmp = array.splice(payload.value.oldIndex, 1)
+
+        //     newArray.splice(0, 0, tmp).join('')
+        //     console.log('NEW ARRAY ', newArray)
+        //     array.splice(payload.value.newIndex, 0, newArray[0]).join('')
+
+        //     array = array.filter(function (element) {
+        //         return element !== undefined
+        //     })
+        //     console.log(array)
+        // },
         ADD_SCENE ({commit, state}, payload) {
             let scene = {
                 scene_number: null,
