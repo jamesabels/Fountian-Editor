@@ -25,7 +25,7 @@
        <div class="list-group-header" v-show="this.publicState.scenes.scenes.length > 0">
           <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
        </div>
-       <draggable class="dragArea" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
+       <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
           <div
           v-for='(scene, index) in publicState.scenes.scenes' 
           :id="index + 1"
@@ -63,7 +63,6 @@ export default {
   },
   mounted: function () {
     Store.dispatch('INIT_FILE_TREE')
-    Store.dispatch('INIT_SORTABLE')
   },
   components: {
     Editor,
@@ -75,10 +74,7 @@ export default {
       Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
       Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
       console.log('ACTIVE SCENE ', this.publicState.scenes.active_scene)
-
       console.log(this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1])
-
-      // Store.dispatch('GET_SCENE_INDEX', {id: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene_name, value: this.publicState.scenes.scenes})
     },
   }
 }

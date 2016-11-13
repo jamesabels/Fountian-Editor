@@ -1,18 +1,9 @@
-// import Sortable from 'sortablejs'
-
 const SceneModule = {
     state: {
         scenes: [],
         active_scene: 1
     },
     mutations: {
-        REORDER_SCENES ({context, state}, payload) {
-            state.scenes = payload.value
-        },
-        UPDATE_SCENE_NUMBER (state, payload) {
-            state.scenes[payload.index].scene_number = payload.number
-            console.log(state.scenes)
-        },
         ADD_SCENE (state, payload) {
             state.scenes.push(payload)
         },
@@ -25,45 +16,6 @@ const SceneModule = {
         }
     },
     actions: {
-        INIT_SORTABLE (context) {
-        //     let el = document.querySelector('#sortableSceneList')
-        //     Sortable.create(el, {
-        //         group: 'scene-list',
-        //         sort: true,
-        //         draggable: '.list-group-item',
-        //         handle: '.list-group-item',
-        //         dragClass: 'list-group-item',
-        //         onUpdate: function (event) {
-        //             context.dispatch('SORT_SCENES', {value: event})
-        //         }
-        //     })
-        },
-        // SORT_SCENES ({commit, state}, payload) {
-        //     let array = state.scenes
-        //     let newArray = []
-
-        //     console.log(payload.value)
-        //     console.log('OLD INDEX ', payload.value.oldIndex)
-
-        //     // if (array[payload.value.oldIndex] === undefined) {
-        //     //     console.log('GETTING REDICED INDEX', payload.value.oldIndex)
-        //     //     tmp = array[payload.value.oldIndex - 1]
-        //     // } else {
-        //     //     console.log('GETTING ACTUAL INDEX', payload.value.oldIndex)
-        //         // tmp = array[payload.value.oldIndex]
-        //     // }
-        //     // console.log('FIRST TEMP', tmp)
-        //     let tmp = array.splice(payload.value.oldIndex, 1)
-
-        //     newArray.splice(0, 0, tmp).join('')
-        //     console.log('NEW ARRAY ', newArray)
-        //     array.splice(payload.value.newIndex, 0, newArray[0]).join('')
-
-        //     array = array.filter(function (element) {
-        //         return element !== undefined
-        //     })
-        //     console.log(array)
-        // },
         ADD_SCENE ({commit, state}, payload) {
             let scene = {
                 scene_number: null,
@@ -102,15 +54,7 @@ const SceneModule = {
             document.querySelector(payload.el).focus()
             context.commit('SET_ACTIVE_SCENE', payload)
         }
-    },
-    computed: {
-        sortedItems: function () {
-        if (!this.order) {
-            return this.items
-        }
-        return this.order.map((i) => this.items[i])
-        }
-     }
+    }
 }
 
 export default SceneModule

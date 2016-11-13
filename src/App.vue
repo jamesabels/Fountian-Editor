@@ -24,7 +24,6 @@ import statusFooter from './components/footer.vue'
 import Page from './components/page.vue'
 import Editor from './components/editor.vue'
 import Preview from './components/preview.vue'
-import draggable from 'vuedraggable'
 
 export default {
   name: 'app',
@@ -49,8 +48,7 @@ export default {
     statusFooter,
     Page,
     Editor,
-    Preview,
-    draggable
+    Preview
   }
 }
 </script>
