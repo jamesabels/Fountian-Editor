@@ -22,10 +22,21 @@
           </div>
         </li>
       </ul>-->
+       <div class="list-group-header" v-show="this.publicState.scenes.scenes.length > 0">
+          <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
+       </div>
        <draggable class="dragArea" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
-          <div v-for="(element, index) in this.publicState.scenes.scenes" :key="index">
-              {{element.scene_name}} {{index}}
+          <div
+          v-for='(scene, index) in publicState.scenes.scenes' 
+          :id="index + 1"
+          class="list-group-item"
+          v-on:click="getScene"
+          :key="index">
+          <div class="media-body">
+            <strong>{{index + 1}}. {{scene.scene_name}}</strong>
+            <p>{{scene.scene_desc}}</p>
           </div>
+        </div>
         </draggable>
     </div>
     <div id="editor" class="pane col-xs-8">
