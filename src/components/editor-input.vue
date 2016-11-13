@@ -22,7 +22,8 @@ export default {
   props: ['activeScene'],
   ready: function () {
   },
-  updated: function () {
+  mounted: function () {
+    this.updateContent()
   },
   watch: {
     activeScene: function (val, oldVal) {
@@ -35,7 +36,6 @@ export default {
       let scriptHtml = this.publicState.script.html.script
       let Editor = document.querySelector('#editorInput')
 
-      Editor.focus()
       Store.dispatch('GET_EDITOR_VALUE', {value: Editor.value})
       Store.dispatch('UPDATE_SCENE', {
         scene_number: this.publicState.editor.active_scene,    
@@ -52,8 +52,11 @@ export default {
 
       let Editor = document.querySelector('#editorInput')
 
-      Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
-      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
+      if (this.publicState.editor.scenes.length > 0) {
+        Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
+        Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})        
+      }
+    
       console.log('Getting Tokens!', this.publicState.script.tokens)
     },
   }

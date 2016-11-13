@@ -7,8 +7,8 @@
       <div id="fileTree" v-on:click="getScene"></div>
     </div>
     <div id="sceneList" class="pane col-xs-2">
-      <ul class="list-group">
-        <li class="list-group-header">
+      <ul id="sortableSceneList" class="list-group">
+        <li class="list-group-header" v-show="this.publicState.editor.scenes.length > 0">
           <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
         </li>
         <li :id="scene.scene_number" class="list-group-item" v-for='scene in publicState.editor.scenes' track-by="scene_number"  v-on:click="getScene">
@@ -29,6 +29,7 @@
 <script lang="babel">
 import Store from '../store/store.js'
 import Editor from './editor.vue'
+import Sortable from 'sortablejs'
 
 export default {
   name: 'sidebar',
@@ -40,6 +41,7 @@ export default {
   },
   mounted: function () {
     Store.dispatch('INIT_FILE_TREE')
+    this.initSortable()
   },
   components: {
     Editor
@@ -52,6 +54,18 @@ export default {
       console.log('ACTIVE SCENE ', this.publicState.editor.active_scene)
 
       console.log(this.publicState.editor.scenes[this.publicState.editor.active_scene - 1])
+
+      Store.dispatch('GET_SCENE_INDEX', {id: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene_name, value: this.publicState.editor.scenes})
+    },
+    initSortable () {
+      let el = document.querySelector('#sortableSceneList')
+      Sortable.create(el, {
+        group: 'scene-list',
+        sort: true,
+        draggable: '.list-group-item',
+        handle: ".list-group-item",
+        dragClass: "list-group-item",
+      })
     }
   },
 }

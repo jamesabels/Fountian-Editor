@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const EditorModule = {
   state: {
     current_value: '',
@@ -30,7 +32,6 @@ const EditorModule = {
     INIT_EDITOR ({state}, payload) {
       document.querySelector(payload.el).value = ''
       document.querySelector(payload.el).value = payload.value
-      document.querySelector(payload.el).focus()
     },
     UPDATE_PREVIEW ({commit, state}, payload) {
         console.log(payload.el)
@@ -60,6 +61,7 @@ const EditorModule = {
     },
     UPDATE_SCENE ({commit, state}, payload) {
       let scene = {
+        scene_number: null,
         scene_index: 0,
         scene_name: '',
         scene_desc: '',
@@ -77,9 +79,14 @@ const EditorModule = {
     SET_ACTIVE_SCENE (context, payload) {
       document.querySelector(payload.el).focus()
       context.commit('SET_ACTIVE_SCENE', payload)
+    },
+    GET_SCENE_INDEX ({commit, state}, payload) {
+      console.log('GETTING ITEM INDEX')
+      console.log(_.indexOf(payload.value, function (data) {
+        data === {'scene_name': payload.id}
+      }))
     }
   }
-
 }
 
 export default EditorModule
