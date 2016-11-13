@@ -4,7 +4,7 @@
         <preview></preview>
       </div>
       <div v-else>
-          <editorInput :activeScene='this.publicState.editor.active_scene'></editorInput>
+          <editorInput :activeScene='this.publicState.scenes.active_scene'></editorInput>
       </div>
   </div>
 </template>

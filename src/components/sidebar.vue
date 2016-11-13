@@ -7,17 +7,37 @@
       <div id="fileTree" v-on:click="getScene"></div>
     </div>
     <div id="sceneList" class="pane col-xs-2">
-      <ul id="sortableSceneList" class="list-group">
-        <li class="list-group-header" v-show="this.publicState.editor.scenes.length > 0">
+      <!--<ul id="sortableSceneList" class="list-group">
+        <li class="list-group-header" v-show="this.publicState.scenes.scenes.length > 0">
           <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
         </li>
-        <li :id="scene.scene_number" class="list-group-item" v-for='scene in publicState.editor.scenes' track-by="scene_number"  v-on:click="getScene">
+        <li
+          v-for='(scene, index) in publicState.scenes.scenes' 
+          :id="scene.scene_number"
+          class="list-group-item"
+          v-on:click="getScene">
           <div class="media-body">
-            <strong>{{scene.scene_number}}. {{scene.scene_name}}</strong>
+            <strong>{{index + 1}}. {{scene.scene_name}}</strong>
             <p>{{scene.scene_desc}}</p>
           </div>
         </li>
-      </ul>
+      </ul>-->
+       <div class="list-group-header" v-show="this.publicState.scenes.scenes.length > 0">
+          <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
+       </div>
+       <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
+          <div
+          v-for='(scene, index) in publicState.scenes.scenes' 
+          :id="index + 1"
+          class="list-group-item"
+          v-on:click="getScene"
+          :key="index">
+          <div class="media-body">
+            <strong>{{index + 1}}. {{scene.scene_name}}</strong>
+            <p>{{scene.scene_desc}}</p>
+          </div>
+        </div>
+        </draggable>
     </div>
     <div id="editor" class="pane col-xs-8">
       <editor></editor>
@@ -30,6 +50,8 @@
 import Store from '../store/store.js'
 import Editor from './editor.vue'
 import Sortable from 'sortablejs'
+import draggable from 'vuedraggable'
+import _ from 'lodash'
 
 export default {
   name: 'sidebar',
@@ -41,33 +63,20 @@ export default {
   },
   mounted: function () {
     Store.dispatch('INIT_FILE_TREE')
-    this.initSortable()
   },
   components: {
-    Editor
+    Editor,
+    draggable
   },
   methods: {
     getScene (event) {
       console.log(event.currentTarget.id)
       Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
-      Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
-      console.log('ACTIVE SCENE ', this.publicState.editor.active_scene)
-
-      console.log(this.publicState.editor.scenes[this.publicState.editor.active_scene - 1])
-
-      Store.dispatch('GET_SCENE_INDEX', {id: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene_name, value: this.publicState.editor.scenes})
+      Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
+      console.log('ACTIVE SCENE ', this.publicState.scenes.active_scene)
+      console.log(this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1])
     },
-    initSortable () {
-      let el = document.querySelector('#sortableSceneList')
-      Sortable.create(el, {
-        group: 'scene-list',
-        sort: true,
-        draggable: '.list-group-item',
-        handle: ".list-group-item",
-        dragClass: "list-group-item",
-      })
-    }
-  },
+  }
 }
 </script>
 

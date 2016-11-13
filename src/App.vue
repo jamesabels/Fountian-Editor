@@ -90,4 +90,8 @@ export default {
     height: 35px;
   }
 
+  ul[dnd-list], ul[dnd-list] > li {
+    position: relative;
+  }
+
 </style>
