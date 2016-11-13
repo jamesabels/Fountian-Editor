@@ -1,5 +1,5 @@
 <template>
-  <div class="editor-wrap">
+  <div id="editor-wrap">
     <div id="preview-wrap" v-if="this.publicState.editor.preview_status">
         <preview></preview>
       </div>
@@ -35,14 +35,11 @@ export default {
 
 <style lang="scss" scoped>
 
-#preview-wrap {
-  width: 100%;
-  height: 100%;
-}
+/*#editor-wrap {
+  background-color: #999 !important;
+}*/
 
-#editor-wrap {
-  margin: 0;
-  padding: 0;
+#preview-wrap {
   width: 100%;
   height: 100%;
 }

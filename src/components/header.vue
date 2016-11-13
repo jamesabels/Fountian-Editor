@@ -2,28 +2,28 @@
   <header id="header" class="toolbar toolbar-header col-xs-12">
     <div class="toolbar-actions">
       <div class="btn-group">
-        <button class="btn btn-default">
-        <span class="icon icon-home"></span>
+        <button class="btn btn-default" v-on:click="testModal">
+          <span class="icon icon-home"></span>
+        </button>
+          <button class="btn btn-default">
+          <span class="icon icon-folder"></span>
+        </button>
+          <button class="btn btn-default active">
+          <span class="icon icon-cloud"></span>
+        </button>
+          <button class="btn btn-default">
+          <span class="icon icon-popup"></span>
+        </button>
+          <button class="btn btn-default">
+          <span class="icon icon-shuffle" v-on:click="testClick"></span>
+        </button>
+        </div>
+        <button class="btn btn-default"  v-on:click="previewFountain">
+        <span class="icon icon-eye"></span>
       </button>
-        <button class="btn btn-default">
-        <span class="icon icon-folder"></span>
+        <button class="btn btn-default btn-dropdown pull-right">
+        <span class="icon icon-megaphone"></span>
       </button>
-        <button class="btn btn-default active">
-        <span class="icon icon-cloud"></span>
-      </button>
-        <button class="btn btn-default">
-        <span class="icon icon-popup"></span>
-      </button>
-        <button class="btn btn-default">
-        <span class="icon icon-shuffle"></span>
-      </button>
-      </div>
-      <button class="btn btn-default">
-      <span class="icon icon-eye" v-on:click="previewFountain"></span>
-    </button>
-      <button class="btn btn-default btn-dropdown pull-right">
-      <span class="icon icon-megaphone"></span>
-    </button>
     <div class="btn-group">
       <button class="btn btn-default" v-on:click="addScene">
         <span class="icon icon-plus"></span>
@@ -61,12 +61,18 @@ export default {
       }
     },
     addScene: function () {
-      Store.dispatch('ADD_SCENE', {scene_heading: 'EXT Bricks cock - NIGHT', body: '', scene: ''})
-      Store.dispatch('SET_ACTIVE_SCENE', {value: this.publicState.editor.scenes.length})
-      Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
+      Store.dispatch('ADD_SCENE_MODAL')
+    },
+    testModal: function () {
+      Store.dispatch('TEST_MODAL')
+    },
+    testClick: function () {
+      console.log('TESTING CLICK!!!')
     }
   },
-  mounted: () => {}
+  mounted () {
+    Store.dispatch('INIT_MODALS')
+  }
 }
 
 </script>

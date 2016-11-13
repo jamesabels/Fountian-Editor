@@ -1,16 +1,10 @@
+import _ from 'lodash'
+
 const EditorModule = {
   state: {
     current_value: '',
     preview_status: false,
-    scenes: [
-      {
-        scene_number: 1,
-        scene_index: 0,
-        scene_heading: 'New Scene',
-        body: 'This is a default scene',
-        scene: ''
-      }
-    ],
+    scenes: [],
     active_scene: 1
   },
   mutations: {
@@ -52,40 +46,47 @@ const EditorModule = {
       let scene = {
         scene_number: null,
         scene_index: null,
-        scene_heading: '',
-        body: '',
+        scene_name: '',
+        scene_desc: '',
         scene: ''
       }
 
       scene.scene_number = state.scenes.length + 1
       scene.scene_index = state.scenes.length
-      scene.scene_heading = payload.scene_heading
-      scene.body = payload.body
+      scene.scene_name = payload.scene_name
+      scene.scene_desc = payload.scene_desc
       scene.scene = payload.scene
 
       commit('ADD_SCENE', scene)
     },
     UPDATE_SCENE ({commit, state}, payload) {
       let scene = {
+        scene_number: null,
         scene_index: 0,
-        scene_heading: '',
-        body: '',
+        scene_name: '',
+        scene_desc: '',
         scene: ''
       }
 
       scene.scene_number = payload.scene_index + 1
       scene.scene_index = payload.scene_index
-      scene.scene_heading = payload.scene_heading
-      scene.body = payload.body
+      scene.scene_name = payload.scene_name
+      scene.scene_desc = payload.scene_desc
       scene.scene = payload.scene
 
       commit('UPDATE_SCENE', scene)
     },
     SET_ACTIVE_SCENE (context, payload) {
+      document.querySelector(payload.el).focus()
       context.commit('SET_ACTIVE_SCENE', payload)
+    },
+    GET_SCENE_INDEX ({commit, state}, payload) {
+      console.log('GETTING ITEM INDEX')
+      console.log(_.indexOf(payload.value, function (data) {
+        data === {'scene_name': payload.id}
+      }))
     }
   }
-
 }
 
 export default EditorModule

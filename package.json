@@ -22,6 +22,7 @@
     "vue": "vue/dist/vue"
   },
   "dependencies": {
+    "inspire-tree": "^1.10.5",
     "vue": "^2.0.1"
   },
   "devDependencies": {
@@ -41,10 +42,15 @@
     "eslint-plugin-promise": "^2.0.1",
     "eslint-plugin-standard": "^2.0.0",
     "http-server": "^0.9.0",
+    "inspire-tree": "^1.10.5",
+    "lodash": "^4.16.6",
     "node-sass": "^3.11.2",
     "npm-run-all": "^2.3.0",
     "proxyquireify": "^3.0.1",
+    "sortablejs": "^1.4.2",
     "uglify-js": "^2.5.0",
+    "vex-dialog": "^1.0.6",
+    "vex-js": "^3.0.0",
     "vue-router": "^2.0.1",
     "vueify": "^9.0.0",
     "vuex": "^2.0.0",
