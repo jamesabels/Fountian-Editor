@@ -48,8 +48,8 @@ const ModalModule = {
                     console.log(value[0])
                     console.log(value[1])
                     Store.dispatch('ADD_SCENE', {scene_name: value[0], scene_desc: value[1], scene: ''})
-                    Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: Store.state.editor.scenes.length})
-                    Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: Store.state.editor.scenes[Store.state.editor.active_scene - 1].scene})
+                    Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: Store.state.scenes.scenes.length})
+                    Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: Store.state.scenes.scenes[Store.state.scenes.active_scene - 1].scene})
                 } else {
                     console.log('Modal Closed')
                 }

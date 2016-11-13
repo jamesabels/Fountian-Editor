@@ -7,6 +7,7 @@ import PDFModule from './modules/pdf_engine_module.js'
 import FountainModule from './modules/fountain_module.js'
 import FSModule from './modules/file_system_module.js'
 import ModalModule from './modules/modal_module.js'
+import SceneModule from './modules/scene_module.js'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ const Store = new Vuex.Store({
     editor: EditorModule,
     pdf: PDFModule,
     script: FountainModule,
-    modals: ModalModule
+    modals: ModalModule,
+    scenes: SceneModule
   }
 })
 

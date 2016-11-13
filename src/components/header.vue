@@ -28,7 +28,7 @@
       <button class="btn btn-default" v-on:click="addScene">
         <span class="icon icon-plus"></span>
       </button>
-      <button class="btn btn-default">
+      <button class="btn btn-default" v-on:click="testScenes">
         <span class="icon icon-search"></span>
       </button>
     </div>
@@ -68,6 +68,11 @@ export default {
     },
     testClick: function () {
       console.log('TESTING CLICK!!!')
+    },
+    testScenes: function () {
+      for(let i=0; Store.state.scenes.scenes.length > i; i++) {
+        console.log(Store.state.scenes.scenes[i].scene_name)
+      }
     }
   },
   mounted () {

@@ -1,7 +1,7 @@
 <template>
   <div class="editor-wrap">
-    <textarea v-show="this.publicState.editor.scenes.length > 0"  name="editorInput" id="editorInput" cols="30" rows="50" @input="getValue"></textarea>
-    <h1 class="new-scene-message" v-show="this.publicState.editor.scenes.length === 0">Please add a new scene</h1>
+    <textarea v-show="this.publicState.scenes.scenes.length > 0"  name="editorInput" id="editorInput" cols="30" rows="50" @input="getValue"></textarea>
+    <h1 class="new-scene-message" v-show="this.publicState.scenes.scenes.length === 0">Please add a new scene</h1>
   </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
   watch: {
     activeScene: function (val, oldVal) {
       console.log('EDITOR AWARE ACTIVE SCENE ', this.activeScene)
-      Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
+      Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
     }
   },
   methods: {
@@ -38,11 +38,11 @@ export default {
 
       Store.dispatch('GET_EDITOR_VALUE', {value: Editor.value})
       Store.dispatch('UPDATE_SCENE', {
-        scene_number: this.publicState.editor.active_scene,    
-        scene_index: this.publicState.editor.active_scene - 1,
+        scene_number: this.publicState.scenes.active_scene,    
+        scene_index: this.publicState.scenes.active_scene - 1,
         scene: this.publicState.editor.current_value
       })
-      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
+      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
 
       console.log('NEW STATE ', this.publicState.script.html.script)
       console.log('FRONT END HTML ', scriptHtml)
@@ -52,9 +52,9 @@ export default {
 
       let Editor = document.querySelector('#editorInput')
 
-      if (this.publicState.editor.scenes.length > 0) {
-        Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})
-        Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.editor.scenes[this.publicState.editor.active_scene - 1].scene})        
+      if (this.publicState.scenes.scenes.length > 0) {
+        Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
+        Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})        
       }
     
       console.log('Getting Tokens!', this.publicState.script.tokens)

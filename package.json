@@ -51,6 +51,7 @@
     "uglify-js": "^2.5.0",
     "vex-dialog": "^1.0.6",
     "vex-js": "^3.0.0",
+    "vue-drag-and-drop-list": "^0.8.3",
     "vue-router": "^2.0.1",
     "vueify": "^9.0.0",
     "vuex": "^2.0.0",
