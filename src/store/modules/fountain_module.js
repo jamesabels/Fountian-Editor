@@ -1,6 +1,8 @@
 // Import libs
-import fountain from '../../../static/js/fountain.js'
+import fountain from '../../../static/js/fountain-js.min.js'
+// import fountain from '../../../static/js/fountain.js'
 import fountainActions from '../actions/fountian_actions.js'
+const fs = require('fs')
 
 const FountainModule = {
     state: {
@@ -28,7 +30,7 @@ const FountainModule = {
     mutations: {
         // STORE SCRIPT DATA IN STATE
         PARSE_SCRIPT (state, payload) {
-            console.log('MUTATOR PAYLOAD ', payload)
+            // console.log('MUTATOR PAYLOAD ', payload)
             state.title = payload.value.title
             state.html.script = payload.value.html.script
             state.html.title_page = payload.value.html.title_page
@@ -49,13 +51,29 @@ const FountainModule = {
         }
     },
     actions: {
+        LOAD_DEBUG_SCRIPT (context, script) {
+            // let file = 'brick&steel.fountain'
+
+            let file = fs.readFileSync(script, 'utf8')
+            console.log(file)
+            context.dispatch('PARSE_JSON', {value: file})
+        },
         // PARSE FOUNTAIN FROM STRING
         PARSE_FOUNTAIN (context, payload) {
             // Store fountain data to state
             fountain.parse(payload.value, true, function (output) {
+                console.log(output)
                 context.commit('PARSE_SCRIPT', {
                     value: fountainActions.parseFountain(output)
                 })
+            })
+        },
+        PARSE_JSON (context, payload) {
+            fountain.parseJSON(payload.value, true, function (output) {
+                console.log(output)
+                // context.commit('PARSE_SCRIPT', {
+                //     value: fountainActions.parseFountain(output)
+                // })
             })
         }
     }

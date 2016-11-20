@@ -12,7 +12,9 @@ import SceneModule from './modules/scene_module.js'
 Vue.use(Vuex)
 
 const Store = new Vuex.Store({
-  state: {},
+  state: {
+    debug: true
+  },
   modules: {
     files: FSModule,
     editor: EditorModule,

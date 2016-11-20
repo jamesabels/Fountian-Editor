@@ -1,7 +1,8 @@
 const EditorModule = {
   state: {
     current_value: '',
-    preview_status: false
+    preview_status: false,
+    index_status: false
   },
   mutations: {
     CURRENT_VALUE (state, payload) {

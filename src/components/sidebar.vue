@@ -1,48 +1,30 @@
 <template>
   <div class="pane-group">
+    
     <div class="sidebar col-xs-2">
       <header class="toolbar toolbar-header">
         <h1 class="title">Project Structure</h1>
       </header>
       <div id="fileTree" v-on:click="getScene"></div>
     </div>
-    <div id="sceneList" class="pane col-xs-2">
-      <!--<ul id="sortableSceneList" class="list-group">
-        <li class="list-group-header" v-show="this.publicState.scenes.scenes.length > 0">
+      <div id="sceneList" class="pane col-xs-2">
+        <div class="list-group-header" v-show="this.publicState.scenes.scenes.length > 0">
           <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
-        </li>
-        <li
-          v-for='(scene, index) in publicState.scenes.scenes' 
-          :id="scene.scene_number"
-          class="list-group-item"
-          v-on:click="getScene">
-          <div class="media-body">
-            <strong>{{index + 1}}. {{scene.scene_name}}</strong>
-            <p>{{scene.scene_desc}}</p>
-          </div>
-        </li>
-      </ul>-->
-       <div class="list-group-header" v-show="this.publicState.scenes.scenes.length > 0">
-          <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
-       </div>
-       <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
-          <div
-          v-for='(scene, index) in publicState.scenes.scenes' 
-          :id="index + 1"
-          class="list-group-item"
-          v-on:click="getScene"
-          :key="index">
-          <div class="media-body">
-            <strong>{{index + 1}}. {{scene.scene_name}}</strong>
-            <p>{{scene.scene_desc}}</p>
-          </div>
         </div>
+        <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
+          <div v-for='(scene, index) in publicState.scenes.scenes' :id="index + 1" class="list-group-item" v-on:click="getScene" :key="index">
+            <div class="media-body">
+              <strong>{{index + 1}}. {{scene.scene_name}}</strong>
+              <p>{{scene.scene_desc}}</p>
+            </div>
+          </div>
         </draggable>
-    </div>
+      </div>
     <div id="editor" class="pane col-xs-8">
       <editor></editor>
     </div>
   </div>
+
 </template>
 
 
@@ -80,7 +62,7 @@ export default {
 }
 </script>
 
-<style lang='sass' scoped>
+<style scoped>
   .sidebar {
     margin: 0;
     padding: 0;

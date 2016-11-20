@@ -12,6 +12,7 @@
     "no-new": "off",
     "indent": "off",
     "no-eval": "off",
-    "no-mutiple-empty-lines": "off"
+    "no-mutiple-empty-lines": "off",
+    "no-path-concat": "off"
   }
 }

@@ -1,24 +1,29 @@
-# fountain-browserify
+# simple-electron
 
-> A Vue.js project
+> My super app
 
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
+## Dev
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# lint all *.js and *.vue files
-npm run lint
-
-# run unit tests
-npm test
+```
+$ npm install
 ```
 
-For more information see the [docs for vueify](https://github.com/vuejs/vueify).
+### Run
+
+```
+$ npm start
+```
+
+### Build
+
+```
+$ npm run build
+```
+
+Builds the app for OS X, Linux, and Windows, using [electron-packager](https://github.com/maxogden/electron-packager).
+
+
+## License
+
+MIT © [James Abels](http://jamesabels.net)
