@@ -118,4 +118,18 @@ fountainActions.parseFountain = function (type) {
 	return tempState
 }
 
+fountainActions.parseScenes = function (output) {
+	let savedScenes = []
+
+	for( let i = 0; i < output.length; i++ ) {
+		
+		switch(output.script.scenes[i].type) {
+			case 'heading':
+				console.log('HEADING!!!')
+			default: 
+				console.log('FOUND AND OBJECT!')
+		}
+	}
+}
+
 export default fountainActions
