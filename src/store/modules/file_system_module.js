@@ -1,4 +1,8 @@
 import InspireTree from 'inspire-tree'
+// import { remote } from 'electron'
+// const remote = require('remote')
+// import { remote } from 'electron'
+// const dialog = remote.require('dialog')
 
 const FSModule = {
   state: {
@@ -26,6 +30,11 @@ const FSModule = {
             target: '#fileTree',
             data: state.fileTree
         })
+    },
+    OPEN_FILE () {
+        // dialog.showOpenDialog(function (fileNames) {
+        //     console.log(fileNames)
+        // })
     }
   }
 }

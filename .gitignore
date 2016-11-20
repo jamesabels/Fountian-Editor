@@ -1,5 +1,6 @@
 .DS_Store
-node_modules/
+node_modules
+/build/**.js
+/build/**.css
+/electron-packager
 npm-debug.log
-**/build.js
-**/build.css

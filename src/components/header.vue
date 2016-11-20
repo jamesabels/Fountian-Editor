@@ -5,7 +5,7 @@
         <button class="btn btn-default" v-on:click="testModal">
           <span class="icon icon-home"></span>
         </button>
-          <button class="btn btn-default">
+          <button class="btn btn-default" v-on:click="openDirectory">
           <span class="icon icon-folder"></span>
         </button>
           <button class="btn btn-default active">
@@ -27,6 +27,9 @@
     <div class="btn-group">
       <button class="btn btn-default" v-on:click="addScene">
         <span class="icon icon-plus"></span>
+      </button>
+      <button class="btn btn-default" v-on:click="toggleIndexCards">
+        <span class="icon icon-layout"></span>
       </button>
       <button class="btn btn-default" v-on:click="testScenes">
         <span class="icon icon-search"></span>
@@ -60,6 +63,16 @@ export default {
           break
       }
     },
+    toggleIndexCards: function () {
+      switch (this.publicState.editor.index_status) {
+        case false:
+          this.publicState.editor.index_status = true
+          break
+        case true:
+          this.publicState.editor.index_status = false
+          break
+      }
+    },
     addScene: function () {
       Store.dispatch('ADD_SCENE_MODAL')
     },
@@ -73,6 +86,9 @@ export default {
       for(let i=0; Store.state.scenes.scenes.length > i; i++) {
         console.log(Store.state.scenes.scenes[i].scene_name)
       }
+    },
+    openDirectory: function () {
+      Store.dispatch('OPEN_FILE')
     }
   },
   mounted () {

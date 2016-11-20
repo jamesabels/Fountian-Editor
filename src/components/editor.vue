@@ -1,19 +1,24 @@
 <template>
-  <div id="editor-wrap">
+  <div>
     <div id="preview-wrap" v-if="this.publicState.editor.preview_status">
-        <preview></preview>
-      </div>
-      <div v-else>
-          <editorInput :activeScene='this.publicState.scenes.active_scene'></editorInput>
-      </div>
+      <preview></preview>
+    </div>
+    <div id="index-wrap" v-if="this.publicState.editor.index_status">
+      <IndexCards/>
+    </div>
+    <div id="editor-wrap" v-else>
+        <editorInput :activeScene='this.publicState.scenes.active_scene'></editorInput>
+    </div>
   </div>
 </template>
 
 
 <script lang="babel">
 import Store from '../store/store.js'
+
 import Preview from './preview.vue'
 import editorInput from './editor-input.vue'
+import IndexCards from './index-cards.vue'
 import pdfPreview from './pdf-preview.vue'
 
 export default {
@@ -27,13 +32,14 @@ export default {
   components: {
     pdfPreview,
     Preview,
-    editorInput
+    editorInput,
+    IndexCards
   }
 }
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 /*#editor-wrap {
   background-color: #999 !important;

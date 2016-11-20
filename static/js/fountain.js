@@ -41,7 +41,7 @@
     splitter: /\n{2,}/g,
     cleaner: /^\n+|\n+$/,
     standardizer: /\r\n|\r/g,
-    whitespacer: /^\s+$/gm
+    whitespacer: /^\t+|^ {3,}/gm
   };
 
   var lexer = function (script) {

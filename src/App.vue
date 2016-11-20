@@ -40,6 +40,10 @@ export default {
   methods: {
     init: function () {
       this.publicState.editor.currentValue = ''
+
+      if (this.publicState.debug === true) {
+        Store.dispatch('LOAD_DEBUG_SCRIPT', '/Users/James/Desktop/simple-electron/src/store/modules/test.fountain')
+      }
     }
   },
   components: {
@@ -53,7 +57,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   
   html, body {
     height: 100vh;
