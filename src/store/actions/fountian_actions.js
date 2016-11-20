@@ -119,17 +119,42 @@ fountainActions.parseFountain = function (type) {
 }
 
 fountainActions.parseScenes = function (output) {
+
+	console.log('PARSING SCENES', output.script.scenes[3])
+
+	let array = output.script.scenes
 	let savedScenes = []
 
-	for( let i = 0; i < output.length; i++ ) {
+	for(let i = 0; i < array.length; i++ ) {
 		
-		switch(output.script.scenes[i].type) {
-			case 'heading':
-				console.log('HEADING!!!')
-			default: 
-				console.log('FOUND AND OBJECT!')
-		}
+		let scene = {}
+		
+		array[i].forEach(function(element, index) {
+			
+			// console.log(element)
+			scene.heading = element.heading
+			scene.type = element.type
+			scene.text = element.text
+			scene.scene_number = index
+			
+		}, this);
+
+		savedScenes.push(scene)
+
+		// for(let z = 0; i < output.script.scenes[i].length; i++ ) {
+		// 	console.log(output.script.scenes[i][z].type)
+
+		// switch(output.script.scenes[i][z].type) {
+		// 	case 'heading':
+		// 		console.log('HEADING!!!')
+		// 	default: 
+		// 		console.log('FOUND AND OBJECT!')
+		// }
+		// }
+
 	}
+
+	console.log(savedScenes)
 }
 
 export default fountainActions

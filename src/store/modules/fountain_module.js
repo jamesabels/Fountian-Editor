@@ -51,12 +51,12 @@ const FountainModule = {
         }
     },
     actions: {
-        // LOAD_DEBUG_SCRIPT (context, script) {
-        //     // let file = 'brick&steel.fountain'
+        LOAD_DEBUG_SCRIPT (context, script) {
+            // let file = 'brick&steel.fountain'
 
-        //     // let file = fs.readFileSync(script, 'utf8')
-        //     // context.dispatch('PARSE_JSON', {value: file})
-        // },
+            let file = fs.readFileSync(script, 'utf8')
+            context.dispatch('PARSE_JSON', {value: file})
+        },
         // PARSE FOUNTAIN FROM STRING
         PARSE_FOUNTAIN (context, payload) {
             // Store fountain data to state
