@@ -19,6 +19,7 @@ export default {
   },
   methods: {
     updateContent: function () {
+      console.log('Active Scene ', this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene)
       Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
       Store.dispatch('UPDATE_PREVIEW', {el: '#textPreview', value: this.publicState.script.html.script})
     }

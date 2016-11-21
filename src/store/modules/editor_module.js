@@ -21,7 +21,8 @@ const EditorModule = {
       document.querySelector(payload.el).value = payload.value
     },
     UPDATE_PREVIEW ({commit, state}, payload) {
-        console.log(payload.el)
+        console.log("PREVIEW, EL", payload.el)
+        console.log('PAYLOAD VALUE ', payload.value)
         let Editor = document.querySelector(payload.el)
         Editor.innerHTML = ''
         Editor.innerHTML = payload.value

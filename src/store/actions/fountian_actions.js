@@ -31,7 +31,7 @@ fountainActions.parseFountain = function (type) {
 
 	// Parse fountain output
 	for (let i = 0; i < type.tokens.length; i++) {
-		// console.log(type.tokens[i])
+		// console.log('PARSING TOKENS', type.tokens[i])
 		if (type.tokens[i].type === 'scene_heading') {
 			tempState.scene_headings.push({
 				type: type.tokens[i].type,
@@ -120,26 +120,126 @@ fountainActions.parseFountain = function (type) {
 
 fountainActions.parseScenes = function (output) {
 
-	console.log('PARSING SCENES', output.script.scenes[3])
+	console.log('RAW SCENES', output.script.scenes)
 
 	let array = output.script.scenes
 	let savedScenes = []
+	let savedItems = []
+	let parsedScenes = []
+
+	var tmpScene;
+
+	array.reverse()
 
 	for(let i = 0; i < array.length; i++ ) {
-		
-		let scene = {}
-		
-		array[i].forEach(function(element, index) {
-			
-			// console.log(element)
-			scene.heading = element.heading
-			scene.type = element.type
-			scene.text = element.text
-			scene.scene_number = index
-			
-		}, this);
+		// console.log("SCENES: ", array[i])
 
-		savedScenes.push(scene)
+		savedScenes.push(array[i])
+
+		savedScenes[i].forEach(function(scene, index) {
+			scene.scene_number = i
+			scene.item_index = index
+		})
+	}
+
+	for(let i = 0; i < savedScenes.length; i++ ) {
+		
+		tmpScene = {
+			headings: [],
+			actions: [],
+			characters: [],
+			parens: [],
+			dialogue: []
+		}
+
+		savedScenes[i].forEach(function(scene, index) {
+			
+			if (scene.type !== undefined) {
+				if (scene.type === 'heading') {
+					console.log('Found heading', scene.item_index)
+					let heading = {text: scene.heading, item_index: scene.item_index}
+					tmpScene.headings.push(heading)
+				}
+				if (scene.type === 'action') {
+					console.log('Found action!', scene.item_index)
+					let action = {text: scene.text, item_index: scene.item_index}
+					tmpScene.actions.push(action)
+				}
+				if (scene.type === 'dialogue-single') {
+					console.log('Found a dilaouge-single', scene.item_index)
+					// let ds = {characters: scene.characters, item_index: scene.item_index}
+
+					let ds = fountainActions.parseDialouge(scene.characters, index);
+					tmpScene.dialogue.push(ds)
+					tmpScene.dialogue = tmpScene.dialogue.filter(Boolean)
+				}
+			}
+		})
+		
+		console.log(tmpScene)
+	}
+
+	// for(let i = 0; i < savedScenes.length; i++ ) {
+	// 	// console.log("SCENES: ", array[i])
+	// }
+
+
+	console.log(savedScenes)
+		
+		// console.log('Parsing Scene ', i)
+
+		// let scene = {}
+		// let heading = []
+		// let lines = []
+		// let dialogArray = []
+		
+		// array[i].forEach(function(element, index) {
+
+		// 	if (element.text !== undefined) {
+		// 		lines.push(element.text)
+		// 	}
+		// 	if (element.heading !== undefined) {
+		// 		heading.push(element.heading)		
+		// 	}
+		// 	if (element.type === 'dialogue-single') {
+		// 		console.log('Found dialog Single!', element.characters)
+
+		// 		for(let i=0; i < element.characters.length; i++) {
+		// 			if (element.characters[i].name !== undefined) {
+		// 				console.log(element.characters[i].name)
+		// 				dialogArray.push(element.characters[i].name)
+		// 			}
+		// 			if (element.characters[i].lines !== undefined) {
+		// 				element.characters[i].lines.forEach(function(line, index) {
+		// 					dialogArray.push(line.text)
+		// 				})
+		// 			}
+		// 		}
+		// 	}
+		// 	if (element.type === 'dialogue-double') {
+		// 		console.log('Found dialog Double!', element.characters)
+		// 	}
+		// 	// console.log(element)
+		// 	// scene.heading = element.heading
+		// 	// scene.type = element.type
+		// 	// scene.text = element.text
+		// 	// scene.scene_number = index
+			
+		// }, this);
+
+		// console.log('DIALOG ARRAY', dialogArray)
+		// lines.push(dialogArray.reverse().join(" \n"))
+
+		// console.log('LINES', lines.reverse().join(" \n"))
+
+		// scene.scene_name = heading.join("")
+		// scene.scene_desc = ""
+		// scene.scene_heading = heading.join("")
+		// scene.scene_number =  i + 1
+		// scene.scene_index = i
+		// scene.scene = this.stripHTML(lines.reverse().join(" \n"))
+
+		// savedScenes.push(scene)
 
 		// for(let z = 0; i < output.script.scenes[i].length; i++ ) {
 		// 	console.log(output.script.scenes[i][z].type)
@@ -152,9 +252,71 @@ fountainActions.parseScenes = function (output) {
 		// }
 		// }
 
-	}
+	// }
 
-	console.log(savedScenes)
+	return savedScenes
+}
+
+fountainActions.parseDialouge = function (charArray, index) {
+	let sceneDialoge = []
+	let ds
+
+	console.log('CXHAR ARRAY ', charArray)
+
+	ds = {
+		name: "",
+		text: "",
+		dialouge_index: 0
+	}
+	
+	for(let i=0; i < charArray.length; i++) {
+
+		// ds = {
+		// 	name: "",
+		// 	text: "",
+		// 	dialouge_index: i
+		// }
+
+		console.log(charArray[i].type)
+		
+		if (charArray[i].name !== undefined) {
+			// console.log(charArray[i].name)
+			ds.name = charArray[i].name
+		}
+		else {
+			console.log('No lines!')
+			
+		}
+		if (charArray[i].lines !== undefined) {
+			// console.log(charArray[i].lines[i].text)
+			ds.text = charArray[i].lines[i].text
+		}
+		else {
+			console.log('No Name!')
+		}
+
+		ds.dialouge_index = index
+
+	// 	for(let z=0; z < charArray.characters.length; z++) {
+	// 		charArray.characters[i].forEach(function(subchar, index) {
+	// 			console.log('FOUND A SUBCHAR', subchar)
+	// 		})
+	// 	}
+	}
+	
+	if (ds.name === "") {
+		console.log('Dropping dialogue')
+		return null
+	}
+	else if (ds.name !== "") {
+		return ds
+	}
+}
+
+fountainActions.stripHTML = function(string) {
+   var tmp = document.createElement("DIV");
+   tmp.innerHTML = string;
+   return tmp.textContent || tmp.innerText || "";
 }
 
 export default fountainActions

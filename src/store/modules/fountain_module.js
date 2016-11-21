@@ -55,7 +55,8 @@ const FountainModule = {
             // let file = 'brick&steel.fountain'
 
             let file = fs.readFileSync(script, 'utf8')
-            context.dispatch('PARSE_JSON', {value: file})
+            context.dispatch('PARSE_SCENES_FROM_FILE', {value: file})
+            context.dispatch('PARSE_FOUNTAIN', {value: file})
         },
         // PARSE FOUNTAIN FROM STRING
         PARSE_FOUNTAIN (context, payload) {
@@ -67,10 +68,17 @@ const FountainModule = {
                 })
             })
         },
-        PARSE_JSON (context, payload) {
+        PARSE_SCENES_FROM_FILE (context, payload) {
             fountain.parseJSON(payload.value, true, function (output) {
                 // console.log(output)
-                fountainActions.parseScenes(output)
+                var scenes = fountainActions.parseScenes(output)
+
+                // console.log('Parsed Scenes! ', scenes)
+
+                scenes.forEach(function(element, index) {
+                    context.commit('ADD_SCENE', element)
+                })
+
                 // context.commit('PARSE_SCRIPT', {
                 //     value: fountainActions.parseFountain(output)
                 // })
