@@ -3,11 +3,12 @@
     <div id="preview-wrap" v-if="this.publicState.editor.preview_status">
       <preview></preview>
     </div>
-    <div id="index-wrap" v-if="this.publicState.editor.index_status">
+    <div id="index-wrap" v-if="this.publicState.editor.index_status
+    && !this.publicState.editor.preview_status">
       <IndexCards/>
     </div>
     <div id="editor-wrap" 
-      v-if="!this.publicState.editor.preview_status && 
+      v-show="!this.publicState.editor.preview_status && 
       !this.publicState.editor.index_status">
         <editorInput :activeScene='this.publicState.scenes.active_scene'></editorInput>
     </div>

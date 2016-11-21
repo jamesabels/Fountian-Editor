@@ -132,10 +132,7 @@ fountainActions.parseScenes = function (output) {
 	array.reverse()
 
 	for(let i = 0; i < array.length; i++ ) {
-		// console.log("SCENES: ", array[i])
-
 		savedScenes.push(array[i])
-
 		savedScenes[i].forEach(function(scene, index) {
 			scene.scene_number = i
 			scene.item_index = index
@@ -143,122 +140,135 @@ fountainActions.parseScenes = function (output) {
 	}
 
 	for(let i = 0; i < savedScenes.length; i++ ) {
-		
 		tmpScene = []
-
 		savedScenes[i].forEach(function(scene, index) {
 			
 			if (scene.type !== undefined) {
 				if (scene.type === 'heading') {
-					console.log('Found heading', scene.item_index)
-					let heading = {text: scene.heading, item_index: scene.item_index}
+					let heading = {text: scene.heading, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
 					tmpScene.push(heading)
 				}
 				if (scene.type === 'action') {
-					console.log('Found action!', scene.item_index)
-					let action = {text: scene.text, item_index: scene.item_index}
+					let action = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
 					tmpScene.push(action)
 				}
 				if (scene.type === 'dialogue-single') {
-					console.log('Found a dilaouge-single', scene.item_index)
-					// let ds = {characters: scene.characters, item_index: scene.item_index}
-
-					let ds = fountainActions.parseDialouge(scene.characters, index);
+					let ds = fountainActions.parseDialouge(scene.characters, index, scene.type);
 					tmpScene.push(ds)
-					tmpScene = tmpScene.filter(Boolean)
 				}
 				if (scene.type === 'parenthetical') {
-					console.log('Found a paren!', scene.item_index)
-					let paren = {text: scene.text, item_index: scene.item_index}
+					let paren = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
 					tmpScene.push(paren)
+				}
+				if (scene.type === 'note') {
+					let note = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
+					tmpScene.push(note)
+				}
+				if (scene.type === 'centered') {
+					let centered = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
+					tmpScene.push(centered)
+				}
+				if (scene.type === 'transition') {
+					let transition = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
+					tmpScene.push(transition)
+				}
+				if (scene.type === 'synopsis') {
+					let synopsis = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
+					tmpScene.push(synopsis)
+				}
+				if (scene.type === 'page_break') {
+					let pageBreak = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
+					tmpScene.push(pageBreak)
+				}
+				if (scene.type === 'section') {
+					let section = {text: scene.text, item_index: scene.item_index, depth: scene.depth, type: scene.type, scene_number: index + 1}
+					tmpScene.push(section)
+				}
+				else {
+					return
 				}
 			}
 		})
 		
-		console.log(tmpScene)
+		tmpScene = tmpScene.filter(Boolean)
 		parsedScenes.push(tmpScene)
-		console.log('FINAL SCENE LIST ', parsedScenes)
 	}
 
-	// for(let i = 0; i < savedScenes.length; i++ ) {
-	// 	// console.log("SCENES: ", array[i])
-	// }
+	console.log('SAVED SCENES', parsedScenes)
 
-
-	console.log(savedScenes)
-		
-		// console.log('Parsing Scene ', i)
-
-		// let scene = {}
-		// let heading = []
-		// let lines = []
-		// let dialogArray = []
-		
-		// array[i].forEach(function(element, index) {
-
-		// 	if (element.text !== undefined) {
-		// 		lines.push(element.text)
-		// 	}
-		// 	if (element.heading !== undefined) {
-		// 		heading.push(element.heading)		
-		// 	}
-		// 	if (element.type === 'dialogue-single') {
-		// 		console.log('Found dialog Single!', element.characters)
-
-		// 		for(let i=0; i < element.characters.length; i++) {
-		// 			if (element.characters[i].name !== undefined) {
-		// 				console.log(element.characters[i].name)
-		// 				dialogArray.push(element.characters[i].name)
-		// 			}
-		// 			if (element.characters[i].lines !== undefined) {
-		// 				element.characters[i].lines.forEach(function(line, index) {
-		// 					dialogArray.push(line.text)
-		// 				})
-		// 			}
-		// 		}
-		// 	}
-		// 	if (element.type === 'dialogue-double') {
-		// 		console.log('Found dialog Double!', element.characters)
-		// 	}
-		// 	// console.log(element)
-		// 	// scene.heading = element.heading
-		// 	// scene.type = element.type
-		// 	// scene.text = element.text
-		// 	// scene.scene_number = index
-			
-		// }, this);
-
-		// console.log('DIALOG ARRAY', dialogArray)
-		// lines.push(dialogArray.reverse().join(" \n"))
-
-		// console.log('LINES', lines.reverse().join(" \n"))
-
-		// scene.scene_name = heading.join("")
-		// scene.scene_desc = ""
-		// scene.scene_heading = heading.join("")
-		// scene.scene_number =  i + 1
-		// scene.scene_index = i
-		// scene.scene = this.stripHTML(lines.reverse().join(" \n"))
-
-		// savedScenes.push(scene)
-
-		// for(let z = 0; i < output.script.scenes[i].length; i++ ) {
-		// 	console.log(output.script.scenes[i][z].type)
-
-		// switch(output.script.scenes[i][z].type) {
-		// 	case 'heading':
-		// 		console.log('HEADING!!!')
-		// 	default: 
-		// 		console.log('FOUND AND OBJECT!')
-		// }
-		// }
-
-	// }
-
-	return savedScenes
+	return fountainActions.parseLines(parsedScenes)
 }
 
-fountainActions.parseDialouge = function (charArray, index) {
+fountainActions.parseLines = function (scenes) {
+	
+	let parsedLines = []
+	let parsedScenes = []
+	let parsedScene;
+
+	console.log('Parsing Scenes', scenes)
+
+	for(let i = 0; i < scenes.length; i++) {
+			console.log('SCENE NUMBER ', i)
+			console.log('SCENE ', scenes)
+			console.log('CURRENT SCENE', scenes[i])
+
+			parsedScene = {
+				scene_name: "Please add a scene name",
+				scene_desc: "Please add a short description.",
+				scene_heading: "",
+				scene_number: 0,
+				scene: []
+			}
+
+			scenes[i].forEach(function(scene, index){
+
+				if (scene.type === 'heading') {
+					parsedScene.scene_name = scene.text
+					parsedScene.scene_number = scene.scene_number
+					parsedScene.scene_heading = scene.text
+					parsedScene.scene.push(scene.text + "\n\n")
+				}
+				if (scene.type === 'action') {
+					parsedScene.scene.push(scene.text + "\n\n")
+				}
+				if (scene.type === 'dialogue-single') {
+					parsedScene.scene.push(scene.name + "\n")
+					parsedScene.scene.push(scene.text + "\n\n")
+				}
+				if (scene.type === 'parenthetical') {
+					parsedScene.scene.push(scene.text + "\n\n")
+				}
+				if (scene.type === 'note') {
+					parsedScene.scene.push(scene.text + "\n\n")
+				}
+				if (scene.type === 'centered') {
+					parsedScene.scene.push(scene.text + "\n\n")
+				}
+				if (scene.type === 'transition') {
+					parsedScene.scene.push(scene.text + "\n\n")
+				}
+				if (scene.type === 'synopsis') {
+					parsedScene.scene.push(scene.text + "\n\n")
+				}
+				if (scene.type === 'page_break') {
+					parsedScene.scene.push(scene.text + "\n\n")
+				}
+				if (scene.type === 'section') {
+					parsedScene.scene.push(scene.text + "\n\n")
+				}	
+		})
+		
+		console.log(parsedScene.scene.join("\n"))
+		parsedScene.scene = fountainActions.stripHTML(parsedScene.scene.join(""))
+		parsedScenes.push(parsedScene)
+	}
+	
+	// console.log('PARSED SCENE', parsedScene.scene)
+	console.log("PARSED SCENES ", parsedScenes)
+	return parsedScenes
+}
+
+fountainActions.parseDialouge = function (charArray, index, type) {
 	let sceneDialoge = []
 	let ds
 
@@ -267,16 +277,12 @@ fountainActions.parseDialouge = function (charArray, index) {
 	ds = {
 		name: "",
 		text: "",
-		dialouge_index: 0
+		dialouge_index: 0,
+		type: type,
+		scene_number: index + 1
 	}
 	
 	for(let i=0; i < charArray.length; i++) {
-
-		// ds = {
-		// 	name: "",
-		// 	text: "",
-		// 	dialouge_index: i
-		// }
 
 		console.log(charArray[i].type)
 		
@@ -297,12 +303,6 @@ fountainActions.parseDialouge = function (charArray, index) {
 		}
 
 		ds.dialouge_index = index
-
-	// 	for(let z=0; z < charArray.characters.length; z++) {
-	// 		charArray.characters[i].forEach(function(subchar, index) {
-	// 			console.log('FOUND A SUBCHAR', subchar)
-	// 		})
-	// 	}
 	}
 	
 	if (ds.name === "") {
@@ -310,6 +310,7 @@ fountainActions.parseDialouge = function (charArray, index) {
 		return null
 	}
 	else if (ds.name !== "") {
+		console.log(ds)
 		return ds
 	}
 }
