@@ -144,13 +144,7 @@ fountainActions.parseScenes = function (output) {
 
 	for(let i = 0; i < savedScenes.length; i++ ) {
 		
-		tmpScene = {
-			headings: [],
-			actions: [],
-			characters: [],
-			parens: [],
-			dialogue: []
-		}
+		tmpScene = []
 
 		savedScenes[i].forEach(function(scene, index) {
 			
@@ -158,25 +152,32 @@ fountainActions.parseScenes = function (output) {
 				if (scene.type === 'heading') {
 					console.log('Found heading', scene.item_index)
 					let heading = {text: scene.heading, item_index: scene.item_index}
-					tmpScene.headings.push(heading)
+					tmpScene.push(heading)
 				}
 				if (scene.type === 'action') {
 					console.log('Found action!', scene.item_index)
 					let action = {text: scene.text, item_index: scene.item_index}
-					tmpScene.actions.push(action)
+					tmpScene.push(action)
 				}
 				if (scene.type === 'dialogue-single') {
 					console.log('Found a dilaouge-single', scene.item_index)
 					// let ds = {characters: scene.characters, item_index: scene.item_index}
 
 					let ds = fountainActions.parseDialouge(scene.characters, index);
-					tmpScene.dialogue.push(ds)
-					tmpScene.dialogue = tmpScene.dialogue.filter(Boolean)
+					tmpScene.push(ds)
+					tmpScene = tmpScene.filter(Boolean)
+				}
+				if (scene.type === 'parenthetical') {
+					console.log('Found a paren!', scene.item_index)
+					let paren = {text: scene.text, item_index: scene.item_index}
+					tmpScene.push(paren)
 				}
 			}
 		})
 		
 		console.log(tmpScene)
+		parsedScenes.push(tmpScene)
+		console.log('FINAL SCENE LIST ', parsedScenes)
 	}
 
 	// for(let i = 0; i < savedScenes.length; i++ ) {
