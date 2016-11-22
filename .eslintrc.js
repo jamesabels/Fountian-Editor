@@ -1,12 +1,17 @@
-{
-  "extends": "standard",
-  "plugins": [
-    "html"
-  ],
-  "env": {
-    "jasmine": true
+module.exports = {
+  root: true,
+  parser: 'babel-eslint',
+  parserOptions: {
+    sourceType: 'module'
   },
-  "rules": {
+  env: {
+    browser: true,
+    node: true
+  },
+  plugins: [
+    'html'
+  ],
+  'rules': {
     "arrow-parens": 0,
     "generator-star-spacing": 0,
     "no-new": "off",

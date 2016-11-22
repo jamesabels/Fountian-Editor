@@ -1,29 +1,27 @@
-# simple-electron
+# feature-length
 
-> My super app
+> An electron-vue project
 
+## Build Setup
 
-## Dev
+``` bash
+# install dependencies
+npm install
 
+# serve with hot reload at localhost:9080
+npm run dev
+
+# build electron app for production
+npm run build
+
+# lint all JS/Vue component files in `app/src`
+npm run lint
+
+# run webpack in production
+npm run pack
 ```
-$ npm install
-```
+More information can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/docs/npm_scripts.html).
 
-### Run
+---
 
-```
-$ npm start
-```
-
-### Build
-
-```
-$ npm run build
-```
-
-Builds the app for OS X, Linux, and Windows, using [electron-packager](https://github.com/maxogden/electron-packager).
-
-
-## License
-
-MIT © [James Abels](http://jamesabels.net)
+This project was generated from [electron-vue](https://github.com/SimulatedGREG/electron-vue) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about this project can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).

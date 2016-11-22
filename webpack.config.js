@@ -1,95 +1,133 @@
-var webpack = require('webpack');
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-var vue = require('vue-loader');
+'use strict'
 
-module.exports = {
-	entry: './src/index.js',
-	node: {
-    	fs: "empty"
-	},
-	output: {
-		path: __dirname + "/build",
-		publicPath: '/build/',
-		filename: 'main.js'
-	},
-	devtool: '#eval-source-map',
-	target: 'atom',
-	stats: {
-		colors: true,
-		modules: true,
-		reasons: true
-	},
-	resolve: {
-		alias: {
-			vue: 'vue/dist/vue'
-		},
-		devServer: {
-    		historyApiFallback: true,
-    		noInfo: true
-  		},
-		modulesDirectories: [
-			'node_modules'
-		],
-	},
-	module: {
-		loaders: [
-			{
-        		test: /\.vue$/,
-        		 loader: 'vue-loader'
-      		},
-			{
-				test: /\.(png|jpg|gif|svg)$/,
-				loader: 'file-loader',
-				options: {
-					name: '[name].[ext]?[hash]'
-        		}
-			},
-			{
-				test: /\.js/,
-				loader: 'babel-loader',
-				exclude: /node_modules/,
-			},
-			{
-				test: /\.scss$/,
-				loader: 'style!css!sass'
-			},
-			{
-				test: /\.css$/,
-				loader: 'style-loader!css-loader'
-			}
-		]
-	},
-	plugins: [
-		new webpack.IgnorePlugin(/vertx/),
-		new BrowserSyncPlugin({
-			host: 'localhost',
-			port: 9999,
-			open: false,
-			files: ['index.html','index.css', 'build/main.js'],
-			server: {
-				baseDir: ['.']
-			}
-		})
-	]
-};
+const path = require('path')
+const pkg = require('./app/package.json')
+const settings = require('./config.js')
+const webpack = require('webpack')
 
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+let config = {
+  devtool: '#eval-source-map',
+  eslint: {
+    formatter: require('eslint-friendly-formatter')
+  },
+  entry: {
+    build: path.join(__dirname, 'app/src/main.js')
+  },
+  module: {
+    preLoaders: [],
+    loaders: [
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+      },
+      {
+        test: /\.html$/,
+        loader: 'vue-html-loader'
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        query: {
+          limit: 10000,
+          name: 'imgs/[name].[hash:7].[ext]'
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        query: {
+          limit: 10000,
+          name: 'fonts/[name].[hash:7].[ext]'
+        }
       }
+    ]
+  },
+  plugins: [
+    new ExtractTextPlugin('styles.css'),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './app/index.ejs',
+      title: settings.name
     }),
+    new webpack.NoErrorsPlugin()
+  ],
+  output: {
+    filename: '[name].js',
+    path: path.join(__dirname, 'app/dist')
+  },
+  resolve: {
+    alias: {
+      'components': path.join(__dirname, 'app/src/components'),
+      'src': path.join(__dirname, 'app/src'),
+      'vue$': 'vue/dist/vue.js'
+    },
+    extensions: ['', '.js', '.vue', '.json', '.css'],
+    fallback: [path.join(__dirname, 'app/node_modules')]
+  },
+  resolveLoader: {
+    root: path.join(__dirname, 'node_modules')
+  },
+  target: 'electron-renderer',
+  vue: {
+    loaders: {
+      sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
+      scss: 'vue-style-loader!css-loader!sass-loader'
+    }
+  }
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  /**
+   * Apply ESLint
+   */
+  if (settings.eslint) {
+    config.module.preLoaders.push(
+      {
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.vue$/,
+        loader: 'eslint-loader'
+      }
+    )
+  }
+}
+
+/**
+ * Adjust config for production settings
+ */
+if (process.env.NODE_ENV === 'production') {
+  config.devtool = ''
+
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"production"'
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
       compress: {
         warnings: false
       }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
     })
-  ])
+  )
 }
+
+module.exports = config
