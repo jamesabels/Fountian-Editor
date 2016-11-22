@@ -1,4 +1,4 @@
-<template>  
+<template>
 <div id="app" class="window">
   <header id="header" class="toolbar toolbar-header row">
     <appHeader></appheader>

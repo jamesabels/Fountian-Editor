@@ -1,5 +1,5 @@
 // Import libs
-import fountain from '../../../static/js/fountain-js.min.js'
+import fountain from '../../static/js/fountain-js.min.js'
 // import fountain from '../../../static/js/fountain.js'
 import fountainActions from '../actions/fountian_actions.js'
 const fs = require('fs')

@@ -1,0 +1,20 @@
+{
+  "name": "feature-length",
+  "version": "0.0.0",
+  "description": "An electron-vue project",
+  "main": "electron.js",
+  "dependencies": {
+    "vue": "^2.0.1",
+    "vue-electron": "^1.0.0",
+    "vue-resource": "^1.0.3",
+    "vue-router": "^2.0.0",
+    "sortablejs": "^1.4.2",
+    "vuedraggable": "^2.3.1",
+    "inspire-tree": "^1.10.5",
+    "vex-dialog": "^1.0.6",
+    "vex-js": "^3.0.0",
+    "vuex": "^2.0.0"
+  },
+  "devDependencies": {},
+  "author": "James Abels <jamesrabels@gmail.com>"
+}
