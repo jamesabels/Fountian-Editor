@@ -1,16 +1,13 @@
 <template>
 <div id="app" class="window">
-  <header id="header" class="toolbar toolbar-header row">
-    <appHeader></appheader>
-  </header>
   <div  id="main" class="window-content row">
     <div class="pane-group col-xs-12">
       <sidebar></sidebar>
     </div>
   </div>
-  <footer id="footer" class="toolbar toolbar-footer row">
+  <div class="header-wrap">
     <statusFooter></statusfooter>
-  </footer>
+  </div>
 </div>
   
 </template>
@@ -18,7 +15,6 @@
 <script>
 import Store from './store/store'
 
-import appHeader from './components/header.vue'
 import Sidebar from './components/sidebar.vue'
 import statusFooter from './components/footer.vue'
 import Page from './components/page.vue'
@@ -47,7 +43,6 @@ export default {
     }
   },
   components: {
-    appHeader,
     Sidebar,
     statusFooter,
     Page,
@@ -69,14 +64,14 @@ export default {
 
   #header {
     z-index: 9999;
-    height: 35px;
+    height: 20px;
     /*box-shadow: 0px 2px 45px -1px rgba(0,0,0,0.2);*/
   }
 
   #main {
     background-color: #999 !important;
     z-index: 1;
-    height: calc(100% - 20px - 35px);
+    height: calc(100% - 20px);
   }
 
   #sidebar {
@@ -87,11 +82,6 @@ export default {
   #editor {
     height: 100%;
     background-color: #888;
-  }
-
-  #footer {
-    z-index: 999;
-    height: 20px;
   }
 
   ul[dnd-list], ul[dnd-list] > li {

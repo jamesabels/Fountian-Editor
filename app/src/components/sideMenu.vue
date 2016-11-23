@@ -15,9 +15,6 @@
              <li class="bottom-side-menu-icon active-icon" v-on:click="">
                 <i class="icon ion-ios-pint"></i>
             </li>
-            <li class="bottom-side-menu-icon active-icon" v-on:click="">
-                <i class="icon ion-ios-chatboxes-outline"></i>
-            </li>
         </ul>
     </div>
 </template>
