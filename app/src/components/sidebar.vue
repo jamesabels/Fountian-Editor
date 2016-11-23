@@ -50,11 +50,13 @@ export default {
   },
   methods: {
     getScene (event) {
-      console.log(event.currentTarget.id)
-      Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
-      Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
-      console.log('ACTIVE SCENE ', this.publicState.scenes.active_scene)
-      console.log(this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1])
+      if (this.publicState.editor.editor_status === 'editor') {
+        Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
+        Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
+      }
+      // console.log(event.currentTarget.id)
+      // console.log('ACTIVE SCENE ', this.publicState.scenes.active_scene)
+      // console.log(this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1])
     },
   }
 }

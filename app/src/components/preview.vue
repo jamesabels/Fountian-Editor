@@ -11,7 +11,9 @@ export default {
   data () {
     return {
       privateState: {},
-      publicState: Store.state
+      publicState: Store.state,
+      scenes: Store.state.scenes.scenes,
+      active_scene: Store.state.scenes.active_scene
     }
   },
   mounted: function () {
@@ -19,9 +21,11 @@ export default {
   },
   methods: {
     updateContent: function () {
-      console.log('Active Scene ', this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene)
-      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
-      Store.dispatch('UPDATE_PREVIEW', {el: '#textPreview', value: this.publicState.script.html.script})
+      if (this.scenes.length > 1) {
+        console.log('Active Scene ', Store.state.scenes)
+        Store.dispatch('PARSE_FOUNTAIN', {value: this.scenes[this.publicState.scenes.active_scene - 1].scene})
+        Store.dispatch('UPDATE_PREVIEW', {el: '#textPreview', value: this.publicState.script.html.script})
+      }
     }
   }
 }

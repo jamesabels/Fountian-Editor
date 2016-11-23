@@ -17,11 +17,11 @@ const Store = new Vuex.Store({
   },
   modules: {
     files: FSModule,
-    editor: EditorModule,
     pdf: PDFModule,
     script: FountainModule,
     modals: ModalModule,
-    scenes: SceneModule
+    scenes: SceneModule,
+    editor: EditorModule
   }
 })
 

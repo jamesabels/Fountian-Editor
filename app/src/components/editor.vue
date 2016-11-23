@@ -1,15 +1,13 @@
 <template>
   <div>
-    <div id="preview-wrap" v-if="this.publicState.editor.preview_status">
+    <div id="preview-wrap" v-if="this.publicState.editor.editor_status === 'preview'">
       <preview></preview>
     </div>
-    <div id="index-wrap" v-if="this.publicState.editor.index_status
-    && !this.publicState.editor.preview_status">
+    <div id="index-wrap" v-if="this.publicState.editor.editor_status === 'index-cards'">
       <IndexCards/>
     </div>
     <div id="editor-wrap" 
-      v-show="!this.publicState.editor.preview_status && 
-      !this.publicState.editor.index_status">
+      v-if="this.publicState.editor.editor_status === 'editor'">
         <editorInput :activeScene='this.publicState.scenes.active_scene'></editorInput>
     </div>
   </div>
@@ -29,7 +27,8 @@ export default {
   data () {
     return {
       privateState: {},
-      publicState: Store.state
+      publicState: Store.state,
+      editor_staus: Store.state.editor.editor_status
     }
   },
   components: {

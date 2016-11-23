@@ -1,6 +1,7 @@
 const EditorModule = {
   state: {
     current_value: '',
+    editor_status: 'editor',
     preview_status: false,
     index_status: false
   },
@@ -10,6 +11,9 @@ const EditorModule = {
     },
     PREVIEW_STATE (state, payload) {
         state.preview_state = payload.value
+    },
+    EDITOR_STATE (state, payload) {
+      state.editor_status = payload.value
     }
   },
   actions: {
@@ -29,6 +33,9 @@ const EditorModule = {
     },
     UPDATE_PREVIEW_STATE (context, payload) {
       context.commit('PREVIEW_STATE', payload)
+    },
+    CHANGE_EDITOR_STATE (context, payload) {
+      context.commit('EDITOR_STATE', payload)
     }
   }
 }

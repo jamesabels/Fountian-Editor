@@ -32,32 +32,16 @@
         },
         methods: {
             toggleEditor: function () {
-                if (this.publicState.editor.preview_status) {
-                    this.publicState.editor.preview_status = false 
-                }
-                else if (this.publicState.editor.index_status) {
-                    this.publicState.editor.index_status = false
-                }
+                Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor'})
+                console.log(this.publicState.editor.editor_status)
             },
             previewFountain: function () {
-                switch (this.publicState.editor.preview_status) {
-                    case false:
-                    this.publicState.editor.preview_status = true
-                    break
-                    case true:
-                    this.publicState.editor.preview_status = false
-                    break
-                }
+                Store.dispatch('CHANGE_EDITOR_STATE', {value: 'preview'})
+                console.log(this.publicState.editor.editor_status)
             },
             toggleIndexCards: function () {
-                switch (this.publicState.editor.index_status) {
-                    case false:
-                    this.publicState.editor.index_status = true
-                    break
-                    case true:
-                    this.publicState.editor.index_status = false
-                    break
-                }
+                Store.dispatch('CHANGE_EDITOR_STATE', {value: 'index-cards'})
+                console.log(this.publicState.editor.editor_status)
             },
         }
     }
