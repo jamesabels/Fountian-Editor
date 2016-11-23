@@ -69,4 +69,20 @@ export default {
   #sceneList {
     background-color: white;
   }
+
+  #sceneList::-webkit-scrollbar-track
+  {
+    background-color: #eaeaea;
+  }
+
+  #sceneList::-webkit-scrollbar
+  {
+    width: 2px;
+    background-color: #eaeaea;
+  }
+
+  #sceneList::-webkit-scrollbar-thumb
+  {
+    background-color: #000000;
+  }
 </style>

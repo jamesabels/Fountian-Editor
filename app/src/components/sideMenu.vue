@@ -92,4 +92,5 @@
   .side-menu-icon:hover {
     background-color: teal;
   }
+  
 </style>
