@@ -1,99 +1,63 @@
 <template>
-  <header id="header" class="toolbar toolbar-header col-xs-12">
-    <div class="toolbar-actions">
-      <div class="btn-group">
-        <button class="btn btn-default" v-on:click="testModal">
-          <span class="icon icon-home"></span>
-        </button>
+  <header id="header" class="toolbar toolbar-header">
+      <div class="toolbar-actions">
+        <div class="btn-group col-xs-6">
           <button class="btn btn-default" v-on:click="openDirectory">
-          <span class="icon icon-folder"></span>
-        </button>
-          <button class="btn btn-default active">
-          <span class="icon icon-cloud"></span>
-        </button>
-          <button class="btn btn-default">
-          <span class="icon icon-popup"></span>
-        </button>
-          <button class="btn btn-default">
-          <span class="icon icon-shuffle" v-on:click="testClick"></span>
-        </button>
-        </div>
-        <button class="btn btn-default"  v-on:click="previewFountain">
-        <span class="icon icon-eye"></span>
-      </button>
+            <span class="icon icon-folder"></span>
+          </button>
+          <button class="btn btn-default" v-on:click="addScene">
+            <span class="icon icon-plus"></span>
+          </button>
+      </div>
+      <div class="btn-group col-xs-6">
         <button class="btn btn-default btn-dropdown pull-right">
-        <span class="icon icon-megaphone"></span>
-      </button>
-    <div class="btn-group">
-      <button class="btn btn-default" v-on:click="addScene">
-        <span class="icon icon-plus"></span>
-      </button>
-      <button class="btn btn-default" v-on:click="toggleIndexCards">
-        <span class="icon icon-layout"></span>
-      </button>
-      <button class="btn btn-default" v-on:click="testScenes">
-        <span class="icon icon-search"></span>
-      </button>
-    </div>
+          <span class="icon icon-megaphone"></span>
+        </button>
+      </div>
     </div>
   </header>
 </template>
 
 <script lang="babel">
-import Store from '../store/store.js'
+  import Store from '../store/store.js'
 
-export default {
-  name: 'appHeader',
-  data () {
-    return {
-      privateState: {
-        preview: false
+  export default {
+    name: 'appHeader',
+    data () {
+      return {
+        privateState: {
+          preview: false
+        },
+        publicState: Store.state
+      }
+    },
+    methods: {
+      addScene: function () {
+        Store.dispatch('ADD_SCENE_MODAL')
       },
-      publicState: Store.state
+      testModal: function () {
+        Store.dispatch('TEST_MODAL')
+      },
+      testClick: function () {
+        console.log('TESTING CLICK!!!')
+      },
+      testScenes: function () {
+        for(let i=0; Store.state.scenes.scenes.length > i; i++) {
+          console.log(Store.state.scenes.scenes[i].scene_name)
+        }
+      },
+      openDirectory: function () {
+        Store.dispatch('OPEN_FILE')
+      }
+    },
+    mounted () {
+      Store.dispatch('INIT_MODALS')
     }
-  },
-  methods: {
-    previewFountain: function () {
-      switch (this.publicState.editor.preview_status) {
-        case false:
-          this.publicState.editor.preview_status = true
-          break
-        case true:
-          this.publicState.editor.preview_status = false
-          break
-      }
-    },
-    toggleIndexCards: function () {
-      switch (this.publicState.editor.index_status) {
-        case false:
-          this.publicState.editor.index_status = true
-          break
-        case true:
-          this.publicState.editor.index_status = false
-          break
-      }
-    },
-    addScene: function () {
-      Store.dispatch('ADD_SCENE_MODAL')
-    },
-    testModal: function () {
-      Store.dispatch('TEST_MODAL')
-    },
-    testClick: function () {
-      console.log('TESTING CLICK!!!')
-    },
-    testScenes: function () {
-      for(let i=0; Store.state.scenes.scenes.length > i; i++) {
-        console.log(Store.state.scenes.scenes[i].scene_name)
-      }
-    },
-    openDirectory: function () {
-      Store.dispatch('OPEN_FILE')
-    }
-  },
-  mounted () {
-    Store.dispatch('INIT_MODALS')
   }
-}
-
 </script>
+
+<style scoped>
+  .toolbar-actions {
+    width: 100%;
+  }
+</style>

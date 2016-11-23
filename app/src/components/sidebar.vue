@@ -1,13 +1,9 @@
 <template>
   <div class="pane-group">
-    
-    <div class="sidebar col-xs-2">
-      <header class="toolbar toolbar-header">
-        <h1 class="title">Project Structure</h1>
-      </header>
-      <div id="fileTree" v-on:click="getScene"></div>
+    <div class="sidebar col-xs-1">
+      <sideMenu></sideMenu>
     </div>
-      <div id="sceneList" class="pane col-xs-2">
+      <div id="sceneList" class="pane col-xs-3">
         <div class="list-group-header" v-show="this.publicState.scenes.scenes.length > 0">
           <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
         </div>
@@ -31,6 +27,7 @@
 <script lang="babel">
 import Store from '../store/store.js'
 import Editor from './editor.vue'
+import sideMenu from './sideMenu'
 import Sortable from 'sortablejs'
 import draggable from 'vuedraggable'
 import _ from 'lodash'
@@ -44,11 +41,12 @@ export default {
     }
   },
   mounted: function () {
-    Store.dispatch('INIT_FILE_TREE')
+    // Store.dispatch('INIT_FILE_TREE')
   },
   components: {
     Editor,
-    draggable
+    draggable,
+    sideMenu
   },
   methods: {
     getScene (event) {
@@ -68,11 +66,7 @@ export default {
     padding: 0;
     width: 100%;
   }
-  #fileTree {
-    width: 90%;
-    float: left;
-    margin-left: 10%;
-  }
+
   #sceneList {
     background-color: white;
   }
