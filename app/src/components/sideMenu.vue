@@ -32,16 +32,34 @@
         },
         methods: {
             toggleEditor: function () {
-                Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor'})
                 console.log(this.publicState.editor.editor_status)
+                console.log(this.publicState.editor.previous_status)
+                
+                if (this.publicState.editor.editor_status === 'editor') {
+                    Store.dispatch('CHANGE_EDITOR_STATE', {value: this.publicState.editor.previous_status, previous: 'editor'})
+                }
+                else if (this.publicState.editor.editor_status != 'editor') {
+                    Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor', previous: this.publicState.editor.editor_status})
+                }
+
+                // Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor', previous: this.publicState.editor.editor_status})
+                // console.log(this.publicState.editor.editor_status)
             },
             previewFountain: function () {
-                Store.dispatch('CHANGE_EDITOR_STATE', {value: 'preview'})
-                console.log(this.publicState.editor.editor_status)
+                if (this.publicState.editor.editor_status === 'preview') {
+                    Store.dispatch('CHANGE_EDITOR_STATE', {value: this.publicState.editor.previous_status, previous: 'preview'})
+                }
+                else if (this.publicState.editor.editor_status != 'preview') {
+                    Store.dispatch('CHANGE_EDITOR_STATE', {value: 'preview', previous: this.publicState.editor.editor_status})
+                }
             },
             toggleIndexCards: function () {
-                Store.dispatch('CHANGE_EDITOR_STATE', {value: 'index-cards'})
-                console.log(this.publicState.editor.editor_status)
+                if (this.publicState.editor.editor_status === 'index-cards') {
+                    Store.dispatch('CHANGE_EDITOR_STATE', {value: this.publicState.editor.previous_status, previous: 'index-cards'})
+                }
+                else if (this.publicState.editor.editor_status != 'index-cards') {
+                    Store.dispatch('CHANGE_EDITOR_STATE', {value: 'index-cards', previous: this.publicState.editor.editor_status})
+                }
             },
         }
     }
