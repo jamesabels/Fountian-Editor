@@ -1,4 +1,4 @@
-<template>  
+<template>
 <div id="app" class="window">
   <header id="header" class="toolbar toolbar-header row">
     <appHeader></appheader>
@@ -42,7 +42,7 @@ export default {
       this.publicState.editor.currentValue = ''
 
       if (this.publicState.debug === true) {
-        Store.dispatch('LOAD_DEBUG_SCRIPT', '/Users/James/Desktop/simple-electron/src/store/modules/test.fountain')
+        Store.dispatch('LOAD_DEBUG_SCRIPT', './app/src/store/modules/test.fountain')
       }
     }
   },

@@ -1,6 +1,10 @@
 .DS_Store
+app/dist/index.html
+app/dist/build.js
+builds/*
+coverage
 node_modules
-/build/**.js
-/build/**.css
-/electron-packager
 npm-debug.log
+npm-debug.log.*
+thumbs.db
+!.gitkeep
