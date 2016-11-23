@@ -83,6 +83,6 @@ export default {
 
   #sceneList::-webkit-scrollbar-thumb
   {
-    background-color: #000000;
+    background-color: #111;
   }
 </style>
