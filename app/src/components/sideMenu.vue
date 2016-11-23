@@ -11,6 +11,14 @@
             <i class="icon ion-ios-film-outline"></i>
             </li>
         </ul>
+        <ul class="side-menu-list bottom-list-section">
+             <li class="bottom-side-menu-icon active-icon" v-on:click="">
+                <i class="icon ion-ios-pint"></i>
+            </li>
+            <li class="bottom-side-menu-icon active-icon" v-on:click="">
+                <i class="icon ion-ios-chatboxes-outline"></i>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -74,6 +82,8 @@
   }
 
   .side-menu-list {
+    z-index: 1;
+    position: relative;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -91,6 +101,27 @@
 
   .side-menu-icon:hover {
     background-color: teal;
+  }
+
+  .bottom-list-section {
+      position: absolute;
+      z-index: 999;
+      width: 8.34%;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-align: center;
+      bottom: 0;
+  }
+
+  .bottom-side-menu-icon {
+    color: white;
+    font-size: 3.5em;
+    margin: 0 0 0 10px;
+  }
+
+  .bottom-side-menu-icon:hover {
+      background-color: teal;
   }
   
 </style>

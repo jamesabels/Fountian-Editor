@@ -76,7 +76,7 @@ export default {
   #main {
     background-color: #999 !important;
     z-index: 1;
-    height: calc(100% - 35px - 35px);
+    height: calc(100% - 20px - 35px);
   }
 
   #sidebar {
@@ -91,7 +91,7 @@ export default {
 
   #footer {
     z-index: 999;
-    height: 35px;
+    height: 20px;
   }
 
   ul[dnd-list], ul[dnd-list] > li {

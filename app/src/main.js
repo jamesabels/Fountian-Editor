@@ -7,6 +7,7 @@ import './static/css/flexboxgrid.min.css'
 import './static/css/vex/vex.css'
 import './static/css/vex/vex-theme-os.css'
 import './static/css/ionic/css/ionicons.min.css'
+import './static/css/theme/photon-theme.css'
 
 // Import components
 import App from './App.vue'

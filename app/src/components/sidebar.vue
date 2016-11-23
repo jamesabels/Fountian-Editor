@@ -25,38 +25,37 @@
 
 
 <script lang="babel">
-import Store from '../store/store.js'
-import Editor from './editor.vue'
-import sideMenu from './sideMenu'
-import Sortable from 'sortablejs'
-import draggable from 'vuedraggable'
-import _ from 'lodash'
+  import Store from '../store/store.js'
+  import Editor from './editor.vue'
+  import sideMenu from './sideMenu'
+  import Sortable from 'sortablejs'
+  import draggable from 'vuedraggable'
+  import _ from 'lodash'
 
-export default {
-  name: 'sidebar',
-  data () {
-    return {
-      privateState: {},
-      publicState: Store.state
-    }
-  },
-  mounted: function () {
-    // Store.dispatch('INIT_FILE_TREE')
-  },
-  components: {
-    Editor,
-    draggable,
-    sideMenu
-  },
-  methods: {
-    getScene (event) {
-      if (this.publicState.editor.editor_status === 'editor') {
-        Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
-        Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
+  export default {
+    name: 'sidebar',
+    data () {
+      return {
+        privateState: {},
+        publicState: Store.state
       }
     },
+    mounted: function () {
+    },
+    components: {
+      Editor,
+      draggable,
+      sideMenu
+    },
+    methods: {
+      getScene (event) {
+        if (this.publicState.editor.editor_status === 'editor') {
+          Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
+          Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
+        }
+      },
+    }
   }
-}
 </script>
 
 <style scoped>
