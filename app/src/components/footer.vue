@@ -1,15 +1,9 @@
 <template>
   <div id="statusFooter" class="row">
-    <div class="left-footer-section col-xs-6">
-
-    </div>
-    <div class="right-footer-section col-xs-6">
+    <div class="inside-footer-section col-xs-12">
           <i class="icon ion-ios-photos status-item"> 9 Scenes</i>
-          <span class="stat-divider">|</span>
           <i class="icon ion-ios-eye status-item"> 200 Words</i>
-          <span class="stat-divider">|</span>
           <i class="icon ion-ios-book status-item"> 10 Pages</i>
-          <span class="stat-divider">|</span>
           <i class="icon ion-ios-chatboxes status-item"> Feedback</i>
     </div>
   </div>
@@ -59,8 +53,8 @@
     letter-spacing: 0.03em;
     font-weight: lighter;
     font-style: italic;
-    background-color: #222;
-    color: #999;
+    background-color: teal;
+    color: white;
     text-align: right;
     padding: 3.5px 0 0 0;
     margin: 0;
@@ -70,16 +64,17 @@
 
   .status-item {
     padding: 3px;
+    margin: 0 0 0 10px;
   }
 
   .status-item:hover {
-    color: white;
+    color: #111;
   }
   .stat-divider {
     color: #666;
   }
 
-  .left-footer-section, .right-footer-section {
+  .inside-footer-section {
     height: 20px;
   }
 </style>
