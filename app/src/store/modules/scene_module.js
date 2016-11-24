@@ -56,16 +56,16 @@ const SceneModule = {
             context.commit('SET_ACTIVE_SCENE', payload)
         },
         HIGHLIGHT_ACTIVE_SCENE ({commit, state}, payload) {
-            if (state.active_toggle) {
-                state.active_toggle = false
-                document.getElementById(payload.value).classList.add('scene-active')
-            }
-            else {
-                state.active_toggle = true
-                var x = document.querySelectorAll('.scene-list-item');
-                for (let i = 0; i < x.length; i++) {
-                    x[i].classList.remove('scene-active')
-                }
+            switch (state.active_toggle) {
+                case true:
+                    var x = document.querySelectorAll('.scene-list-item');
+                    for (let i = 0; i < x.length; i++) {
+                        x[i].classList.remove('scene-active')
+                    }
+                    state.active_toggle = false
+                case false:
+                    document.getElementById(payload.value).classList.add('scene-active')
+                    state.active_toggle = true
             }
         }
     }

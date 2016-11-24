@@ -69,19 +69,19 @@ export default {
   }
 
   #main {
-    background-color: #999 !important;
+    background-color: gainsboro !important;
     z-index: 1;
     height: calc(100% - 20px);
   }
 
   #sidebar {
     height: 100%;
-    background-color: #D2D0D2;
+    background-color: gainsboro;
   }
 
   #editor {
     height: 100%;
-    background-color: #888;
+    background-color: #222;
   }
 
   ul[dnd-list], ul[dnd-list] > li {

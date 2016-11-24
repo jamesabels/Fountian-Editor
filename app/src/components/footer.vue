@@ -53,7 +53,7 @@
     letter-spacing: 0.03em;
     font-weight: lighter;
     font-style: italic;
-    background-color: teal;
+    background-color: darkturquoise;
     color: white;
     text-align: right;
     padding: 3.5px 0 0 0;

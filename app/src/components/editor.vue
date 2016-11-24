@@ -42,10 +42,6 @@ export default {
 
 <style scoped>
 
-/*#editor-wrap {
-  background-color: #999 !important;
-}*/
-
 #preview-wrap {
   width: 100%;
   height: 100%;

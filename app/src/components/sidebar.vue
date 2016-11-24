@@ -1,6 +1,6 @@
 <template>
   <div class="pane-group">
-    <div class="sidebar col-xs-1">
+    <div class="sidebar">
       <sideMenu></sideMenu>
     </div>
       <div v-show="this.publicState.editor.editor_status === 'editor'" id="sceneList" class="pane col-xs-3">
@@ -72,44 +72,60 @@
   #editor {
     border: none;
   }
+
   .sidebar {
     margin: 0;
     padding: 0;
-    width: 100%;
+    width: 70px;
   }
   
   .scene-list-item {
     background-color: #f3f3f3;
     border: none;
-    margin-bottom: 10px;
+    padding: 0;
+    margin-top: 20px;
+    box-shadow: 9px 10px 29px 0px rgba(0,0,0,0.20);
   }
 
   .scene-list-item:hover {
-    border-right: solid 5px #111;
+    border-right: solid 5px lightsalmon;
   }
 
   .scene-active {
-    border-right: solid 5px teal;
+    border-right: solid 5px salmon;
   }
 
   .scene-title {
-    padding: 3px;
+    color: white;
+    font-size: 0.9em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.033em;
+    text-transform: uppercase;
+    background-color: #111;
+    padding: 5px;
     border-bottom: 1px solid #e6e6e6;
+    border-left: 6px solid #888;
+  }
+
+  .scene-body {
+    padding: 10px
   }
 
   #sceneList {
     background-color: white;
+    box-shadow: 9px 10px 29px 0px rgba(0,0,0,0.42);
   }
 
   #sceneList::-webkit-scrollbar-track
   {
-    background-color: #eaeaea;
+    background-color: #f3f3f3;
   }
 
   #sceneList::-webkit-scrollbar
   {
-    width: 2px;
-    background-color: #eaeaea;
+    width: 5px;
+    background-color: #f3f3f3;
   }
 
   #sceneList::-webkit-scrollbar-thumb

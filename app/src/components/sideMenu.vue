@@ -100,7 +100,7 @@
     margin: 0 0 10px 10px;
     /*background-color: #222;*/
     color: white;
-    font-size: 3.5em;
+    font-size: 3em;
   }
 
   .side-menu-icon:hover {
@@ -110,7 +110,7 @@
   .bottom-list-section {
       position: absolute;
       z-index: 999;
-      width: 8.34%;
+      width: 70px;
       padding: 0;
       margin: 0;
       list-style: none;
@@ -120,7 +120,7 @@
 
   .bottom-side-menu-icon {
     color: white;
-    font-size: 3.5em;
+    font-size: 3em;
     margin: 0 0 0 10px;
   }
 
