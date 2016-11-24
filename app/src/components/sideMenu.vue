@@ -8,12 +8,13 @@
             <i class="icon ion-ios-photos-outline"></i>
             </li>
             <li class="side-menu-icon" v-on:click="previewFountain">
-            <i class="icon ion-ios-film-outline"></i>
+                <i class="icon ion-ios-film-outline"></i>
             </li>
         </ul>
         <ul class="side-menu-list bottom-list-section">
-             <li class="bottom-side-menu-icon active-icon" v-on:click="">
-                <i class="icon ion-ios-pint"></i>
+             <li id="beerMe" class="bottom-side-menu-icon active-icon" v-on:click="fillBeer">
+                <i v-if="this.privateState.beer === false" class="icon ion-ios-pint-outline"></i>
+                <i v-else class="icon ion-ios-pint"></i>
             </li>
         </ul>
     </div>
@@ -26,7 +27,9 @@
         name: 'sideMenu',
         data () {
             return {
-                privateState: {},
+                privateState: {
+                    beer: false
+                },
                 publicState: Store.state
             }
         },
@@ -39,7 +42,7 @@
             toggleEditor: function () {
                 console.log(this.publicState.editor.editor_status)
                 console.log(this.publicState.editor.previous_status)
-                
+
                 if (this.publicState.editor.editor_status === 'editor') {
                     Store.dispatch('CHANGE_EDITOR_STATE', {value: this.publicState.editor.previous_status, previous: 'editor'})
                 }
@@ -66,6 +69,10 @@
                     Store.dispatch('CHANGE_EDITOR_STATE', {value: 'index-cards', previous: this.publicState.editor.editor_status})
                 }
             },
+            fillBeer: function () {
+                Store.dispatch('OPEN_EXTERNAL_LINK', {value: 'www.cash.me/jamesabels'})
+                this.privateState.beer = true
+            }
         }
     }
 </script>
@@ -117,8 +124,6 @@
     margin: 0 0 0 10px;
   }
 
-  .bottom-side-menu-icon:hover {
-      background-color: teal;
-  }
+  .bottom-side-menu-icon:hover {}
   
 </style>

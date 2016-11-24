@@ -3,20 +3,20 @@
     <div class="sidebar col-xs-1">
       <sideMenu></sideMenu>
     </div>
-      <div id="sceneList" class="pane col-xs-3">
+      <div v-show="this.publicState.editor.editor_status === 'editor'" id="sceneList" class="pane col-xs-3">
         <div class="list-group-header" v-show="this.publicState.scenes.scenes.length > 0">
           <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
         </div>
-        <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
-          <div v-for='(scene, index) in publicState.scenes.scenes' :id="index + 1" class="list-group-item" v-on:click="getScene" :key="index">
-            <div class="media-body">
-              <strong>{{index + 1}}. {{scene.scene_name}}</strong>
-              <p>{{scene.scene_desc}}</p>
+          <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
+            <div v-for='(scene, index) in publicState.scenes.scenes' :id="index + 1" class="list-group-item" v-on:click="getScene" :key="index">
+              <div class="media-body">
+                <strong>{{index + 1}}. {{scene.scene_name}}</strong>
+                <p>{{scene.scene_desc}}</p>
+              </div>
             </div>
-          </div>
-        </draggable>
-      </div>
-    <div id="editor" class="pane col-xs-8">
+          </draggable>
+        </div>
+    <div id="editor" class="pane col-xs-auto">
       <editor></editor>
     </div>
   </div>
@@ -59,6 +59,10 @@
 </script>
 
 <style scoped>
+
+  #editor {
+    border: none;
+  }
   .sidebar {
     margin: 0;
     padding: 0;

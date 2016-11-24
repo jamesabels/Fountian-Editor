@@ -1,6 +1,7 @@
 import Store from '../store.js'
 import vex from 'vex-js'
 import dialog from 'vex-dialog'
+import open from 'open'
 
 const ModalModule = {
   state: {},
@@ -55,6 +56,9 @@ const ModalModule = {
                 }
             }
         })
+    },
+    OPEN_EXTERNAL_LINK (context, payload) {
+        open(payload.value)
     }
   }
 }

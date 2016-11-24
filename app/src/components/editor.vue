@@ -6,8 +6,7 @@
     <div id="index-wrap" v-if="this.publicState.editor.editor_status === 'index-cards'">
       <IndexCards/>
     </div>
-    <div id="editor-wrap" 
-      v-if="this.publicState.editor.editor_status === 'editor'">
+    <div id="editor-wrap" v-if="this.publicState.editor.editor_status === 'editor'">
         <editorInput :activeScene='this.publicState.scenes.active_scene'></editorInput>
     </div>
   </div>
