@@ -1,30 +1,12 @@
 <template>
-  <div class="pane-group">
-    <div class="sidebar col-xs-1">
-      <sideMenu></sideMenu>
-    </div>
-      <div v-show="this.publicState.editor.editor_status === 'editor'" id="sceneList" class="pane col-xs-3">
-        <div class="list-group-header" v-show="this.publicState.scenes.scenes.length > 0">
-          <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
+    <div v-bind:class="{sceneActive: active_scene}" class="scene-list-item list-group-item" v-on:click="getScene">
+        <div class="scene-title">
+        <strong>{{index + 1}}. {{scene.scene_name}}</strong>
         </div>
-          <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
-            <div v-for='(scene, index) in publicState.scenes.scenes' :key="index">            
-              <div :id="index + 1" class="scene-list-item list-group-item" v-on:click="getScene">
-                <div class="scene-title">
-                  <strong>{{index + 1}}. {{scene.scene_name}}</strong>
-                </div>
-                <div class="scene-body">
-                  <p>{{scene.scene_desc}}</p>
-                </div>
-              </div>
-            </div>
-          </draggable>
+        <div class="scene-body">
+        <p>{{scene.scene_desc}}</p>
         </div>
-    <div id="editor" class="pane col-xs-auto">
-      <editor></editor>
     </div>
-  </div>
-
 </template>
 
 
@@ -37,7 +19,7 @@
   import _ from 'lodash'
 
   export default {
-    name: 'sidebar',
+    name: 'sideMenuItem',
     data () {
       return {
         active_scene: false,
@@ -53,16 +35,18 @@
       sideMenu
     },
     methods: {
-      getScene (event) {
-        // Highlight active scene
-        Store.dispatch('HIGHLIGHT_ACTIVE_SCENE', {value: event.currentTarget.id})
-        
-        // Switch to active scene 
+      setActive (event) {
+        switch(this.active_scene) {
+            case true: 
+                this.active_scene = false;
+            case false:
+                this.active_scene = true;
+        }
         if (this.publicState.editor.editor_status === 'editor') {
           Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
           Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
         }
-      }
+      },
     }
   }
 </script>
@@ -88,7 +72,7 @@
     border-right: solid 5px #111;
   }
 
-  .scene-active {
+  .sceneActive {
     border-right: solid 5px teal;
   }
 

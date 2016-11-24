@@ -1,7 +1,8 @@
 const SceneModule = {
     state: {
         scenes: [],
-        active_scene: 1
+        active_scene: 1,
+        active_toggle: false
     },
     mutations: {
         ADD_SCENE (state, payload) {
@@ -53,6 +54,19 @@ const SceneModule = {
         SET_ACTIVE_SCENE (context, payload) {
             document.querySelector(payload.el).focus()
             context.commit('SET_ACTIVE_SCENE', payload)
+        },
+        HIGHLIGHT_ACTIVE_SCENE ({commit, state}, payload) {
+            if (state.active_toggle) {
+                state.active_toggle = false
+                document.getElementById(payload.value).classList.add('scene-active')
+            }
+            else {
+                state.active_toggle = true
+                var x = document.querySelectorAll('.scene-list-item');
+                for (let i = 0; i < x.length; i++) {
+                    x[i].classList.remove('scene-active')
+                }
+            }
         }
     }
 }

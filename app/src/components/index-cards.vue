@@ -53,4 +53,7 @@ export default {
       padding: 3px;
       width: 100%
     }
+    .index-header {
+      background-color: #999;
+    }
 </style>
