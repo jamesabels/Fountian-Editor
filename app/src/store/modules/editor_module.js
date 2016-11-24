@@ -1,7 +1,7 @@
 const EditorModule = {
   state: {
     current_value: '',
-    editor_status: 'editor',
+    editor_status: 'welcome',
     previous_status: 'preview'
   },
   mutations: {

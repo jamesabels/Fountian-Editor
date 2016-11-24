@@ -5,8 +5,8 @@
       <sidebar></sidebar>
     </div>
   </div>
-  <div class="header-wrap">
-    <statusFooter></statusfooter>
+  <div class="footer-wrap">
+    <statusFooter v-if="this.publicState.editor.editor_status !== 'welcome'"></statusfooter>
   </div>
 </div>
   
@@ -55,10 +55,13 @@ export default {
 <style scoped>
   
   html, body {
+    background-color: #111;
     height: 100vh;
+    overflow: hidden;
   }
 
   #app {
+    background-color: #333;
     height: 100vh;
   }
 
@@ -86,6 +89,10 @@ export default {
 
   ul[dnd-list], ul[dnd-list] > li {
     position: relative;
+  }
+
+  .footer-wrap {
+    background-color: #111;
   }
 
 </style>

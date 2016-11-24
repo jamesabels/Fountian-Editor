@@ -40,22 +40,22 @@
         },
         methods: {
             toggleEditor: function () {
-                console.log(this.publicState.editor.editor_status)
-                console.log(this.publicState.editor.previous_status)
-
                 if (this.publicState.editor.editor_status === 'editor') {
                     Store.dispatch('CHANGE_EDITOR_STATE', {value: this.publicState.editor.previous_status, previous: 'editor'})
+                }
+                if (this.publicState.editor.previous_status === 'welcome') {
+                    Store.dispatch('CHANGE_EDITOR_STATE', {value: 'preview', previous: 'editor'})
                 }
                 else if (this.publicState.editor.editor_status != 'editor') {
                     Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor', previous: this.publicState.editor.editor_status})
                 }
-
-                // Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor', previous: this.publicState.editor.editor_status})
-                // console.log(this.publicState.editor.editor_status)
             },
             previewFountain: function () {
                 if (this.publicState.editor.editor_status === 'preview') {
                     Store.dispatch('CHANGE_EDITOR_STATE', {value: this.publicState.editor.previous_status, previous: 'preview'})
+                }
+                if  (this.publicState.editor.previous_status === 'welcome') {
+                    Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor', previous: 'preview'})
                 }
                 else if (this.publicState.editor.editor_status != 'preview') {
                     Store.dispatch('CHANGE_EDITOR_STATE', {value: 'preview', previous: this.publicState.editor.editor_status})
@@ -64,6 +64,9 @@
             toggleIndexCards: function () {
                 if (this.publicState.editor.editor_status === 'index-cards') {
                     Store.dispatch('CHANGE_EDITOR_STATE', {value: this.publicState.editor.previous_status, previous: 'index-cards'})
+                }
+                if(this.publicState.editor.previous_status === 'welcome') {
+                    Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor', previous: 'index-cards'})
                 }
                 else if (this.publicState.editor.editor_status != 'index-cards') {
                     Store.dispatch('CHANGE_EDITOR_STATE', {value: 'index-cards', previous: this.publicState.editor.editor_status})
@@ -78,6 +81,7 @@
 </script>
 
 <style scoped>
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans');
   .side-menu {
     margin: 0;
     padding: 0;

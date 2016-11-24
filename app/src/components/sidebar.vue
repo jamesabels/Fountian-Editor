@@ -1,6 +1,6 @@
 <template>
   <div class="pane-group">
-    <div class="sidebar">
+    <div v-show="this.publicState.editor.editor_status !== 'welcome'" class="sidebar">
       <sideMenu></sideMenu>
     </div>
       <div v-show="this.publicState.editor.editor_status === 'editor'" id="sceneList" class="pane col-xs-3">

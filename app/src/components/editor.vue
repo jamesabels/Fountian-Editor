@@ -9,6 +9,9 @@
     <div id="editor-wrap" v-if="this.publicState.editor.editor_status === 'editor'">
         <editorInput :activeScene='this.publicState.scenes.active_scene'></editorInput>
     </div>
+    <div id="welcome-wrap" v-if="this.publicState.editor.editor_status === 'welcome'">
+        <Welcome></Welcome>
+    </div>
   </div>
 </template>
 
@@ -20,6 +23,7 @@ import Preview from './preview.vue'
 import editorInput from './editor-input.vue'
 import IndexCards from './index-cards.vue'
 import pdfPreview from './pdf-preview.vue'
+import Welcome from './welcome.vue'
 
 export default {
   name: 'editor',
@@ -34,7 +38,8 @@ export default {
     pdfPreview,
     Preview,
     editorInput,
-    IndexCards
+    IndexCards,
+    Welcome
   }
 }
 
