@@ -1,45 +1,43 @@
 <template>
-    <div id="welcome">
-        <div class="side-panel">
+    <div id="welcome" class="row">
+        <div class="side-panel col-xs-6">
             <div class="title">Feature Length<span class="underscore">_</span></div>
-            <div class="welcome-button-group">
-            </div>
         </div>
-        <div class="action-panel">
-            <div class="welcome-button-group">
+        <div class="action-panel col-xs-6">
+            <div class="welcome-button-group row">
 
-                <div class="open-file-button welcome-action-button" v-on:click="openFile">
-                    <div class="button-icon-wrap">
+                <div class="open-file-button welcome-action-button row" v-on:click="openFile">
+                    <div class="button-icon-wrap col-xs-4">
                         <i class="icon ion-ios-folder-outline welcome-button-icon"></i>
                     </div>
-                    <div class="button-text-wrap">
+                    <div class="button-text-wrap col-xs-8">
                         <p class="button-text">Open File</p>
                     </div>
                 </div>
 
-                <div class="open-file-button welcome-action-button">
-                    <div class="button-icon-wrap">
+                <div class="open-file-button welcome-action-button row">
+                    <div class="button-icon-wrap col-xs-4">
                         <i class="icon ion-ios-paper-outline welcome-button-icon"></i>
                     </div>
-                    <div class="button-text-wrap">
+                    <div class="button-text-wrap col-xs-8">
                         <p class="button-text">New File</p>
                     </div>
                 </div>
 
-                <div class="open-file-button welcome-action-button">
-                    <div class="button-icon-wrap">
+                <div class="open-file-button welcome-action-button row">
+                    <div class="button-icon-wrap col-xs-4">
                         <i class="icon ion-ios-printer-outline welcome-button-icon"></i>
                     </div>
-                    <div class="button-text-wrap">
+                    <div class="button-text-wrap  col-xs-8">
                         <p class="button-text">Parse Script</p>
                     </div>
                 </div>
 
-                 <div class="open-file-button welcome-action-button">
-                    <div class="button-icon-wrap">
+                 <div class="open-file-button welcome-action-button row">
+                    <div class="button-icon-wrap  col-xs-4">
                         <i class="icon ion-ios-chatboxes-outline welcome-button-icon"></i>
                     </div>
-                    <div class="button-text-wrap">
+                    <div class="button-text-wrap  col-xs-8">
                         <p class="button-text">Feedback</p>
                     </div>
                 </div>
@@ -76,17 +74,19 @@ export default {
 <style>
     
 #welcome {
-    width: 100%;
+    /*width: 100%;*/
     height: calc(100vh - 20px);
     background-image: url('../static/img/welcome-bg.jpg');
     background-size: cover;
     background-color: #111;
+    margin: 0;
+    padding: 0;
 }
 
 .side-panel {
     background-color: rgba(0,0,0,0.5);
     color: white;
-    width: 50%;
+    /*width: 50%;*/
     height: calc(100vh - 20px);
     float: left;
 }
@@ -106,7 +106,7 @@ export default {
 .action-panel {
     background-color: rgba(0,0,0,0.8);
     color: white;
-    width: 50%;
+    /*width: 50%;*/
     height: calc(100vh - 20px);
     float: right;
 }
@@ -138,7 +138,7 @@ export default {
     background-color: #222;
     padding: 0;
     height: 100px;
-    width: 30%;
+    /*width: 30%;*/
     float: left;
     padding: 10px 30px 30px 30px;
 }
@@ -150,7 +150,7 @@ export default {
 .button-text-wrap {
     background-color: #444;
     float: left;
-    width: 70%;
+    /*width: 70%;*/
     height: 100px;
     /*padding: 20px;*/
 }
