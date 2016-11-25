@@ -24,7 +24,9 @@ const FSModule = {
             if ( state.filePath === null) {
                 remote.dialog.showSaveDialog(remote.getCurrentWindow(), {
                     title: 'save file'
-                }, function(url) {
+                }, function(data) {
+
+                    let url = data + '.fountain'
 
                     commit('SET_FILE_PATH', {value: url})
 
