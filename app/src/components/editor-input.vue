@@ -58,8 +58,6 @@ export default {
     updateContent: function () {
       console.log('MOUNTED!!!')
 
-      Store.dispatch('LOAD_FILE', {value: this.publicState.files.filePath})
-
       let Editor = document.querySelector('#editorInput')
 
       if (this.publicState.scenes.scenes.length > 0) {
