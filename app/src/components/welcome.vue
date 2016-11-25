@@ -13,10 +13,9 @@
                     <div class="button-text-wrap col-xs-8">
                         <p class="button-text">Open File</p>
                     </div>
-                    <input id="openFile" type="file" style="display: none" />
                 </div>
 
-                <div class="new-file-button welcome-action-button row">
+                <div class="new-file-button welcome-action-button row" v-on:click="saveFile">
                     <div class="button-icon-wrap col-xs-4">
                         <i class="icon ion-ios-paper-outline welcome-button-icon"></i>
                     </div>
@@ -57,7 +56,7 @@ export default {
   data () {
     return {
       privateState: {},
-      publicState: Store.state
+      publicState: Store.state,
     }
   },
   mounted: () => {
@@ -65,10 +64,11 @@ export default {
   },
   methods: {
       openFile: function (event) {
-        // Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor'})
-        // console.log(event)
-        Store.dispatch('OPEN_FILE', {el: 'openFile', value: 'editor'})
+        Store.dispatch('OPEN_FILE')
 
+      },
+      saveFile: function (event) {
+          Store.dispatch('SAVE_FILE', {value: 'This is a file'})
       }
   }
 }
@@ -145,7 +145,7 @@ export default {
     height: 100px;
     /*width: 30%;*/
     float: left;
-    padding: 10px 30px 30px 30px;
+    padding: 5px 30px 30px 30px;
 }
 
 .welcome-button-icon {

@@ -21,7 +21,8 @@ fountainActions.parseFountain = function (type) {
 		page_break: [],
 		transition: [],
 		synopsis: [],
-		section: []
+		section: [],
+		text: []
 	}
 	// Store fountain output
 	tempState.title = type.title
@@ -111,6 +112,12 @@ fountainActions.parseFountain = function (type) {
 				type: type.tokens[i].type,
 				text: type.tokens[i].text,
 				depth: type.tokens[i].depth
+			})
+		}
+		else {
+			tempState.text.push({
+				type: type.tokens[i].type,
+				text: type.tokens[i].text,
 			})
 		}
 	}
