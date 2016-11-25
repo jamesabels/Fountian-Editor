@@ -73,6 +73,7 @@
                 }
             },
             fillBeer: function () {
+                console.log('OPENING LINK')
                 Store.dispatch('OPEN_EXTERNAL_LINK', {value: 'www.cash.me/jamesabels'})
                 this.privateState.beer = true
             }
