@@ -58,6 +58,11 @@ const FountainModule = {
             context.dispatch('PARSE_SCENES_FROM_FILE', {value: file})
             context.dispatch('PARSE_FOUNTAIN', {value: file})
         },
+        LOAD_FOUNTAIN_FILE (context, payload) {
+            let file = fs.readFileSync(payload.value, 'utf8')
+            context.dispatch('PARSE_SCENES_FROM_FILE', {value: file})
+            context.dispatch('PARSE_FOUNTAIN', {value: file})
+        },
         // PARSE FOUNTAIN FROM STRING
         PARSE_FOUNTAIN (context, payload) {
             // Store fountain data to state

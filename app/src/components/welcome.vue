@@ -13,9 +13,10 @@
                     <div class="button-text-wrap col-xs-8">
                         <p class="button-text">Open File</p>
                     </div>
+                    <input id="openFile" type="file" style="display: none" />
                 </div>
 
-                <div class="open-file-button welcome-action-button row">
+                <div class="new-file-button welcome-action-button row">
                     <div class="button-icon-wrap col-xs-4">
                         <i class="icon ion-ios-paper-outline welcome-button-icon"></i>
                     </div>
@@ -24,7 +25,7 @@
                     </div>
                 </div>
 
-                <div class="open-file-button welcome-action-button row">
+                <div class="parse-file-button welcome-action-button row">
                     <div class="button-icon-wrap col-xs-4">
                         <i class="icon ion-ios-printer-outline welcome-button-icon"></i>
                     </div>
@@ -33,7 +34,7 @@
                     </div>
                 </div>
 
-                 <div class="open-file-button welcome-action-button row">
+                 <div class="feedback-button welcome-action-button row">
                     <div class="button-icon-wrap  col-xs-4">
                         <i class="icon ion-ios-chatboxes-outline welcome-button-icon"></i>
                     </div>
@@ -63,8 +64,11 @@ export default {
 
   },
   methods: {
-      openFile: function () {
-        Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor'})
+      openFile: function (event) {
+        // Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor'})
+        // console.log(event)
+        Store.dispatch('OPEN_FILE', {el: 'openFile', value: 'editor'})
+
       }
   }
 }
