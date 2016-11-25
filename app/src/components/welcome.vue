@@ -100,7 +100,7 @@ export default {
 }
 
 .underscore {
-    color: teal;
+    color: turquoise;
 }
 
 .action-panel {
@@ -113,15 +113,15 @@ export default {
 
 .welcome-button-group {
     margin: 0 auto;
-    margin-top: 15%;
+    margin-top: 13%;
 }
 
 .welcome-action-button {
     font-size: 0.9em;
     text-transform: uppercase;
     font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
-    letter-spacing: 0.033em;
+    font-weight: 200;
+    letter-spacing: 0.09em;
     font-size: 2.2em;
     text-align: center;
     width: 80%;
@@ -148,11 +148,12 @@ export default {
 }
 
 .button-text-wrap {
+    font-size: 0.7em;
     background-color: #444;
     float: left;
     /*width: 70%;*/
     height: 100px;
-    /*padding: 20px;*/
+    padding: 15px;
 }
 
 </style>
