@@ -65,7 +65,6 @@ export default {
   methods: {
       openFile: function (event) {
         Store.dispatch('OPEN_FILE')
-
       },
       newFile: function (event) {
           Store.dispatch('NEW_FILE')

@@ -25,6 +25,7 @@ const FountainModule = {
         transition: [],
         synopsis: [],
 		section: [],
+        script: '',
         preview_status: false
     },
     mutations: {
@@ -72,7 +73,7 @@ const FountainModule = {
         },
         PARSE_SCENES_FROM_FILE (context, payload) {
             console.log('JSON URL', payload.value)
-            
+
             let file = fs.readFileSync(payload.value, 'utf8')
             
             fountain.parseJSON(file, true, function (output) {

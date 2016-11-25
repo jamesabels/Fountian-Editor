@@ -69,7 +69,8 @@ export default {
     },
     saveFile: function () {
       console.log('SAVING FILE')
-      Store.dispatch('SAVE_FILE', {value: "THis is a file using the new file save code!"})
+      Store.dispatch('COMBINE_SCENES')
+      Store.dispatch('SAVE_FILE', {value: this.publicState.scenes.script})
     }
   }
 }
