@@ -1,16 +1,13 @@
 <template>
 <div id="app" class="window">
-  <header id="header" class="toolbar toolbar-header row">
-    <appHeader></appheader>
-  </header>
   <div  id="main" class="window-content row">
     <div class="pane-group col-xs-12">
       <sidebar></sidebar>
     </div>
   </div>
-  <footer id="footer" class="toolbar toolbar-footer row">
-    <statusFooter></statusfooter>
-  </footer>
+  <div class="footer-wrap">
+    <statusFooter v-if="this.publicState.editor.editor_status !== 'welcome'"></statusfooter>
+  </div>
 </div>
   
 </template>
@@ -18,7 +15,6 @@
 <script>
 import Store from './store/store'
 
-import appHeader from './components/header.vue'
 import Sidebar from './components/sidebar.vue'
 import statusFooter from './components/footer.vue'
 import Page from './components/page.vue'
@@ -47,7 +43,6 @@ export default {
     }
   },
   components: {
-    appHeader,
     Sidebar,
     statusFooter,
     Page,
@@ -60,42 +55,43 @@ export default {
 <style scoped>
   
   html, body {
+    background-color: #111;
     height: 100vh;
+    overflow: hidden;
   }
 
   #app {
+    background-color: #333;
     height: 100vh;
   }
 
   #header {
     z-index: 9999;
-    height: 35px;
-    /*box-shadow: 0px 2px 45px -1px rgba(0,0,0,0.2);*/
+    height: 20px;
   }
 
   #main {
-    background-color: #999 !important;
+    background-color: gainsboro !important;
     z-index: 1;
-    height: calc(100% - 35px - 35px);
+    height: calc(100% - 20px);
   }
 
   #sidebar {
     height: 100%;
-    background-color: #D2D0D2;
+    background-color: gainsboro;
   }
 
   #editor {
     height: 100%;
-    background-color: #888;
-  }
-
-  #footer {
-    z-index: 999;
-    height: 35px;
+    background-color: #222;
   }
 
   ul[dnd-list], ul[dnd-list] > li {
     position: relative;
+  }
+
+  .footer-wrap {
+    background-color: #111;
   }
 
 </style>

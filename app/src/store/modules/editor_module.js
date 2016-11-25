@@ -1,15 +1,16 @@
 const EditorModule = {
   state: {
     current_value: '',
-    preview_status: false,
-    index_status: false
+    editor_status: 'welcome',
+    previous_status: 'preview'
   },
   mutations: {
     CURRENT_VALUE (state, payload) {
         state.current_value = payload.value
     },
-    PREVIEW_STATE (state, payload) {
-        state.preview_state = payload.value
+    EDITOR_STATE (state, payload) {
+      state.editor_status = payload.value
+      state.previous_status = payload.previous
     }
   },
   actions: {
@@ -27,8 +28,8 @@ const EditorModule = {
         Editor.innerHTML = ''
         Editor.innerHTML = payload.value
     },
-    UPDATE_PREVIEW_STATE (context, payload) {
-      context.commit('PREVIEW_STATE', payload)
+    CHANGE_EDITOR_STATE (context, payload) {
+      context.commit('EDITOR_STATE', payload)
     }
   }
 }
