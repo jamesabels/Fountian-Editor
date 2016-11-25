@@ -87,7 +87,7 @@ export default {
     background-color: rgba(0,0,0,0.5);
     color: white;
     /*width: 50%;*/
-    height: calc(100vh - 20px);
+    /*height: calc(100vh - 20px);*/
     float: left;
 }
 
@@ -96,7 +96,7 @@ export default {
     color: white;
     font-size: 3em;
     letter-spacing: 0.1em;
-    margin-top: 40%;
+    margin-top: 20vh;
 }
 
 .underscore {
@@ -107,13 +107,14 @@ export default {
     background-color: rgba(0,0,0,0.8);
     color: white;
     /*width: 50%;*/
-    height: calc(100vh - 20px);
+    /*height: calc(100vh - 20px);*/
     float: right;
 }
 
 .welcome-button-group {
+    position: absolute;
     margin: 0 auto;
-    margin-top: 13%;
+    margin-top: 5vh;
 }
 
 .welcome-action-button {
@@ -127,7 +128,7 @@ export default {
     width: 80%;
     height: 100px;
     margin: 0 auto;
-    margin-bottom: 5%;
+    margin-bottom: 5vh;
 }
 
 .welcome-action-button:hover {
