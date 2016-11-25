@@ -1,6 +1,14 @@
 <template>
   <div class="editor-wrap">
-    <textarea v-show="this.publicState.scenes.scenes.length > 0"  name="editorInput" id="editorInput" cols="30" rows="50" @input="getValue"></textarea>
+    <textarea 
+      v-show="this.publicState.scenes.scenes.length > 0"  
+      name="editorInput" 
+      id="editorInput" 
+      cols="30" 
+      rows="50" 
+      @input="getValue"
+      v-on:keyup.112="saveFile">
+      </textarea>
     <h1 class="new-scene-message" v-show="this.publicState.scenes.scenes.length === 0">Please add a new scene</h1>
   </div>
 </template>
@@ -61,6 +69,10 @@ export default {
     
       console.log('Getting Tokens!', this.publicState.script.tokens)
     },
+    saveFile: function () {
+      console.log('SAVING FILE')
+      Store.dispatch('SAVE_FILE', {value: "THis is a file using the new file save code!"})
+    }
   }
 }
 

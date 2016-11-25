@@ -3,7 +3,7 @@ const fs = require('fs')
 
 const FSModule = {
   state: {
-    filePath: ''
+    filePath: null
   },
   mutations: {
     SET_FILE_PATH (state, payload) {
@@ -20,31 +20,34 @@ const FSModule = {
             context.dispatch('CHANGE_EDITOR_STATE', {value: 'editor'})
         })
     },
-    SAVE_FILE (context, payload) {
-        remote.dialog.showSaveDialog(remote.getCurrentWindow(), {
-            title: 'save file'
-        }, function(url) {
+    SAVE_FILE ({commit, state}, payload) {   
+            if ( state.filePath === null) {
+                remote.dialog.showSaveDialog(remote.getCurrentWindow(), {
+                    title: 'save file'
+                }, function(url) {
 
-            console.log('CONTENT', payload.value)
+                    commit('SET_FILE_PATH', {value: url})
 
-            console.log('SAVE FILE URL', url)
+                    fs.writeFile(url, payload.value, function (err) {
+                        if (err) {
+                            console.log(err)
+                        }
+                    })
 
-            context.commit('SET_FILE_PATH', {value: url})
-
-            fs.writeFile(url, '', function (err) {
-                if (err) {
-                    console.log(err)
-                }
-            })
-
-            console.log('The file was saved!')
-
-            context.dispatch('CHANGE_EDITOR_STATE', {value: 'editor'})
-        })
+                    console.log('The file was saved!')
+                })        
+            }
+            else {
+                fs.writeFile(state.filePath, payload.value, function (err) {
+                    if (err) {
+                        console.log(err)
+                    }
+                })
+                console.log('The file was saved!')
+            }
     },
-    LOAD_FILE (context, payload) {
-        console.log('LOADING FILE', payload.value)
-        context.dispatch('LOAD_FOUNTAIN_FILE', {value: payload.value})
+    NEW_FILE (context, payload) {
+        context.dispatch('CHANGE_EDITOR_STATE', {value: 'editor'})
     }
   }
 }

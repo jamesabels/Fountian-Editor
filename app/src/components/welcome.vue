@@ -15,7 +15,7 @@
                     </div>
                 </div>
 
-                <div class="new-file-button welcome-action-button row" v-on:click="saveFile">
+                <div class="new-file-button welcome-action-button row" v-on:click="newFile">
                     <div class="button-icon-wrap col-xs-4">
                         <i class="icon ion-ios-paper-outline welcome-button-icon"></i>
                     </div>
@@ -67,8 +67,9 @@ export default {
         Store.dispatch('OPEN_FILE')
 
       },
-      saveFile: function (event) {
-          Store.dispatch('SAVE_FILE', {value: 'This is a file'})
+      newFile: function (event) {
+          Store.dispatch('NEW_FILE')
+          Store.dispatch('ADD_SCENE', {scene_name: 'Scene One', scene_desc: 'Please add a short description', scene: ''})
       }
   }
 }
