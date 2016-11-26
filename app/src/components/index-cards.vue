@@ -1,11 +1,11 @@
 <template>
-    <draggable id="sortableIndexCards" class="dragArea row" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
+    <draggable id="sortableIndexCards" class="dragArea list-group row" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
     <div
     v-for='(scene, index) in publicState.scenes.scenes' 
     :id="index + 1"
-    class="index-card col-xs-auto"
+    class="index-card list-group-item col-xs-auto"
     :key="index">
-      <div class="index-header">
+      <div class="index-header ">
         <strong>{{index + 1}}. {{scene.scene_name}}</strong>
       </div>
       <div class="index-card-wrap">
@@ -48,8 +48,7 @@ export default {
       margin-top: 30px;
     }
     .index-card-wrap {
-      width: 100%;
-      max-width: 300px;
+      width: 300px;
       background-color: white;
       padding: 20px;
       height: 100px;
@@ -69,6 +68,7 @@ export default {
     }
     
     .index-header {
+      width: 300px;
       height: 40px;
       padding: 10px;
       font-size: 0.9em;
