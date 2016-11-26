@@ -78,6 +78,7 @@ const FountainModule = {
             
             fountain.parseJSON(file, true, function (output) {
                 var scenes = fountainActions.parseScenes(output)
+                var title = fountainActions.parseTile(output)
                 scenes.forEach(function(element, index) {
                     context.commit('ADD_SCENE', element)
                 })
