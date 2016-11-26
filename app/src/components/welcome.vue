@@ -15,7 +15,7 @@
                     </div>
                 </div>
 
-                <div class="open-file-button welcome-action-button row">
+                <div class="new-file-button welcome-action-button row" v-on:click="newFile">
                     <div class="button-icon-wrap col-xs-4">
                         <i class="icon ion-ios-paper-outline welcome-button-icon"></i>
                     </div>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
 
-                <div class="open-file-button welcome-action-button row">
+                <div class="parse-file-button welcome-action-button row">
                     <div class="button-icon-wrap col-xs-4">
                         <i class="icon ion-ios-printer-outline welcome-button-icon"></i>
                     </div>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                 <div class="open-file-button welcome-action-button row">
+                 <div class="feedback-button welcome-action-button row">
                     <div class="button-icon-wrap  col-xs-4">
                         <i class="icon ion-ios-chatboxes-outline welcome-button-icon"></i>
                     </div>
@@ -56,15 +56,19 @@ export default {
   data () {
     return {
       privateState: {},
-      publicState: Store.state
+      publicState: Store.state,
     }
   },
   mounted: () => {
 
   },
   methods: {
-      openFile: function () {
-        Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor'})
+      openFile: function (event) {
+        Store.dispatch('OPEN_FILE')
+      },
+      newFile: function (event) {
+          Store.dispatch('NEW_FILE')
+          Store.dispatch('ADD_SCENE', {scene_name: 'Scene One', scene_desc: 'Please add a short description', scene: ''})
       }
   }
 }
@@ -141,7 +145,7 @@ export default {
     height: 100px;
     /*width: 30%;*/
     float: left;
-    padding: 10px 30px 30px 30px;
+    padding: 5px 30px 30px 30px;
 }
 
 .welcome-button-icon {

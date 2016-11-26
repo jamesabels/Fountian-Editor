@@ -25,6 +25,7 @@ const FountainModule = {
         transition: [],
         synopsis: [],
 		section: [],
+        script: '',
         preview_status: false
     },
     mutations: {
@@ -52,11 +53,13 @@ const FountainModule = {
     },
     actions: {
         LOAD_DEBUG_SCRIPT (context, script) {
-            // let file = 'brick&steel.fountain'
-
-            let file = fs.readFileSync(script, 'utf8')
-            context.dispatch('PARSE_SCENES_FROM_FILE', {value: file})
-            context.dispatch('PARSE_FOUNTAIN', {value: file})
+            context.dispatch('PARSE_SCENES_FROM_FILE', {value: script})
+            context.dispatch('PARSE_FOUNTAIN', {value: script})
+        },
+        LOAD_FOUNTAIN_FILE (context, payload) {
+            console.log(payload.value)
+            context.dispatch('PARSE_SCENES_FROM_FILE', {value: payload.value})
+            context.dispatch('PARSE_FOUNTAIN', {value: payload.value})
         },
         // PARSE FOUNTAIN FROM STRING
         PARSE_FOUNTAIN (context, payload) {
@@ -69,19 +72,15 @@ const FountainModule = {
             })
         },
         PARSE_SCENES_FROM_FILE (context, payload) {
-            fountain.parseJSON(payload.value, true, function (output) {
-                // console.log(output)
+            console.log('JSON URL', payload.value)
+
+            let file = fs.readFileSync(payload.value, 'utf8')
+            
+            fountain.parseJSON(file, true, function (output) {
                 var scenes = fountainActions.parseScenes(output)
-
-                // console.log('Parsed Scenes! ', scenes)
-
                 scenes.forEach(function(element, index) {
                     context.commit('ADD_SCENE', element)
                 })
-
-                // context.commit('PARSE_SCRIPT', {
-                //     value: fountainActions.parseFountain(output)
-                // })
             })
         }
     }

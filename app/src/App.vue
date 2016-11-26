@@ -38,7 +38,7 @@ export default {
       this.publicState.editor.currentValue = ''
 
       if (this.publicState.debug === true) {
-        Store.dispatch('LOAD_DEBUG_SCRIPT', './app/src/store/modules/test.fountain')
+        // Store.dispatch('LOAD_DEBUG_SCRIPT', './app/src/store/modules/test.fountain')
       }
     }
   },

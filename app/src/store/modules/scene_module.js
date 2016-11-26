@@ -2,7 +2,8 @@ const SceneModule = {
     state: {
         scenes: [],
         active_scene: 1,
-        active_toggle: false
+        active_toggle: false,
+        script: ''
     },
     mutations: {
         ADD_SCENE (state, payload) {
@@ -14,6 +15,9 @@ const SceneModule = {
         },
         SET_ACTIVE_SCENE (state, payload) {
             state.active_scene = payload.value
+        },
+        SET_COMBINED_SCRIPT (state, payload) {
+            state.script = payload.value
         }
     },
     actions: {
@@ -67,6 +71,19 @@ const SceneModule = {
                     document.getElementById(payload.value).classList.add('scene-active')
                     state.active_toggle = true
             }
+        },
+        COMBINE_SCENES ({commit, state}) {
+             console.log('SCRIPTS', state.scenes)
+
+             let script = []
+
+             state.scenes.forEach(function (scene, index) {
+                script.push(scene.scene)
+             })
+
+             console.log('SCRIPT ARRAY', script)
+
+             commit('SET_COMBINED_SCRIPT', {value: script.join('')})
         }
     }
 }

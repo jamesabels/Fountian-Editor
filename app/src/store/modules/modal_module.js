@@ -1,3 +1,5 @@
+const {BrowserWindow} = require('electron').remote
+
 import Store from '../store.js'
 import vex from 'vex-js'
 import dialog from 'vex-dialog'
@@ -45,7 +47,9 @@ const ModalModule = {
         })
     },
     OPEN_EXTERNAL_LINK (context, payload) {
-        open(payload.value)
+        // open(payload.value)
+        // let win = new BrowserWindow({width: 800, height: 600})
+        // win.loadURL('www.google.com')
     }
   }
 }
