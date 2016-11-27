@@ -77,10 +77,15 @@ const FountainModule = {
             let file = fs.readFileSync(payload.value, 'utf8')
             
             fountain.parseJSON(file, true, function (output) {
-                var scenes = fountainActions.parseScenes(output)
-                scenes.forEach(function(element, index) {
-                    context.commit('ADD_SCENE', element)
-                })
+                // var scenes = fountainActions.parseScenes(output)
+                var pages = fountainActions.parsePages(output)
+                var script = fountainActions.parseLines(pages)
+
+                console.log(script)
+
+                for (let i in script) {
+                    context.commit('ADD_SCENE', script[i])
+                }
             })
         }
     }
