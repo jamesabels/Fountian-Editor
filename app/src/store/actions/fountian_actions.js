@@ -288,6 +288,10 @@ fountainActions.parseScenes = function (output) {
 					let ds = fountainActions.parseDialouge(scene.characters, index, scene.type);
 					tmpScene.push(ds)
 				}
+				if (scene.type === 'dialogue-double') {
+					let dd = fountainActions.parseDialouge(scene.characters, index, scene.type);
+					tmpScene.push(dd.reverse())
+				}
 				if (scene.type === 'parenthetical') {
 					let paren = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
 					tmpScene.push(paren)
@@ -402,8 +406,12 @@ fountainActions.parseLines = function (scenes) {
 					parsedScene.scene.push(scene.text + "\n\n")
 				}
 				else if (scene.type === 'dialogue-single') {
-					parsedScene.scene.push(scene.name + "\n")
 					parsedScene.scene.push(scene.text + "\n\n")
+					parsedScene.scene.push(scene.name + "\n")
+				}
+				else if (scene.type === 'dialogue-double') {
+					parsedScene.scene.push(scene.text + "\n\n")
+					parsedScene.scene.push(scene.name + "\n")
 				}
 				else if (scene.type === 'parenthetical') {
 					parsedScene.scene.push(scene.text + "\n\n")
@@ -432,7 +440,7 @@ fountainActions.parseLines = function (scenes) {
 		})
 		
 		// console.log(parsedScene.scene.join("\n"))
-		parsedScene.scene = fountainActions.stripHTML(parsedScene.scene.join(""))
+		parsedScene.scene = fountainActions.stripHTML(parsedScene.scene.reverse().join(""))
 
 		if (parsedScene.scene !== '') {
 			parsedScenes.push(parsedScene)
@@ -459,8 +467,8 @@ fountainActions.parseDialouge = function (charArray, index, type) {
 	// console.log('CXHAR ARRAY ', charArray)
 
 	ds = {
-		name: "",
-		text: "",
+		name: '',
+		text: '',
 		dialouge_index: 0,
 		type: type,
 		scene_number: index + 1
