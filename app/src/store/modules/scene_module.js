@@ -56,7 +56,6 @@ const SceneModule = {
             commit('UPDATE_SCENE', scene)
         },
         SET_ACTIVE_SCENE (context, payload) {
-            document.querySelector(payload.el).focus()
             context.commit('SET_ACTIVE_SCENE', payload)
         },
         HIGHLIGHT_ACTIVE_SCENE ({commit, state}, payload) {

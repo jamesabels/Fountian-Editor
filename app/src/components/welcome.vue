@@ -79,7 +79,7 @@ export default {
     
 #welcome {
     /*width: 100%;*/
-    height: calc(100vh - 20px);
+    height: 100vh;
     background-image: url('../static/img/welcome-bg.jpg');
     background-size: cover;
     background-color: #111;

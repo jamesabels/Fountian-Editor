@@ -16,6 +16,8 @@
 
 <script lang="babel">
 import Store from '../store/store.js'
+const {remote} = require('electron')
+const {Menu, MenuItem} = remote
 
 export default {
   name: 'editorInput',
@@ -32,6 +34,7 @@ export default {
   },
   mounted: function () {
     this.updateContent()
+    this.contextMenu()
   },
   watch: {
     activeScene: function (val, oldVal) {
@@ -71,6 +74,20 @@ export default {
       console.log('SAVING FILE')
       Store.dispatch('COMBINE_SCENES')
       Store.dispatch('SAVE_FILE', {value: this.publicState.scenes.script})
+    },
+    contextMenu: function () {
+      console.log('INALIZING MENU!!!')
+      const menu = new Menu()
+
+      if (Store.state.editor.editor_staus !== 'welcome') {
+        menu.append(new MenuItem({label: 'Add Scene', click() { Store.dispatch('ADD_SCENE_MODAL') }}))
+        menu.append(new MenuItem({type: 'separator'}))
+
+        window.addEventListener('contextmenu', (e) => {
+          e.preventDefault()
+          menu.popup(remote.getCurrentWindow())
+        }, false)
+      }
     }
   }
 }

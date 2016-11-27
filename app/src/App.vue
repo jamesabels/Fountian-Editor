@@ -5,7 +5,7 @@
       <sidebar></sidebar>
     </div>
   </div>
-  <div class="footer-wrap">
+  <div v-show="this.publicState.editor.editor_status !== 'welcome'" class="footer-wrap">
     <statusFooter v-if="this.publicState.editor.editor_status !== 'welcome'"></statusfooter>
   </div>
 </div>
@@ -20,6 +20,7 @@ import statusFooter from './components/footer.vue'
 import Page from './components/page.vue'
 import Editor from './components/editor.vue'
 import Preview from './components/preview.vue'
+import Header from './components/header.vue'
 
 export default {
   name: 'app',
@@ -47,7 +48,8 @@ export default {
     statusFooter,
     Page,
     Editor,
-    Preview
+    Preview,
+    Header
   }
 }
 </script>
@@ -67,13 +69,13 @@ export default {
 
   #header {
     z-index: 9999;
-    height: 20px;
+    width: 100%;
   }
 
   #main {
     background-color: gainsboro !important;
     z-index: 1;
-    height: calc(100% - 20px);
+    height: 100%;
   }
 
   #sidebar {
@@ -88,6 +90,11 @@ export default {
 
   ul[dnd-list], ul[dnd-list] > li {
     position: relative;
+  }
+
+  .header-wrap {
+    background-color: hotpink;
+    height: 100px;
   }
 
   .footer-wrap {

@@ -24,6 +24,7 @@ import editorInput from './editor-input.vue'
 import IndexCards from './index-cards.vue'
 import pdfPreview from './pdf-preview.vue'
 import Welcome from './welcome.vue'
+import Header from './header.vue'
 
 export default {
   name: 'editor',
@@ -34,12 +35,17 @@ export default {
       editor_staus: Store.state.editor.editor_status
     }
   },
+  mounted: function () {
+  },
   components: {
     pdfPreview,
     Preview,
     editorInput,
     IndexCards,
-    Welcome
+    Welcome,
+    Header
+  },
+  methods: {
   }
 }
 
