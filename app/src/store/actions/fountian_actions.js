@@ -360,7 +360,7 @@ fountainActions.parseScenes = function (scenes) {
 			}
 		})
 		
-		tmpScene.scene = fountainActions.stripHTML(tmpScene.scene.filter(Boolean).reverse().join(""))
+		tmpScene.scene = fountainActions.stripHTML(tmpScene.scene.filter(Boolean).reverse().join("\n"))
 		tmpScene.scene_desc = tmpScene.scene
 		parsedScenes.push(tmpScene)
 	}
