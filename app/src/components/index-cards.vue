@@ -1,9 +1,10 @@
 <template>
-    <draggable id="sortableIndexCards" class="dragArea list-group row" :list="this.publicState.pages.pages" :options="{group:'people'}">
+    <draggable id="sortableIndexCards" class="dragArea list-group sortable-card row" :list="this.publicState.pages.pages" :options="{group:'people'}">
     <div
     v-for='(page, index) in publicState.pages.pages' 
     :id="index + 1"
     class="index-card list-group-item col-xs-auto"
+    v-on:click="getPage"
     :key="index">
       <div class="index-header ">
         <strong>{{index + 1}}. {{page.page_name}}</strong>
@@ -33,6 +34,12 @@ export default {
   mounted: function () {
   },
   methods: {
+     getPage (event) {
+        // Highlight active scene
+        Store.dispatch('SET_ACTIVE_PAGE', {value: event.currentTarget.id})
+        Store.dispatch('HIGHLIGHT_ACTIVE_PAGE', {value: event.currentTarget.id})
+        console.log(event.currentTarget.id)
+      }
   },
   components: {
     draggable
@@ -64,7 +71,7 @@ export default {
     }
 
     .index-active {
-
+       border-bottom: solid 5px salmon;
     }
     
     .index-header {

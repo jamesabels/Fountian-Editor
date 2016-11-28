@@ -4,8 +4,8 @@
       <sideMenu></sideMenu>
     </div>
       <div v-show="this.publicState.editor.editor_status === 'editor' || this.publicState.debug === true" id="sceneList" class="pane col-xs-3">
-          <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.pages.pages" :options="{group:'people'}">
-            <div v-for='(scene, index) in publicState.pages.pages[1].scenes' :key="index">            
+          <draggable id="sortableSceneList" class="dragArea list-group" :options="{group:'people'}">
+            <div v-for='(scene, index) in this.publicState.pages.pages[this.publicState.pages.active_page - 1].scenes' :key="index">            
               <div :id="index + 1" class="scene-list-item list-group-item" v-on:click="getScene">
                 <div class="scene-title">
                   <strong>{{index + 1}}. {{scene.scene_name}}</strong>
@@ -55,7 +55,7 @@
         Store.dispatch('HIGHLIGHT_ACTIVE_SCENE', {value: event.currentTarget.id})
         Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor', previous: 'index-cards'})
         Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
-        
+
         // Switch to active scene 
         // if (this.publicState.editor.editor_status === 'editor') {
         //   Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})

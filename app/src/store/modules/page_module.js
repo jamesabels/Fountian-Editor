@@ -3,7 +3,8 @@ const PageModule = {
         pages: [],
         active_page: 1,
         active_scene: 1,
-        active_toggle: false,
+        active_scene_toggle: false,
+        active_page_toggle: false,
         text: ''
     },
     mutations: {
@@ -70,29 +71,29 @@ const PageModule = {
             context.commit('SET_ACTIVE_SCENE', payload)
         },
         HIGHLIGHT_ACTIVE_PAGE ({commit, state}, payload) {
-            switch (state.active_toggle) {
+            switch (state.active_page_toggle) {
                 case true:
-                    var x = document.querySelectorAll('.scene-list-item');
+                    var x = document.querySelectorAll('.index-card');
                     for (let i = 0; i < x.length; i++) {
-                        x[i].classList.remove('scene-active')
+                        x[i].classList.remove('index-active')
                     }
-                    state.active_toggle = false
+                    state.active_page_toggle = false
                 case false:
-                    document.getElementById(payload.value).classList.add('scene-active')
-                    state.active_toggle = true
+                    document.getElementById(payload.value).classList.add('index-active')
+                    state.active_page_toggle = true
             }
         },
         HIGHLIGHT_ACTIVE_SCENE ({commit, state}, payload) {
-            switch (state.active_toggle) {
+            switch (state.active_scene_toggle) {
                 case true:
                     var x = document.querySelectorAll('.scene-list-item');
                     for (let i = 0; i < x.length; i++) {
                         x[i].classList.remove('scene-active')
                     }
-                    state.active_toggle = false
+                    state.active_scene_toggle = false
                 case false:
                     document.getElementById(payload.value).classList.add('scene-active')
-                    state.active_toggle = true
+                    state.active_scene_toggle = true
             }
         },
         COMBINE_PAGE ({commit, state}) {
