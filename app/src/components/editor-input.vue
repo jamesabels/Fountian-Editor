@@ -54,7 +54,7 @@ export default {
         scene_index: this.publicState.pages.active_scene - 1,
         scene: this.publicState.editor.current_value
       })
-      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.pages.pages[this.publicState.pages.active_page - 1].text})
+      Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.pages.pages[this.publicState.pages.active_page - 1].scenes[this.publicState.pages.active_scene - 1].scene})
 
       console.log('NEW STATE ', this.publicState.script.html.script)
       console.log('FRONT END HTML ', scriptHtml)
@@ -68,7 +68,7 @@ export default {
         console.log('CURRENT SCENE', this.publicState.pages.pages[this.publicState.pages.active_page - 1].scenes[this.publicState.pages.active_scene - 1].scene)
 
         Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.pages.pages[this.publicState.pages.active_page - 1].scenes[this.publicState.pages.active_scene - 1].scene})
-        Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.pages.pages[this.publicState.pages.active_page - 1].text})        
+        Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.pages.pages[this.publicState.pages.active_page - 1].scenes[this.publicState.pages.active_scene - 1].scene})        
       }
     
       console.log('Getting Tokens!', this.publicState.script.tokens)

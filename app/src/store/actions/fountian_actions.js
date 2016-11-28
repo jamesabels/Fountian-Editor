@@ -264,7 +264,8 @@ fountainActions.parsePages = function (output) {
 		page_number: 0,
 		page_name: '',
 		page_desc: '',
-		tokens: []
+		tokens: [],
+		text: ''
 	}
 
 	output.tokens.forEach(function(token, index) {
@@ -284,7 +285,8 @@ fountainActions.parsePages = function (output) {
 				page_number: 0,
 				page_name: '',
 				page_desc: '',
-				tokens: []
+				tokens: [],
+				text: ''
 			}
 		}
 	})
@@ -419,7 +421,7 @@ fountainActions.parseLines = function (token) {
 		return token.heading + "\n\n"
 	}
 	else if (token.type === 'action') {
-		return token.text + "\n\n"
+		return token.text + "\n"
 	}
 	else if (token.type === 'character') {
 		return token.text
@@ -440,7 +442,7 @@ fountainActions.parseLines = function (token) {
 		console.log('Found a', token.type)
 	}
 	else if (token.type === 'dialogue_end') {
-		return "\n"
+		return
 	}
 	else if (token.type === 'parenthetical') {
 		return token.text + "\n"
