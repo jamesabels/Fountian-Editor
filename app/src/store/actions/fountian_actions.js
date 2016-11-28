@@ -254,8 +254,10 @@ fountainActions.parseTile = function (pages) {
 fountainActions.parsePages = function (output) {
 
 	console.log('RAW FOUNTAIN OUTPUT', output)
+
+	output.tokens = output.tokens.reverse()
 	
-	var page_break = 1;
+	var page_break = 0;
 	var pages;
 	var page;
 
@@ -291,12 +293,12 @@ fountainActions.parsePages = function (output) {
 		}
 	})
 
-	page.text = fountainActions.stripHTML(page.tokens.filter(Boolean).reverse().join("\n"))
+	page.text = fountainActions.stripHTML(page.tokens.filter(Boolean).join("\n"))
 	pages.push(page)
 
 	// var scenes = fountainActions.parseScenes(pages)
 
-	console.log('RETURNING PAGES', pages)
+	console.log('RETURNING PAGES', pages.reverse())
 
 	return pages
 }
