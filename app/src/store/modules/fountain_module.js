@@ -86,9 +86,36 @@ const FountainModule = {
                 console.log('PREPARE TO ADD PAGES', pages)
 
                 pages.forEach(function (page, index) {
-                    console.log('ADDING PAGE', page)
-                    context.commit('ADD_PAGE', page)
+                    console.log('ADDING PAGE', {
+                        page_name: page.page_name, 
+                        page_desc: page.page_desc, 
+                        tokens: page.tokens, 
+                        text: page.text, 
+                        scenes: fountain.parseJSON(page.text, true, function (output) {
+                            console.log('OUTPUT!', output)
+                            console.log('SCENES!!', output.script.scenes)
+                            return fountainActions.parseScenes(output.script.scenes)
+                        })
+                    })
+                    context.commit('ADD_PAGE', {
+                        page_name: page.page_name, 
+                        page_desc: page.page_desc, 
+                        tokens: page.tokens, 
+                        text: page.text, 
+                        scenes: fountain.parseJSON(page.text, true, function (output) {
+                            console.log('OUTPUT!', output)
+                            console.log('SCENES!!', output.script.scenes)
+                            return fountainActions.parseScenes(output.script.scenes)
+                        })
+                    })
                 })
+            })
+        },
+        PARSE_SCENES (context, payload) {
+            fountain.parseJSON(payload.value, true, function (output) {
+                console.log('OUTPUT!', output)
+                console.log('SCENES!!', output.script.scenes)
+                return output.script.scenes
             })
         }
     }

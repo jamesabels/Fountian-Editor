@@ -5,13 +5,13 @@
     </div>
       <div v-show="this.publicState.editor.editor_status === 'editor' || this.publicState.debug === true" id="sceneList" class="pane col-xs-3">
           <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.pages.pages" :options="{group:'people'}">
-            <div v-for='(token, index) in publicState.pages.pages[publicState.pages.active_page - 1].tokens' :key="index">            
+            <div v-for='(scene, index) in publicState.pages.pages[1].scenes' :key="index">            
               <div :id="index + 1" class="scene-list-item list-group-item" v-on:click="getScene">
                 <div class="scene-title">
-                  <strong>{{index + 1}}. {{token.text}}</strong>
+                  <strong>{{index + 1}}. {{scene.scene_name}}</strong>
                 </div>
                 <div class="scene-body">
-                  <p>{{token.text}}</p>
+                  <p>{{scene.scene_desc}}</p>
                 </div>
               </div>
             </div>

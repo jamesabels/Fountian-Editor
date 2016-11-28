@@ -4,7 +4,7 @@ const PageModule = {
         active_page: 1,
         active_scene: 1,
         active_toggle: false,
-        parsed_page: ''
+        text: ''
     },
     mutations: {
         ADD_PAGE (state, payload) {
