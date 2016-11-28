@@ -52,9 +52,9 @@ const FountainModule = {
         }
     },
     actions: {
-        LOAD_DEBUG_SCRIPT (context, script) {
-            context.dispatch('PARSE_SCENES_FROM_FILE', {value: script})
-            context.dispatch('PARSE_FOUNTAIN', {value: script})
+        LOAD_DEBUG_SCRIPT (context, payload) {
+            context.dispatch('PARSE_SCENES_FROM_FILE', {value: payload.value})
+            context.dispatch('PARSE_FOUNTAIN', {value: payload.value})
         },
         LOAD_FOUNTAIN_FILE (context, payload) {
             console.log(payload.value)
@@ -79,13 +79,16 @@ const FountainModule = {
             fountain.parseJSON(file, true, function (output) {
                 // var scenes = fountainActions.parseScenes(output)
                 var pages = fountainActions.parsePages(output)
-                var script = fountainActions.parseLines(pages)
+                // var script = fountainActions.parseLines(pages)
 
-                console.log(script)
+                // console.log(script)
+                
+                console.log('PREPARE TO ADD PAGES', pages)
 
-                for (let i in script) {
-                    context.commit('ADD_SCENE', script[i])
-                }
+                pages.forEach(function (page, index) {
+                    console.log('ADDING PAGE', page)
+                    context.commit('ADD_PAGE', page)
+                })
             })
         }
     }

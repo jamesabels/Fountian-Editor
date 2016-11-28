@@ -1,16 +1,16 @@
 <template>
-    <draggable id="sortableIndexCards" class="dragArea list-group row" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
+    <draggable id="sortableIndexCards" class="dragArea list-group row" :list="this.publicState.pages.pages" :options="{group:'people'}">
     <div
-    v-for='(scene, index) in publicState.scenes.scenes' 
+    v-for='(page, index) in publicState.pages.pages' 
     :id="index + 1"
     class="index-card list-group-item col-xs-auto"
     :key="index">
       <div class="index-header ">
-        <strong>{{index + 1}}. {{scene.scene_name}}</strong>
+        <strong>{{index + 1}}. {{page.page_name}}</strong>
       </div>
       <div class="index-card-wrap">
         <div class="index-card-body">
-          <p>{{scene.scene_desc}}</p>
+          <p>{{page.page_desc}}</p>
         </div>
       </div>
   </div>

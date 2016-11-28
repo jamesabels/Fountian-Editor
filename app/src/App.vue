@@ -5,8 +5,8 @@
       <sidebar></sidebar>
     </div>
   </div>
-  <div v-show="this.publicState.editor.editor_status !== 'welcome'" class="footer-wrap">
-    <statusFooter v-if="this.publicState.editor.editor_status !== 'welcome'"></statusfooter>
+  <div v-show="this.publicState.editor.editor_status !== 'welcome' || this.publicState.debug === true" class="footer-wrap">
+    <statusFooter v-if="this.publicState.editor.editor_status !== 'welcome' || this.publicState.debug === true"></statusfooter>
   </div>
 </div>
   
@@ -39,7 +39,7 @@ export default {
       this.publicState.editor.currentValue = ''
 
       if (this.publicState.debug === true) {
-        // Store.dispatch('LOAD_DEBUG_SCRIPT', './app/src/store/modules/test.fountain')
+        Store.dispatch('LOAD_DEBUG_SCRIPT', {value: './app/src/static/scripts/bigfish.fountain'})
       }
     }
   },

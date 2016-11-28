@@ -253,29 +253,45 @@ fountainActions.parseTile = function (pages) {
 
 fountainActions.parsePages = function (output) {
 	
+	var page_break = 1;
 	var pages;
 	var page;
 
 	pages = []
-	page = []
+	page = {
+		page_number: 0,
+		page_name: '',
+		page_desc: '',
+		tokens: []
+	}
 
 	output.tokens.forEach(function(token, index) {
 
 		if(token.type !== 'page_break') {
-			page.push(token)	
+			page.page_number = page_break
+			page.page_name = 'Page ' + page_break
+			page.page_desc = 'This is page ' + page_break
+			page.tokens.push(token)
 		}
 		else {
+			page_break = page_break + 1
 			pages.push(page)
-			page = []
+			page = {
+				page_number: 0,
+				page_name: '',
+				page_desc: '',
+				tokens: []
+			}
 		}
-
 	})
 
 	pages.push(page)
 
-	var scenes = fountainActions.parseScenes(pages)
+	// var scenes = fountainActions.parseScenes(pages)
 
-	return scenes
+	console.log('RETURNING PAGES', pages)
+
+	return pages
 }
 
 fountainActions.parseScenes = function (pages) {
@@ -291,17 +307,18 @@ fountainActions.parseScenes = function (pages) {
 	// Push script title page 
 	// parsedScenes.push(fountainActions.parseTile(pages))
 
-	for(let i = 0; i < pages.length; i++ ) {
-		savedScenes.push(pages[i])
-		savedScenes[i].forEach(function(scene, index) {
-			scene.scene_number = i
-			scene.item_index = index
-		})
-	}
+	// for(let i = 0; i < pages.length; i++ ) {
+		
+	pages.forEach(function (page, index) {
+		savedScenes.push(page)
+	})
+		
+		// savedScenes.push(pages[0][i])
+	// }
 
 	for(let i = 0; i < savedScenes.length; i++ ) {
 		tmpScene = []
-		savedScenes[i].forEach(function(scene, index) {
+		savedScenes[i].scenes.forEach(function(scene, index) {
 			
 			if (scene.type !== undefined) {
 				if (scene.type !== 'dialogue-single' || scene.type !== 'dialogue-double') {
@@ -339,18 +356,18 @@ fountainActions.parseLines = function (scenes) {
 	let parsedScene;
 	let titleScene;
 
-	// console.log('Parsing Scenes', scenes)
+	console.log('Parsing RAW Scenes', scenes)
 	
-	titleScene = {
-		scene_name: 'Title Page',
-		scene_desc: 'The title page of the script',
-		scene_type: '',
-		scene_heading: '',
-		scene_number: 0,
-		scene: []
-	}
+	// titleScene = {
+	// 	scene_name: 'Title Page',
+	// 	scene_desc: 'The title page of the script',
+	// 	scene_type: '',
+	// 	scene_heading: '',
+	// 	scene_number: 0,
+	// 	scene: []
+	// }
 	
-	for(let i = 0; i < scenes.length; i++) {
+	// for(let i = 0; i < scenes.length; i++) {
 			// console.log('SCENE NUMBER ', i)
 			// console.log('SCENE ', scenes)
 			// console.log('CURRENT SCENE', scenes[i])
@@ -364,33 +381,43 @@ fountainActions.parseLines = function (scenes) {
 				scene: []
 			}
 
-			scenes[i].forEach(function(scene, index) {
+			scenes.forEach(function(scene, index) {
+
+				// parsedScene = {
+				// 	scene_name: 'Please add a scene name',
+				// 	scene_desc: 'Please add a short description.',
+				// 	scene_type: 'scene',
+				// 	scene_heading: '',
+				// 	scene_number: 0,
+				// 	scene: []
+				// }
+
 				if (scene.type === 'title') {
-					titleScene.scene.push(scene.text + "\n\n")
+					parsedScene.scene.push(scene.text + "\n\n")
 				}
 				else if (scene.type === 'credit') {
-					titleScene.scene.push(scene.text + "\n\n")
+					parsedScene.scene.push(scene.text + "\n\n")
 				}
 				else if (scene.type === 'author') {
-					titleScene.scene.push(scene.text + "\n\n")
+					parsedScene.scene.push(scene.text + "\n\n")
 				}
 				else if (scene.type === 'date') {
-					titleScene.scene.push(scene.text + "\n\n")
+					parsedScene.scene.push(scene.text + "\n\n")
 				}
 				else if (scene.type === 'copyright') {
-					titleScene.scene.push(scene.text + "\n\n")
+					parsedScene.scene.push(scene.text + "\n\n")
 				}
 				else if (scene.type === 'draft_date') {
-					titleScene.scene.push(scene.text + "\n\n")
+					parsedScene.scene.push(scene.text + "\n\n")
 				}
 				else if (scene.type === 'note') {
-					titleScene.scene.push(scene.text + "\n\n")
+					parsedScene.scene.push(scene.text + "\n\n")
 				}
 				else if (scene.type === 'source') {
-					titleScene.scene.push(scene.text + "\n\n")
+					parsedScene.scene.push(scene.text + "\n\n")
 				}
 				else if (scene.type === 'contact') {
-					titleScene.scene.push(scene.text + "\n\n")
+					parsedScene.scene.push(scene.text + "\n\n")
 				}
 				else if (scene.type === 'scene_heading') {
 					parsedScene.scene_name = scene.text
@@ -448,17 +475,20 @@ fountainActions.parseLines = function (scenes) {
 		else {
 			console.log('FOUND EMPTY SCENE', parsedScene)
 		}
-	}
 
-	titleScene.scene = fountainActions.stripHTML(titleScene.scene.reverse().join(""))
-	parsedTitle.push(titleScene)
+		console.log('RETURING PAGES SCENES', parsedScenes)
+		return parsedScenes
+	// }
+
+	// // titleScene.scene = fountainActions.stripHTML(titleScene.scene.reverse().join(""))
+	// // parsedTitle.push(titleScene)
 	
-	let parsedScript = parsedTitle.concat(parsedScenes)
-	// console.log('PARSED SCENE', parsedScene.scene)
-	// console.log("PARSED SCENES WITH TITLE PAGE!!", parsedScript)
+	// // let parsedScript = parsedTitle.concat(parsedScenes)
+	// // console.log('PARSED SCENE', parsedScene.scene)
+	// // console.log("PARSED SCENES WITH TITLE PAGE!!", parsedScript)
 
-	console.log('PARSED SCRIPT', parsedScript)
-	return parsedScript
+	// console.log('PARSED SCRIPT', parsedScript)
+	// return parsedScript
 }
 
 fountainActions.parseDialouge = function (charArray, index, type) {

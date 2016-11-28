@@ -7,7 +7,7 @@
       <IndexCards/>
     </div>
     <div id="editor-wrap" v-if="this.publicState.editor.editor_status === 'editor'">
-        <editorInput :activeScene='this.publicState.scenes.active_scene'></editorInput>
+        <editorInput :activeScene='this.publicState.pages.active_scene'></editorInput>
     </div>
     <div id="welcome-wrap" v-if="this.publicState.editor.editor_status === 'welcome'">
         <Welcome></Welcome>

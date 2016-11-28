@@ -1,17 +1,17 @@
 <template>
   <div class="pane-group">
-    <div v-show="this.publicState.editor.editor_status !== 'welcome'" class="sidebar">
+    <div v-show="this.publicState.editor.editor_status !== 'welcome' || this.publicState.debug === true" class="sidebar">
       <sideMenu></sideMenu>
     </div>
-      <div v-show="this.publicState.editor.editor_status === 'editor'" id="sceneList" class="pane col-xs-3">
-          <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
-            <div v-for='(scene, index) in publicState.scenes.scenes' :key="index">            
+      <div v-show="this.publicState.editor.editor_status === 'editor' || this.publicState.debug === true" id="sceneList" class="pane col-xs-3">
+          <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.pages.pages" :options="{group:'people'}">
+            <div v-for='(token, index) in publicState.pages.pages[publicState.pages.active_page - 1].tokens' :key="index">            
               <div :id="index + 1" class="scene-list-item list-group-item" v-on:click="getScene">
                 <div class="scene-title">
-                  <strong>{{index + 1}}. {{scene.scene_name}}</strong>
+                  <strong>{{index + 1}}. {{token.text}}</strong>
                 </div>
                 <div class="scene-body">
-                  <p>{{scene.scene_desc}}</p>
+                  <p>{{token.text}}</p>
                 </div>
               </div>
             </div>
@@ -53,12 +53,14 @@
       getScene (event) {
         // Highlight active scene
         Store.dispatch('HIGHLIGHT_ACTIVE_SCENE', {value: event.currentTarget.id})
+        Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor', previous: 'index-cards'})
+        Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
         
         // Switch to active scene 
-        if (this.publicState.editor.editor_status === 'editor') {
-          Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
-          Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
-        }
+        // if (this.publicState.editor.editor_status === 'editor') {
+        //   Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
+        //   Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.pages.pages[this.publicState.scenes.active_scene - 1].scene})
+        // }
       }
     }
   }
