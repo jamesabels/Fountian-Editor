@@ -277,7 +277,8 @@ fountainActions.parsePages = function (output) {
 		}
 		else {
 			page_break = page_break + 1
-			page.text = fountainActions.stripHTML(page.tokens.join(""))
+			page.text = fountainActions.stripHTML(page.tokens.join("\n"))
+			page.tokens.push(fountainActions.parseLines(token))
 			pages.push(page)
 			page = {
 				page_number: 0,
@@ -288,7 +289,7 @@ fountainActions.parsePages = function (output) {
 		}
 	})
 
-	page.text = fountainActions.stripHTML(page.tokens.join(""))
+	page.text = fountainActions.stripHTML(page.tokens.filter(Boolean).reverse().join("\n"))
 	pages.push(page)
 
 	// var scenes = fountainActions.parseScenes(pages)
@@ -343,14 +344,14 @@ fountainActions.parseScenes = function (scenes) {
 				if (token.type === 'dialogue-single') {
 					let ds = fountainActions.parseDialouge(token.characters, index, token.type);
 					if (ds !== null) {
-						tmpScene.scene.push(ds.text)
+						tmpScene.scene.push(ds.text  + '\n')
 						tmpScene.scene.push(ds.name)
 					}
 				}
 				if (token.type === 'dialogue-double') {
 					let dd = fountainActions.parseDialouge(token.characters, index, token.type);
 					if (dd !== null) {
-						tmpScene.scene.push(dd.text)
+						tmpScene.scene.push(dd.text  + '\n')
 						tmpScene.scene.push(dd.name)
 					}
 				}
@@ -360,7 +361,7 @@ fountainActions.parseScenes = function (scenes) {
 			}
 		})
 		
-		tmpScene.scene = fountainActions.stripHTML(tmpScene.scene.filter(Boolean).reverse().join("\n"))
+		tmpScene.scene = fountainActions.stripHTML(tmpScene.scene.filter(Boolean).join("\n"))
 		tmpScene.scene_desc = tmpScene.scene
 		parsedScenes.push(tmpScene)
 	}
@@ -380,6 +381,10 @@ fountainActions.parseLines = function (token) {
 
 	// console.log('Parsing RAW Token', token)
 
+	if (undefined) {
+		console.log('Found undefined', token)
+		return
+	}
 	if (token.type === 'title') {
 		return token.text + "\n\n"
 	}
@@ -411,13 +416,13 @@ fountainActions.parseLines = function (token) {
 		return token.text + "\n\n"
 	}
 	else if (token.type === 'heading') {
-		return token.text + "\n\n"
+		return token.heading + "\n\n"
 	}
 	else if (token.type === 'action') {
 		return token.text + "\n\n"
 	}
 	else if (token.type === 'character') {
-		return token.text + "\n"
+		return token.text
 	}
 	else if (token.type === 'dialogue') {
 		return token.text + "\n"
