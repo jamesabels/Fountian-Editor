@@ -22,7 +22,7 @@ export default {
       if (this.publicState.pages.pages[this.publicState.pages.active_page - 1].scenes.length > 1) {
         console.log('Active Scene ', Store.state.scenes)
         Store.dispatch('PARSE_FOUNTAIN', {value: this.publicState.pages.pages[this.publicState.pages.active_page - 1].scenes[this.publicState.pages.active_scene - 1].scene})
-        Store.dispatch('UPDATE_PREVIEW', {el: '#textPreview', value: this.publicState.script.html.script})
+        Store.dispatch('UPDATE_PREVIEW', {el: '#textPreview', value: this.publicState.pages.pages[this.publicState.pages.active_page - 1].html})
       }
     }
   }

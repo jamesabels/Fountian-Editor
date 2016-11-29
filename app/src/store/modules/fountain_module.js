@@ -82,6 +82,8 @@ const FountainModule = {
                 // var script = fountainActions.parseLines(pages)
 
                 // console.log(script)
+
+                // console.log('FILE!!!!', file)
                 
                 console.log('PREPARE TO ADD PAGES', pages)
 
@@ -95,7 +97,8 @@ const FountainModule = {
                             console.log('OUTPUT!', output)
                             console.log('SCENES!!', output.script.scenes)
                             return fountainActions.parseScenes(output.script.scenes)
-                        })
+                        }),
+                        html: page.html
                     })
                     context.commit('ADD_PAGE', {
                         page_name: page.page_name, 
@@ -106,7 +109,8 @@ const FountainModule = {
                             console.log('OUTPUT!', output)
                             console.log('SCENES!!', output.script.scenes)
                             return fountainActions.parseScenes(output.script.scenes)
-                        })
+                        }),
+                        html: page.html
                     })
                 })
             })

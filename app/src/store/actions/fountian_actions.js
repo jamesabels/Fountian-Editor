@@ -1,3 +1,4 @@
+import fountain from '../../static/js/fountain-js.min.js'
 const fountainActions = {}
 
 fountainActions.parseFountain = function (type) {
@@ -255,7 +256,7 @@ fountainActions.parsePages = function (output) {
 
 	console.log('RAW FOUNTAIN OUTPUT', output)
 
-	output.tokens = output.tokens.reverse()
+	// output.tokens = output.tokens.reverse()
 	
 	var page_break = 0;
 	var pages;
@@ -263,42 +264,51 @@ fountainActions.parsePages = function (output) {
 
 	pages = []
 	page = {
-		page_number: 0,
+		page_number: null,
 		page_name: '',
 		page_desc: '',
 		tokens: [],
-		text: ''
+		text: '',
+		html: ''
 	}
 
 	output.tokens.forEach(function(token, index) {
 
 		if(token.type !== 'page_break') {
-			page.page_number = page_break
-			page.page_name = 'Page ' + page_break
-			page.page_desc = 'This is page ' + page_break
+			page.page_name = 'Please add a page title'
+			page.page_desc = 'Please add a page description'
 			page.tokens.push(fountainActions.parseLines(token))
 		}
 		else {
-			page_break = page_break + 1
-			page.text = fountainActions.stripHTML(page.tokens.join("\n"))
+			page.text = fountainActions.stripHTML(page.tokens.filter(Boolean).reverse().join("\n"))
+			page.html = fountain.parse(fountainActions.stripHTML(page.tokens.filter(Boolean).join("\n")), true, function (output) {
+				console.log('OUTPUT!', output)
+				return output.html.script
+			}),
 			page.tokens.push(fountainActions.parseLines(token))
 			pages.push(page)
 			page = {
-				page_number: 0,
+				page_number: page_break,
 				page_name: '',
 				page_desc: '',
 				tokens: [],
-				text: ''
+				text: '',
+				html: ''
 			}
 		}
 	})
 
-	page.text = fountainActions.stripHTML(page.tokens.filter(Boolean).join("\n"))
+	page.text = fountainActions.stripHTML(page.tokens.filter(Boolean).reverse().join("\n"))
+	page.html = fountain.parse(fountainActions.stripHTML(page.tokens.filter(Boolean).join("\n")), true, function (output) {
+		console.log('OUTPUT!', output)
+		return  output.html.script
+	}),
 	pages.push(page)
+	pages = pages
 
 	// var scenes = fountainActions.parseScenes(pages)
 
-	console.log('RETURNING PAGES', pages.reverse())
+	console.log('RETURNING PAGES', pages)
 
 	return pages
 }
@@ -310,6 +320,8 @@ fountainActions.parseScenes = function (scenes) {
 	let savedScenes = []
 	let savedItems = []
 	let parsedScenes = []
+
+	// scenes = scenes.reverse()
 
 	var tmpScene;
 
@@ -365,7 +377,7 @@ fountainActions.parseScenes = function (scenes) {
 			}
 		})
 		
-		tmpScene.scene = fountainActions.stripHTML(tmpScene.scene.filter(Boolean).join("\n"))
+		tmpScene.scene = fountainActions.stripHTML(tmpScene.scene.filter(Boolean).join(""))
 		tmpScene.scene_desc = tmpScene.scene
 		parsedScenes.push(tmpScene)
 	}
@@ -390,46 +402,46 @@ fountainActions.parseLines = function (token) {
 		return
 	}
 	if (token.type === 'title') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'credit') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'author') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'date') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'copyright') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'draft_date') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'note') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'source') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'contact') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'scene_heading') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'heading') {
-		return token.heading + "\n\n"
+		return token.heading + " \n"
 	}
 	else if (token.type === 'action') {
-		return token.text + "\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'character') {
 		return token.text
 	}
 	else if (token.type === 'dialogue') {
-		return token.text + "\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'dialogue-single') {
 		console.log('Found a', token.type)
@@ -444,28 +456,28 @@ fountainActions.parseLines = function (token) {
 		console.log('Found a', token.type)
 	}
 	else if (token.type === 'dialogue_end') {
-		return
+		return " \n"
 	}
 	else if (token.type === 'parenthetical') {
-		return token.text + "\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'notes') {
-		return 'NOTE: ' + token.text + "\n\n"
+		return 'NOTE: ' + token.text + " \n"
 	}
 	else if (token.type === 'centered') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'transition') {
-		return token.text + "\n\n"
+		return token.text + " \n\n"
 	}
 	else if (token.type === 'synopsis') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else if (token.type === 'page_break') {
-		return token.text + "\n\n"
+		return '====' + " \n"
 	}
 	else if (token.type === 'section') {
-		return token.text + "\n\n"
+		return token.text + " \n"
 	}
 	else {
 		console.warn('UNKNOWN SCENE TYPE', token)
