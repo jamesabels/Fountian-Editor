@@ -1,16 +1,17 @@
 <template>
-    <draggable id="sortableIndexCards" class="dragArea row" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
+    <draggable id="sortableIndexCards" class="dragArea list-group sortable-card row" :list="this.publicState.pages.pages" :options="{group:'people'}">
     <div
-    v-for='(scene, index) in publicState.scenes.scenes' 
+    v-for='(page, index) in publicState.pages.pages' 
     :id="index + 1"
-    class="index-card col-xs-auto"
+    class="index-card list-group-item col-xs-auto"
+    v-on:click="getPage"
     :key="index">
-      <div class="index-header">
-        <strong>{{index + 1}}. {{scene.scene_name}}</strong>
+      <div class="index-header ">
+        <strong>{{index + 1}}. {{page.page_name}}</strong>
       </div>
       <div class="index-card-wrap">
         <div class="index-card-body">
-          <p>{{scene.scene_desc}}</p>
+          <p>{{page.page_desc}}</p>
         </div>
       </div>
   </div>
@@ -33,6 +34,12 @@ export default {
   mounted: function () {
   },
   methods: {
+     getPage (event) {
+        // Highlight active scene
+        Store.dispatch('SET_ACTIVE_PAGE', {value: event.currentTarget.id})
+        Store.dispatch('HIGHLIGHT_ACTIVE_PAGE', {value: event.currentTarget.id})
+        console.log(event.currentTarget.id)
+      }
   },
   components: {
     draggable
@@ -48,8 +55,7 @@ export default {
       margin-top: 30px;
     }
     .index-card-wrap {
-      width: 100%;
-      max-width: 300px;
+      width: 300px;
       background-color: white;
       padding: 20px;
       height: 100px;
@@ -65,10 +71,11 @@ export default {
     }
 
     .index-active {
-
+       border-bottom: solid 5px salmon;
     }
     
     .index-header {
+      width: 300px;
       height: 40px;
       padding: 10px;
       font-size: 0.9em;

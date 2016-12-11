@@ -52,9 +52,9 @@ const FountainModule = {
         }
     },
     actions: {
-        LOAD_DEBUG_SCRIPT (context, script) {
-            context.dispatch('PARSE_SCENES_FROM_FILE', {value: script})
-            context.dispatch('PARSE_FOUNTAIN', {value: script})
+        LOAD_DEBUG_SCRIPT (context, payload) {
+            context.dispatch('PARSE_SCENES_FROM_FILE', {value: payload.value})
+            context.dispatch('PARSE_FOUNTAIN', {value: payload.value})
         },
         LOAD_FOUNTAIN_FILE (context, payload) {
             console.log(payload.value)
@@ -77,10 +77,49 @@ const FountainModule = {
             let file = fs.readFileSync(payload.value, 'utf8')
             
             fountain.parseJSON(file, true, function (output) {
-                var scenes = fountainActions.parseScenes(output)
-                scenes.forEach(function(element, index) {
-                    context.commit('ADD_SCENE', element)
+                // var scenes = fountainActions.parseScenes(output)
+                var pages = fountainActions.parsePages(output)
+                // var script = fountainActions.parseLines(pages)
+
+                // console.log(script)
+
+                // console.log('FILE!!!!', file)
+                
+                console.log('PREPARE TO ADD PAGES', pages)
+
+                pages.forEach(function (page, index) {
+                    console.log('ADDING PAGE', {
+                        page_name: page.page_name, 
+                        page_desc: page.page_desc, 
+                        tokens: page.tokens, 
+                        text: page.text, 
+                        scenes: fountain.parseJSON(page.text, true, function (output) {
+                            console.log('OUTPUT!', output)
+                            console.log('SCENES!!', output.script.scenes)
+                            return fountainActions.parseScenes(output.script.scenes)
+                        }),
+                        html: page.html
+                    })
+                    context.commit('ADD_PAGE', {
+                        page_name: page.page_name, 
+                        page_desc: page.page_desc, 
+                        tokens: page.tokens, 
+                        text: page.text, 
+                        scenes: fountain.parseJSON(page.text, true, function (output) {
+                            console.log('OUTPUT!', output)
+                            console.log('SCENES!!', output.script.scenes)
+                            return fountainActions.parseScenes(output.script.scenes)
+                        }),
+                        html: page.html
+                    })
                 })
+            })
+        },
+        PARSE_SCENES (context, payload) {
+            fountain.parseJSON(payload.value, true, function (output) {
+                console.log('OUTPUT!', output)
+                console.log('SCENES!!', output.script.scenes)
+                return output.script.scenes
             })
         }
     }

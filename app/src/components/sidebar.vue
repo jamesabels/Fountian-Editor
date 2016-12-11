@@ -1,14 +1,11 @@
 <template>
   <div class="pane-group">
-    <div v-show="this.publicState.editor.editor_status !== 'welcome'" class="sidebar">
+    <div v-show="this.publicState.editor.editor_status !== 'welcome' || this.publicState.debug === true" class="sidebar">
       <sideMenu></sideMenu>
     </div>
-      <div v-show="this.publicState.editor.editor_status === 'editor'" id="sceneList" class="pane col-xs-3">
-        <div class="list-group-header" v-show="this.publicState.scenes.scenes.length > 0">
-          <input id="sceneSearch" class="form-control" type="text" placeholder="Search Scenes">
-        </div>
-          <draggable id="sortableSceneList" class="dragArea list-group" :list="this.publicState.scenes.scenes" :options="{group:'people'}">
-            <div v-for='(scene, index) in publicState.scenes.scenes' :key="index">            
+      <div v-show="this.publicState.editor.editor_status === 'editor' || this.publicState.debug === true" id="sceneList" class="pane col-xs-3">
+          <draggable id="sortableSceneList" class="dragArea list-group" :options="{group:'people'}">
+            <div v-for='(scene, index) in this.publicState.pages.pages[this.publicState.pages.active_page - 1].scenes' :key="index">            
               <div :id="index + 1" class="scene-list-item list-group-item" v-on:click="getScene">
                 <div class="scene-title">
                   <strong>{{index + 1}}. {{scene.scene_name}}</strong>
@@ -56,12 +53,14 @@
       getScene (event) {
         // Highlight active scene
         Store.dispatch('HIGHLIGHT_ACTIVE_SCENE', {value: event.currentTarget.id})
-        
+        Store.dispatch('CHANGE_EDITOR_STATE', {value: 'editor', previous: 'index-cards'})
+        Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
+
         // Switch to active scene 
-        if (this.publicState.editor.editor_status === 'editor') {
-          Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
-          Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.scenes.scenes[this.publicState.scenes.active_scene - 1].scene})
-        }
+        // if (this.publicState.editor.editor_status === 'editor') {
+        //   Store.dispatch('SET_ACTIVE_SCENE', {el: '#editorInput', value: event.currentTarget.id})
+        //   Store.dispatch('INIT_EDITOR', {el: '#editorInput', value: this.publicState.pages.pages[this.publicState.scenes.active_scene - 1].scene})
+        // }
       }
     }
   }
@@ -78,7 +77,7 @@
     padding: 0;
     width: 70px;
   }
-  
+
   .scene-list-item {
     background-color: #f3f3f3;
     border: none;

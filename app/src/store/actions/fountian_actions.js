@@ -1,3 +1,4 @@
+import fountain from '../../static/js/fountain-js.min.js'
 const fountainActions = {}
 
 fountainActions.parseFountain = function (type) {
@@ -128,7 +129,7 @@ fountainActions.parseFountain = function (type) {
 				text: type.tokens[i].text
 			})
 		}
-		if (type.tokens[i].type === 'note') {
+		if (type.tokens[i].type === 'notes') {
 			tempState.notes.push({
 				type: type.tokens[i].type,
 				text: type.tokens[i].text
@@ -176,145 +177,199 @@ fountainActions.parseFountain = function (type) {
 	return tempState
 }
 
-fountainActions.parseTile = function (output) {
+fountainActions.parseTile = function (pages) {
 
 	let titlePage = []
 
-	console.log('PARSING OUTPUT FOR TITLES', output)
+	console.log('PARSING OUTPUT FOR TITLES', pages)
 
 	
+	pages.forEach(function (scene, index) {
+		token.forEach(function (scene, index) {
+			console.log('SCENES!!!', scene)
+			if (token.type !== 'title') {
+					token.title.forEach(function (title, index) {
+					let tmpTitle = {text: title, type: 'title', scene_number: 0}
+					titlePage.push(tmpTitle)
+				})
+			}
+			if (token.credit !== undefined) {
+					token.credit.forEach(function (credit, index) {
+					let tmpCredit = {text: credit, type: 'credit', scene_number: 0}
+					titlePage.push(tmpCredit)
+				})
+			}
+			if (token.authors !== undefined) {
+					token.authors.forEach(function (author, index) {
+					let tmpAuthor = {text: author, type: 'author', scene_number: 0}
+					titlePage.push(tmpAuthor)
+				})
+			}
+			if (token.contact !== undefined) { 
+					token.contact.forEach(function (contact, index) {
+					let tmpContact = {text: contact, type: 'contact', scene_number: 0}
+					titlePage.push(tmpContact)
+				})
+			}
+			if (token.source !== undefined) { 
+					token.source.forEach(function (source, index) {
+					let tmpSource = {text: source, type: 'source', scene_number: 0}
+					titlePage.push(tmpSource)
+				})
+			}
+			if (token.copyright !== undefined) { 
+					token.copyright.forEach(function (copyright, index) {
+					let tmpCopyright = {text: copyright, type: 'copyright', scene_number: 0}
+					titlePage.push(tmpCopyright)
+				})
+			}
+			if (token.note !== undefined) { 
+					token.note.forEach(function (note, index) {
+					let tmpNote = {text: note, type: 'note', scene_number: 0}
+					titlePage.push(tmpNote)
+				})
+			}
+			if (token.draft_date !== undefined) { 
+					token.draft_date.forEach(function (date, index) {
+					let tmpDraft = {text: date, type: 'draft_date', scene_number: 0}
+					titlePage.push(tmpDraft)
+				})
+			}
+			if (token.date !== undefined) { 
+					token.date.forEach(function (date, index) {
+					let tmpDate = {text: date, type: 'date', scene_number: 0}
+					titlePage.push(tmpDate)
+				})
+			}
 
-	if (output.title_page.title !== undefined) {
-		output.title_page.title.forEach(function (title, index) {
-			let tmpTitle = {text: title, type: 'title', scene_number: 0}
-			titlePage.push(tmpTitle)
 		})
-	}
-	if (output.title_page.credit !== undefined) {
-		output.title_page.credit.forEach(function (credit, index) {
-			let tmpCredit = {text: credit, type: 'credit', scene_number: 0}
-			titlePage.push(tmpCredit)
-		})
-	}
-	if (output.title_page.authors !== undefined) {
-		output.title_page.authors.forEach(function (author, index) {
-			let tmpAuthor = {text: author, type: 'author', scene_number: 0}
-			titlePage.push(tmpAuthor)
-		})
-	}
-	if (output.title_page.contact !== undefined) { 
-		output.title_page.contact.forEach(function (contact, index) {
-			let tmpContact = {text: contact, type: 'contact', scene_number: 0}
-			titlePage.push(tmpContact)
-		})
-	}
-	if (output.title_page.source !== undefined) { 
-		output.title_page.source.forEach(function (source, index) {
-			let tmpSource = {text: source, type: 'source', scene_number: 0}
-			titlePage.push(tmpSource)
-		})
-	}
-	if (output.title_page.copyright !== undefined) { 
-		output.title_page.copyright.forEach(function (copyright, index) {
-			let tmpCopyright = {text: copyright, type: 'copyright', scene_number: 0}
-			titlePage.push(tmpCopyright)
-		})
-	}
-	if (output.title_page.note !== undefined) { 
-		output.title_page.note.forEach(function (note, index) {
-			let tmpNote = {text: note, type: 'note', scene_number: 0}
-			titlePage.push(tmpNote)
-		})
-	}
-	if (output.title_page.draft_date !== undefined) { 
-		output.title_page.draft_date.forEach(function (date, index) {
-			let tmpDraft = {text: date, type: 'draft_date', scene_number: 0}
-			titlePage.push(tmpDraft)
-		})
-	}
-	if (output.title_page.date !== undefined) { 
-		output.title_page.date.forEach(function (date, index) {
-			let tmpDate = {text: date, type: 'date', scene_number: 0}
-			titlePage.push(tmpDate)
-		})
-	}
+	})
+
 
 	
-	console.log('PARSED TITLE PAGE', titlePage)
-	
+	// console.log('PARSED TITLE PAGE', titlePage)
+	console.log('TITLE PAGE!!!', titlePage)
 	return titlePage
 }
 
-fountainActions.parseScenes = function (output) {
+fountainActions.parsePages = function (output) {
 
-	console.log('RAW SCENES', output.script.scenes)
+	console.log('RAW FOUNTAIN OUTPUT', output)
 
-	let array = output.script.scenes
+	// output.tokens = output.tokens.reverse()
+	
+	var page_break = 0;
+	var pages;
+	var page;
+
+	pages = []
+	page = {
+		page_number: null,
+		page_name: '',
+		page_desc: '',
+		tokens: [],
+		text: '',
+		html: ''
+	}
+
+	output.tokens.forEach(function(token, index) {
+
+		if(token.type !== 'page_break') {
+			page.page_name = 'Please add a page title'
+			page.page_desc = 'Please add a page description'
+			page.tokens.push(fountainActions.parseLines(token))
+		}
+		else {
+			page.text = fountainActions.stripHTML(page.tokens.filter(Boolean).reverse().join("\n"))
+			page.html = fountain.parse(fountainActions.stripHTML(page.tokens.filter(Boolean).join("\n")), true, function (output) {
+				console.log('OUTPUT!', output)
+				return output.html.script
+			}),
+			page.tokens.push(fountainActions.parseLines(token))
+			pages.push(page)
+			page = {
+				page_number: page_break,
+				page_name: '',
+				page_desc: '',
+				tokens: [],
+				text: '',
+				html: ''
+			}
+		}
+	})
+
+	page.text = fountainActions.stripHTML(page.tokens.filter(Boolean).reverse().join("\n"))
+	page.html = fountain.parse(fountainActions.stripHTML(page.tokens.filter(Boolean).join("\n")), true, function (output) {
+		console.log('OUTPUT!', output)
+		return  output.html.script
+	}),
+	pages.push(page)
+	pages = pages
+
+	// var scenes = fountainActions.parseScenes(pages)
+
+	console.log('RETURNING PAGES', pages)
+
+	return pages
+}
+
+fountainActions.parseScenes = function (scenes) {
+
+	// console.log('RAW SCENES', output.script.scenes)
+
 	let savedScenes = []
 	let savedItems = []
 	let parsedScenes = []
 
+	// scenes = scenes.reverse()
+
 	var tmpScene;
 
-	array.reverse()
-
 	// Push script title page 
-	parsedScenes.push(fountainActions.parseTile(output))
+	// parsedScenes.push(fountainActions.parseTile(pages))
 
+	// for(let i = 0; i < pages.length; i++ ) {
+		
+	// scenes.forEach(function (sceneArray, index) {
+	// 	sceneArray.forEach(function (token, index) {
 
+	// 	})
+	// })
+		
+		// savedScenes.push(pages[0][i])
+	// }
 
-	for(let i = 0; i < array.length; i++ ) {
-		savedScenes.push(array[i])
-		savedScenes[i].forEach(function(scene, index) {
-			scene.scene_number = i
-			scene.item_index = index
-		})
-	}
+	for(let i = 0; i < scenes.length; i++ ) {
+		tmpScene = {
+			scene_name: 'Please add a scene title.',
+			scene_desc: 'Please add a short description.',
+			scene: []
+		}
 
-	for(let i = 0; i < savedScenes.length; i++ ) {
-		tmpScene = []
-		savedScenes[i].forEach(function(scene, index) {
+		scenes[i].forEach(function(token, index) {
+
+			if (token.type === 'scene_heading' || token.type === 'heading') {
+				tmpScene.scene_name = token.heading
+			}
 			
-			if (scene.type !== undefined) {
-				if (scene.type === 'heading') {
-					let heading = {text: scene.heading, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
-					tmpScene.push(heading)
+			if (token.type !== undefined) {
+				if (token.type !== 'dialogue-single' || token.type !== 'dialogue-double') {
+
+					tmpScene.scene.push(fountainActions.parseLines(token))
 				}
-				if (scene.type === 'action') {
-					let action = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
-					tmpScene.push(action)
+				if (token.type === 'dialogue-single') {
+					let ds = fountainActions.parseDialouge(token.characters, index, token.type);
+					if (ds !== null) {
+						tmpScene.scene.push(ds.text  + '\n')
+						tmpScene.scene.push(ds.name)
+					}
 				}
-				if (scene.type === 'dialogue-single') {
-					let ds = fountainActions.parseDialouge(scene.characters, index, scene.type);
-					tmpScene.push(ds)
-				}
-				if (scene.type === 'parenthetical') {
-					let paren = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
-					tmpScene.push(paren)
-				}
-				if (scene.type === 'note') {
-					let note = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
-					tmpScene.push(note)
-				}
-				if (scene.type === 'centered') {
-					let centered = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
-					tmpScene.push(centered)
-				}
-				if (scene.type === 'transition') {
-					let transition = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
-					tmpScene.push(transition)
-				}
-				if (scene.type === 'synopsis') {
-					let synopsis = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
-					tmpScene.push(synopsis)
-				}
-				if (scene.type === 'page_break') {
-					let pageBreak = {text: scene.text, item_index: scene.item_index, type: scene.type, scene_number: index + 1}
-					tmpScene.push(pageBreak)
-				}
-				if (scene.type === 'section') {
-					let section = {text: scene.text, item_index: scene.item_index, depth: scene.depth, type: scene.type, scene_number: index + 1}
-					tmpScene.push(section)
+				if (token.type === 'dialogue-double') {
+					let dd = fountainActions.parseDialouge(token.characters, index, token.type);
+					if (dd !== null) {
+						tmpScene.scene.push(dd.text  + '\n')
+						tmpScene.scene.push(dd.name)
+					}
 				}
 				else {
 					return
@@ -322,16 +377,17 @@ fountainActions.parseScenes = function (output) {
 			}
 		})
 		
-		tmpScene = tmpScene.filter(Boolean)
+		tmpScene.scene = fountainActions.stripHTML(tmpScene.scene.filter(Boolean).join(""))
+		tmpScene.scene_desc = tmpScene.scene
 		parsedScenes.push(tmpScene)
 	}
 
 	console.log('SAVED SCENES', parsedScenes)
+	return parsedScenes
 
-	return fountainActions.parseLines(parsedScenes)
 }
 
-fountainActions.parseLines = function (scenes) {
+fountainActions.parseLines = function (token) {
 	
 	let parsedLines = []
 	let parsedScenes = []
@@ -339,117 +395,118 @@ fountainActions.parseLines = function (scenes) {
 	let parsedScene;
 	let titleScene;
 
-	console.log('Parsing Scenes', scenes)
-	
-	titleScene = {
-		scene_name: 'Title Page',
-		scene_desc: 'The title page of the script',
-		scene_type: '',
-		scene_heading: '',
-		scene_number: 0,
-		scene: []
+	// console.log('Parsing RAW Token', token)
+
+	if (undefined) {
+		console.log('Found undefined', token)
+		return
 	}
-	
-	for(let i = 0; i < scenes.length; i++) {
-			// console.log('SCENE NUMBER ', i)
-			// console.log('SCENE ', scenes)
-			// console.log('CURRENT SCENE', scenes[i])
+	if (token.type === 'title') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'credit') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'author') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'date') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'copyright') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'draft_date') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'note') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'source') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'contact') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'scene_heading') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'heading') {
+		return token.heading + " \n"
+	}
+	else if (token.type === 'action') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'character') {
+		return token.text
+	}
+	else if (token.type === 'dialogue') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'dialogue-single') {
+		console.log('Found a', token.type)
+	}
+	else if (token.type === 'dialogue-double') {
+		console.log('Found a', token.type)
+	}
+	else if (token.type === 'dialogue_begin' ) {
+		console.log('Found a', token.type)
+	}
+	else if (token.type === 'unknown' ) {
+		console.log('Found a', token.type)
+	}
+	else if (token.type === 'dialogue_end') {
+		return " \n"
+	}
+	else if (token.type === 'parenthetical') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'notes') {
+		return 'NOTE: ' + token.text + " \n"
+	}
+	else if (token.type === 'centered') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'transition') {
+		return token.text + " \n\n"
+	}
+	else if (token.type === 'synopsis') {
+		return token.text + " \n"
+	}
+	else if (token.type === 'page_break') {
+		return '====' + " \n"
+	}
+	else if (token.type === 'section') {
+		return token.text + " \n"
+	}
+	else {
+		console.warn('UNKNOWN SCENE TYPE', token)
+	}
 
-			parsedScene = {
-				scene_name: 'Please add a scene name',
-				scene_desc: 'Please add a short description.',
-				scene_type: 'scene',
-				scene_heading: '',
-				scene_number: 0,
-				scene: []
-			}
-
-			scenes[i].forEach(function(scene, index) {
-				if (scene.type === 'title') {
-					titleScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'credit') {
-					titleScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'author') {
-					titleScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'date') {
-					titleScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'copyright') {
-					titleScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'draft_date') {
-					titleScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'note') {
-					titleScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'source') {
-					titleScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'contact') {
-					titleScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'heading') {
-					parsedScene.scene_name = scene.text
-					parsedScene.scene_number = scene.scene_number
-					parsedScene.scene_heading = scene.text
-					parsedScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'action') {
-					parsedScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'dialogue-single') {
-					parsedScene.scene.push(scene.name + "\n")
-					parsedScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'parenthetical') {
-					parsedScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'note') {
-					parsedScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'centered') {
-					parsedScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'transition') {
-					parsedScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'synopsis') {
-					parsedScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'page_break') {
-					parsedScene.scene.push(scene.text + "\n\n")
-				}
-				else if (scene.type === 'section') {
-					parsedScene.scene.push(scene.text + "\n\n")
-				}
-				else {
-					console.warn('UNKNOWN SCENE TYPE', scene)
-				}
-		})
 		
-		// console.log(parsedScene.scene.join("\n"))
-		parsedScene.scene = fountainActions.stripHTML(parsedScene.scene.join(""))
+	// 	// console.log(parsedScene.token.join("\n"))
+	// 	parsedScene.scene = fountainActions.stripHTML(parsedScene.token.reverse().join(""))
 
-		if (parsedScene.scene !== '') {
-			parsedScenes.push(parsedScene)
-		}
-		else {
-			console.log('FOUND EMPTY SCENE', parsedScene)
-		}
-	}
+	// 	if (parsedScene.scene !== '') {
+	// 		parsedScenes.push(parsedScene)
+	// 	}
+	// 	else {
+	// 		console.log('FOUND EMPTY SCENE', parsedScene)
+	// 	}
 
-	titleScene.scene = fountainActions.stripHTML(titleScene.scene.join(""))
-	parsedTitle.push(titleScene)
+	// 	console.log('RETURING PAGES SCENES', parsedScenes)
+	// 	return parsedScenes
+	// // }
+
+	// // titleScene.scene = fountainActions.stripHTML(titleScene.token.reverse().join(""))
+	// // parsedTitle.push(titleScene)
 	
-	let parsedScript = parsedTitle.concat(parsedScenes)
-	// console.log('PARSED SCENE', parsedScene.scene)
-	console.log("PARSED SCENES WITH TITLE PAGE!!", parsedScript)
+	// // let parsedScript = parsedTitle.concat(parsedScenes)
+	// // console.log('PARSED SCENE', parsedScene.scene)
+	// // console.log("PARSED SCENES WITH TITLE PAGE!!", parsedScript)
 
-	return parsedScript
+	// console.log('PARSED SCRIPT', parsedScript)
+	// return parsedScript
 }
 
 fountainActions.parseDialouge = function (charArray, index, type) {
@@ -459,8 +516,8 @@ fountainActions.parseDialouge = function (charArray, index, type) {
 	// console.log('CXHAR ARRAY ', charArray)
 
 	ds = {
-		name: "",
-		text: "",
+		name: '',
+		text: '',
 		dialouge_index: 0,
 		type: type,
 		scene_number: index + 1
@@ -468,14 +525,14 @@ fountainActions.parseDialouge = function (charArray, index, type) {
 	
 	for(let i=0; i < charArray.length; i++) {
 
-		console.log(charArray[i].type)
+		// console.log(charArray[i].type)
 		
 		if (charArray[i].name !== undefined) {
 			// console.log(charArray[i].name)
 			ds.name = charArray[i].name
 		}
 		else {
-			console.log('No lines!')
+			// console.log('No lines!')
 			
 		}
 		if (charArray[i].lines !== undefined) {
@@ -483,18 +540,18 @@ fountainActions.parseDialouge = function (charArray, index, type) {
 			ds.text = charArray[i].lines[i].text
 		}
 		else {
-			console.log('No Name!')
+			// console.log('No Name!')
 		}
 
 		ds.dialouge_index = index
 	}
 	
 	if (ds.name === "") {
-		console.log('Dropping dialogue')
+		// console.log('Dropping dialogue')
 		return null
 	}
 	else if (ds.name !== "") {
-		console.log(ds)
+		// console.log(ds)
 		return ds
 	}
 }

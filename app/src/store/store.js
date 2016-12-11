@@ -8,6 +8,7 @@ import FountainModule from './modules/fountain_module.js'
 import FSModule from './modules/file_system_module.js'
 import ModalModule from './modules/modal_module.js'
 import SceneModule from './modules/scene_module.js'
+import PageModule from './modules/page_module.js'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ const Store = new Vuex.Store({
     script: FountainModule,
     modals: ModalModule,
     scenes: SceneModule,
+    pages: PageModule,
     editor: EditorModule
   }
 })

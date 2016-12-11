@@ -17,13 +17,13 @@ const ModalModule = {
         let input1 =
         `<div class="vex-custom-field-wrapper">
             <div class="vex-custom-input-wrapper">
-                <input name="scene-name" type="text" placeholder="Scene Name" value="Brick's Pool" />
+                <input class="scene-modal-input" name="scene-name" type="text" placeholder="Scene Name"/>
             </div>
         </div>`
         let input2 =
         `<div class="vex-custom-field-wrapper">
             <div class="vex-custom-input-wrapper">
-                <input name="scene-name" type="text" placeholder="Scene Description" value="Brick is in his pool, enjoying the evening"/>
+                <input class="scene-modal-input" name="scene-name" type="text" placeholder="Scene Description"/>
             </div>
         </div>`
 
@@ -31,7 +31,7 @@ const ModalModule = {
         console.log(Store.state.editor)
         vex.dialog.prompt({
             message: 'Create new scene',
-            input: [input1, input2].join(''),
+            input: [input1, input2].join('<br/>'),
             callback: function (value) {
                 if (value) {
                     // console.log(value)
