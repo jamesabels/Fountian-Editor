@@ -7,7 +7,7 @@
       <IndexCards/>
     </div>
     <div id="editor-wrap" v-if="this.publicState.editor.editor_status === 'editor'">
-        <editorInput :activeScene='this.publicState.pages.active_scene'></editorInput>
+        <editorInputPM :activeScene='this.publicState.pages.active_scene'></editorInputPM>
     </div>
     <div id="welcome-wrap" v-if="this.publicState.editor.editor_status === 'welcome'">
         <Welcome></Welcome>
@@ -20,7 +20,7 @@
 import Store from '../store/store.js'
 
 import Preview from './preview.vue'
-import editorInput from './editor-input.vue'
+import editorInputPM from './editor-pm.vue'
 import IndexCards from './index-cards.vue'
 import pdfPreview from './pdf-preview.vue'
 import Welcome from './welcome.vue'
@@ -40,7 +40,7 @@ export default {
   components: {
     pdfPreview,
     Preview,
-    editorInput,
+    editorInputPM,
     IndexCards,
     Welcome,
     Header

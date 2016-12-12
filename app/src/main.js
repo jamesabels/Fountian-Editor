@@ -8,6 +8,8 @@ import './static/css/vex/vex.css'
 import './static/css/vex/vex-theme-os.css'
 import './static/css/ionic/css/ionicons.min.css'
 import './static/css/theme/photon-theme.css'
+import './static/css/prose-mirror/prosemirror.css'
+import './static/css/prose-mirror/custom-pm.css'
 
 // Import components
 import App from './App.vue'

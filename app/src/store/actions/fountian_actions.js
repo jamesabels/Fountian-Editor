@@ -41,7 +41,7 @@ fountainActions.parseFountain = function (type) {
 	for (let i = 0; i < type.tokens.length; i++) {
 		// console.log('PARSING TOKENS', scene)
 		if (type.tokens[i].type === 'title') {
-			console.log('TITLE TOKEN!!!!', type.tokens[i])
+			// console.log('TITLE TOKEN!!!!', type.tokens[i])
 		}
 		if (type.tokens[i].type === 'author') {
 			tempState.author.push({
@@ -181,12 +181,12 @@ fountainActions.parseTile = function (pages) {
 
 	let titlePage = []
 
-	console.log('PARSING OUTPUT FOR TITLES', pages)
+	// console.log('PARSING OUTPUT FOR TITLES', pages)
 
 	
 	pages.forEach(function (scene, index) {
 		token.forEach(function (scene, index) {
-			console.log('SCENES!!!', scene)
+			// console.log('SCENES!!!', scene)
 			if (token.type !== 'title') {
 					token.title.forEach(function (title, index) {
 					let tmpTitle = {text: title, type: 'title', scene_number: 0}
@@ -248,13 +248,13 @@ fountainActions.parseTile = function (pages) {
 
 	
 	// console.log('PARSED TITLE PAGE', titlePage)
-	console.log('TITLE PAGE!!!', titlePage)
+	// console.log('TITLE PAGE!!!', titlePage)
 	return titlePage
 }
 
 fountainActions.parsePages = function (output) {
 
-	console.log('RAW FOUNTAIN OUTPUT', output)
+	// console.log('RAW FOUNTAIN OUTPUT', output)
 
 	// output.tokens = output.tokens.reverse()
 	
@@ -282,7 +282,7 @@ fountainActions.parsePages = function (output) {
 		else {
 			page.text = fountainActions.stripHTML(page.tokens.filter(Boolean).reverse().join("\n"))
 			page.html = fountain.parse(fountainActions.stripHTML(page.tokens.filter(Boolean).join("\n")), true, function (output) {
-				console.log('OUTPUT!', output)
+				// console.log('OUTPUT!', output)
 				return output.html.script
 			}),
 			page.tokens.push(fountainActions.parseLines(token))
@@ -300,7 +300,7 @@ fountainActions.parsePages = function (output) {
 
 	page.text = fountainActions.stripHTML(page.tokens.filter(Boolean).reverse().join("\n"))
 	page.html = fountain.parse(fountainActions.stripHTML(page.tokens.filter(Boolean).join("\n")), true, function (output) {
-		console.log('OUTPUT!', output)
+		// console.log('OUTPUT!', output)
 		return  output.html.script
 	}),
 	pages.push(page)
@@ -308,7 +308,7 @@ fountainActions.parsePages = function (output) {
 
 	// var scenes = fountainActions.parseScenes(pages)
 
-	console.log('RETURNING PAGES', pages)
+	// console.log('RETURNING PAGES', pages)
 
 	return pages
 }
@@ -382,7 +382,7 @@ fountainActions.parseScenes = function (scenes) {
 		parsedScenes.push(tmpScene)
 	}
 
-	console.log('SAVED SCENES', parsedScenes)
+	// console.log('SAVED SCENES', parsedScenes)
 	return parsedScenes
 
 }
@@ -398,7 +398,7 @@ fountainActions.parseLines = function (token) {
 	// console.log('Parsing RAW Token', token)
 
 	if (undefined) {
-		console.log('Found undefined', token)
+		// console.log('Found undefined', token)
 		return
 	}
 	if (token.type === 'title') {
@@ -444,16 +444,16 @@ fountainActions.parseLines = function (token) {
 		return token.text + " \n"
 	}
 	else if (token.type === 'dialogue-single') {
-		console.log('Found a', token.type)
+		// console.log('Found a', token.type)
 	}
 	else if (token.type === 'dialogue-double') {
-		console.log('Found a', token.type)
+		// console.log('Found a', token.type)
 	}
 	else if (token.type === 'dialogue_begin' ) {
-		console.log('Found a', token.type)
+		// console.log('Found a', token.type)
 	}
 	else if (token.type === 'unknown' ) {
-		console.log('Found a', token.type)
+		// console.log('Found a', token.type)
 	}
 	else if (token.type === 'dialogue_end') {
 		return " \n"
