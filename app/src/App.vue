@@ -2,7 +2,7 @@
 <div id="app" class="window">
   <div  id="main" class="window-content row">
     <div class="pane-group col-xs-12">
-      <sidebar></sidebar>
+      <Sidebar></Sidebar>
     </div>
   </div>
   <div v-show="this.publicState.editor.editor_status !== 'welcome' || this.publicState.debug === true" class="footer-wrap">
@@ -31,7 +31,7 @@ export default {
       publicState: Store.state
     }
   },
-  mounted: function () {
+  created: function () {
     this.init()
   },
   methods: {
@@ -39,6 +39,7 @@ export default {
       this.publicState.editor.currentValue = ''
 
       if (this.publicState.debug === true) {
+        console.log('Loading debug script...')
         Store.dispatch('LOAD_DEBUG_SCRIPT', {value: './app/src/static/scripts/bigfish.fountain'})
       }
     }
